@@ -1,0 +1,81 @@
+<!--
+  Generated template for the PayPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">返回</button>
+    </ion-buttons>
+    <ion-title>付款页面</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list radio-group>
+    <ion-list-header style="font-size:1.2em;">
+      收货地址
+      <button ion-button clear item-end  (click)="editAddress()">编辑</button>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        <p> 东方大街XXXX号</p>
+      </ion-label>
+      <ion-radio checked="true" value="1"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <p>很远的地方</p>
+        <p>tel:sdfsdafasdfasdfasdf</p>
+
+      </ion-label>
+      <ion-radio value="2"></ion-radio>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list radio-group>
+    <ion-list-header style="font-size:1.2em;">
+      <ion-icon name="finger-print" style="font-size:2em;"></ion-icon>
+      付款方式
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        <ion-icon name='card'></ion-icon>
+        会员卡支付
+      </ion-label>
+      <ion-radio value="card"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-icon name='chatbubbles'></ion-icon>
+        微信支付
+      </ion-label>
+      <ion-radio value="weixin" checked></ion-radio>
+    </ion-item>
+    <ion-item color="clear">
+      <ion-label>
+        <ion-icon name='speedometer'></ion-icon>
+        货到付款
+      </ion-label>
+      <ion-radio value="later"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-item *ngFor="let m of appService.cartItems">
+    <ion-thumbnail item-start>
+      <img src="img/{{m.Id%9}}.jpg">
+    </ion-thumbnail>
+    <h2>{{m.Name}}</h2>
+    <p>￥{{m.Price}} / {{m.Unit}}
+      <br/>{{m.Comment}}
+    </p>
+  </ion-item>
+  <button ion-button (click)="payOff()">支付完成通知</button>
+</ion-content>

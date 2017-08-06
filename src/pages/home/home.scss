@@ -1,0 +1,46 @@
+page-home {
+  ion-thumbnail {
+    min-height: 70px;
+    min-width: 70px;
+  }
+  .thumbImg {
+    width: 70px;
+    height: 70px;
+  }
+  .item-ios ion-thumbnail ion-img,
+  .item-ios ion-thumbnail img {
+    width: 70px;
+    height: 70px;
+  }
+  .count0 {
+    line-height: 2em;
+  }
+  .item-ios.item-block .item-inner {
+    padding-right: 0px;
+  }
+    .item-md.item-block .item-inner {
+    padding-right: 0px;
+  }
+  .label-ios {
+  margin: 5px 0px 5px 0;
+}
+.label-md {
+  margin: 5px 0px 5px 0;
+}
+
+}
+
+.item_buttons {
+  padding: 0 8px;
+}
+
+ion-buttons.onTop {
+  position: fixed;
+  top: 50px;
+  left: 0;
+}
+
+.item-ios,
+.item-md {
+  padding-left: 0;
+}

@@ -1,0 +1,9 @@
+<ion-tabs  selectedIndex="0">
+  <ion-tab [root]="homePage" tabTitle="商品列表" tabIcon="home"></ion-tab>
+  <ion-tab [root]="cartPage" tabTitle="购物车"   tabIcon="cart" 
+  tabBadge="{{app.cartNum}}" 
+  [enabled]="app.cartNum>0"
+  (ionSelect)="app.updateCartItems()"
+  ></ion-tab>
+  <ion-tab [root]="myPage" tabTitle="我的" tabIcon="contacts"></ion-tab>
+</ion-tabs>

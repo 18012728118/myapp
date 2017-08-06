@@ -1,0 +1,65 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule, Content } from 'ionic-angular';
+
+import { MyApp } from './app.component';
+
+import { MyPage } from '../pages/my/my';
+import { WelcomePage } from '../pages/welcome/welcome';
+import { HomePage } from '../pages/home/home';
+import { CartPage } from '../pages/cart/cart';
+import { TabsPage } from '../pages/tabs/tabs';
+
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { HttpModule } from '@angular/http';
+
+import { AppService } from './app.service'
+
+
+import { CartFilterPipe } from '../pipes/cart-pipe';
+
+import { Geolocation } from '@ionic-native/geolocation'
+
+import { BarcodeScanner} from '@ionic-native/barcode-scanner'
+import * as $ from 'jquery';
+
+@NgModule({
+  declarations: [
+    MyApp,
+    WelcomePage,
+    CartPage,
+    MyPage,
+    HomePage,
+    TabsPage,
+
+    CartFilterPipe
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    HttpModule
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    WelcomePage,
+    CartPage,
+    MyPage,
+    HomePage,
+    TabsPage
+  ],
+  providers: [
+    Content,
+    StatusBar,
+    SplashScreen,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AppService
+    ,
+
+    Geolocation,BarcodeScanner
+  ]
+})
+export class AppModule {
+}

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <h3 style="float:left;">总价合计:{{appService.totalPrice.toFixed(2)}}</h3>
+    <ion-buttons end>
+      <button ion-button (click)="toPay()" *ngIf="appService.totalPrice>0">
+        去付款
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-list-header style="font-size:1.2em;">
+      购物清单
+      <button ion-button clear item-end (click)="removeAll()" *ngIf="appService.totalPrice>0">清空</button>
+    </ion-list-header>
+    <ion-item *ngFor="let m of appService.cartItems">
+      <ion-thumbnail item-start>
+        <img src="img/{{m.Id%9}}.jpg">
+      </ion-thumbnail>
+      <h2>{{m.Name}}</h2>
+      <p>￥{{m.Price}} / {{m.Unit}}
+      </p>
+      <button ion-button item-end clear>
+              <button *ngIf="m.Count>0" ion-button class="item_buttons" >
+                        <ion-icon name="remove" (click)="remove(m)"></ion-icon>
+                      </button>
+      <button *ngIf="m.Count>0" ion-button class="item_buttons" clear>
+                            {{m.Count}}
+                          </button>
+      <button ion-button class="item_buttons">
+                            <ion-icon name="add" (click)="add(m)"></ion-icon>
+                          </button>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,33 @@
+import { Component } from '@angular/core';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+
+/**
+ * Generated class for the MyPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+
+@Component({
+  selector: 'page-my',
+  templateUrl: 'my.html',
+})
+export class MyPage {
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private modalCtrl: ModalController
+  ) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad MyPage');
+  }
+
+  
+  login(){
+    
+    let modal = this.modalCtrl.create("LoginPage");
+    modal.present();
+  }
+}

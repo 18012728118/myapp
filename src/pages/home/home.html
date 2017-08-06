@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar no-border-top color="clear">
+    <button ion-button clear style="width:300px;max-width:300px;display:block;overflow:hidden;float:left;" (click)="goLocation()">
+          <ion-icon name='md-navigate'></ion-icon>
+         {{ geoTitle }}
+    </button>
+    <ion-buttons end>
+      <!-- 
+        <button ion-button icon-only (click)="geo()">
+        <ion-icon name='navigate'></ion-icon>
+      </button> -->
+      <button ion-button icon-only (click)="camera()">
+        <ion-icon name='camera'></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="refresh()">
+        <ion-icon name='refresh'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content (ionScroll)="scroll($event)">
+  <ion-fab bottom left style="opacity:.7; " id="fabBtn" style="visibility :hidden;">
+    <button ion-fab mini (click)="scrollToTop()" color="secondary">
+      <ion-icon name="arrow-round-up"></ion-icon>
+        </button>
+  </ion-fab>
+  <!-- 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+      <img src="img/1.jpg" />
+    </ion-refresher-content>
+  </ion-refresher> -->
+
+
+  <!-- 广告开始 -->
+  <ion-slides style="height:150px;" autoplay="2000" loop pager centeredSlides>
+    <ion-slide style="background-color: #F2CC12">
+      <h2>非常水果</h2>
+      <div>
+        广告页一
+      </div>
+    </ion-slide>
+    <ion-slide style="background-color: #F2CC12">
+      <h2>非常水果</h2>
+      <div>
+        <div *ngIf="geoResult">{{geoResult}}</div>
+
+        <div *ngIf="cameraResult">{{cameraResult}}</div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <!-- 广告结束  -->
+  <!-- 主区 开始  -->
+  <ion-grid>
+    <ion-row>
+      <!-- 左侧分类 -->
+      <ion-col col-3 style="border-right: .5px solid #c8c7cc;">
+        <ion-buttons class='leftMenu'>
+          <button block ion-button *ngFor="let cate of appService.category" outline (click)="scrollToElement(cate.Id)">
+{{ cate.Name }}
+      </button>
+        </ion-buttons>
+      </ion-col>
+      <!-- 左侧分类 结束 -->
+
+      <!-- 主菜单 -->
+      <ion-col col-9>
+        <!-- <ion-scroll scrollY="true" [style.height]="content.contentHeight-155+'px'"> -->
+        <ion-list id="items_list">
+          <ng-container *ngFor="let cate of appService.category">
+            <ion-list-header id="cate{{cate.Id}}">
+              {{cate.Name}}
+            </ion-list-header>
+            <div *ngFor="let m of appService.listItems" style=" position:relative;">
+              <ng-container *ngIf="m.CategoryId==cate.Id">
+                <ion-item>
+                  <ion-thumbnail item-start class="thumbImg">
+                    <img src="img/{{m.Id%9}}.jpg" class="thumbImg">
+                  </ion-thumbnail>
+                  <h2>{{m.Name}}</h2>
+                  <p>desc :{{m.Desc}}</p>
+                  <div style="  display: flex;  align-items: center;">
+                    <div style="width:45%; float:left;">
+                      ￥{{m.Price}} / {{m.Unit}}
+                    </div>
+                    <div style="width:50%;float:right;display:flex;justify-content: flex-end; align-items: center;">
+                      <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>                      
+                       <b *ngIf="m.Count>0" class="item_buttons" >{{m.Count}}</b>
+                      <button ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
+                    </div>
+                  </div>
+                </ion-item>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ion-list>
+        <!-- </ion-scroll> -->
+      </ion-col>
+      <!-- 主菜单 结束  -->
+    </ion-row>
+  </ion-grid>
+  <!-- 主区结束 -->
+</ion-content>
