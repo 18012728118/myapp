@@ -47,13 +47,10 @@ export class LocationPage {
   dismiss(p) {
     this.geoTitle = p.name;
     let data = { pois: p, centerPoint: this.centerPoint };
-    setTimeout(() => {
-      this.viewCtrl.dismiss(data);
-    }, 500);
+    this.viewCtrl.dismiss(data);
   }
 
-initPois(lng: number, lat: number)
-{
+  initPois(lng: number, lat: number) {
     let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + lat + "," + lng + "&output=json&pois=1&ak=f8vW5GLQR7CaKA52XsxGXpR0";
     this.http.get(getUrl)
       .map(r => {
@@ -72,11 +69,11 @@ initPois(lng: number, lat: number)
       }, error => {
         console.log(error);
       });
-}
+  }
 
 
   ionViewDidLoad() {
-    this.initPois(120.658958,30.905481);
+    this.initPois(120.658958, 30.905481);
     console.log('ionViewDidLoad LocationPage');
     let map = this.map = new BMap.Map(this.mapElement.nativeElement, { enableMapClick: true });//创建地图实例
     map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -105,12 +102,9 @@ initPois(lng: number, lat: number)
       this.centerPoint = e.point;
       this.getPois(e.point.lng, e.point.lat)
     });
-
-    setTimeout(() => {
-    }, 500);
   }
 
   getPois(lng: number, lat: number) {
-    this.initPois(lng,lat);
+    this.initPois(lng, lat);
   }
 }

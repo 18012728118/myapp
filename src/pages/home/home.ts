@@ -23,6 +23,8 @@ export class HomePage {
 
   i: IShopItem;
 
+  imagesHost :string = "http://106.14.137.103"
+
   newList: IShopItem[];
 
   cameraResult: BarcodeScanResult = { text: "", cancelled: true, format: "QR_CODE" };
@@ -167,14 +169,14 @@ export class HomePage {
   }
 
   //下拉刷新事件
-  doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-    this.appService.getShopItems();
-    setTimeout(() => {
-      console.log('Async operation has complete');
-      refresher.complete();
-    }, 500);
-  }
+  // doRefresh(refresher) {
+  //   console.log('Begin async operation', refresher);
+  //   this.appService.getShopItems();
+  //   setTimeout(() => {
+  //     console.log('Async operation has complete');
+  //     refresher.complete();
+  //   }, 500);
+  // }
 
   refresh() {
     this.appService.listItems = [];
@@ -189,7 +191,6 @@ export class HomePage {
     });
 
     loading.present();
-
     setTimeout(() => {
       loading.dismiss();
     }, 1000);

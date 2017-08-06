@@ -1,4 +1,11 @@
 page-home {
+
+ion-toolbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+
   ion-thumbnail {
     min-height: 70px;
     min-width: 70px;
@@ -18,16 +25,15 @@ page-home {
   .item-ios.item-block .item-inner {
     padding-right: 0px;
   }
-    .item-md.item-block .item-inner {
+  .item-md.item-block .item-inner {
     padding-right: 0px;
   }
   .label-ios {
-  margin: 5px 0px 5px 0;
-}
-.label-md {
-  margin: 5px 0px 5px 0;
-}
-
+    margin: 5px 0px 5px 0;
+  }
+  .label-md {
+    margin: 5px 0px 5px 0;
+  }
 }
 
 .item_buttons {
@@ -36,7 +42,7 @@ page-home {
 
 ion-buttons.onTop {
   position: fixed;
-  top: 50px;
+  top: 60px;
   left: 0;
 }
 
