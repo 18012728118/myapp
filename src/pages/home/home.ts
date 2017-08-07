@@ -168,6 +168,7 @@ export class HomePage {
     }
   }
 
+  
   //下拉刷新事件
   // doRefresh(refresher) {
   //   console.log('Begin async operation', refresher);

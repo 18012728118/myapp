@@ -32,4 +32,11 @@
   <button ion-button block (click)="postLogin()">登录</button>
 
   <button ion-button block (click)="register()" color="dark">注册新用户</button>
+
+  <div style="display: flex; justify-content: center;margin-top:50px;">
+    <button ion-button (click)="loginWx()" large>微信登陆</button>
+  </div>
+  <p>
+    {{_resultText}}
+    </p>
 </ion-content>
