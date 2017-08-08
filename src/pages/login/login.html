@@ -36,7 +36,10 @@
   <div style="display: flex; justify-content: center;margin-top:50px;">
     <button ion-button (click)="loginWx()" large>微信登陆</button>
   </div>
-  <p>
-    {{_resultText}}
+    <p *ngIf="appService._wxUser">
+      {{appService._wxUser.nickname}}
+      <img [src]="appService._wxUser.headimgurl" />
     </p>
+
 </ion-content>
+       

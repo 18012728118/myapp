@@ -17,7 +17,7 @@ export interface IShopItem {
     Comment: string,
     Desc: string,
     Content: string,
-    LogoUrl:string
+    LogoUrl: string
 }
 
 export interface IShopCategory {
@@ -30,16 +30,28 @@ export interface IShopCategory {
     StoreId: number
 }
 
+export interface IWxUserInfo {
+    openid: string,
+    nickname: string,
+    sex: number,
+    language: string,
+    city: string,
+    province: string,
+    country: string,
+    headimgurl: string,
+    privilege: any,
+    unionid: string
+}
 @Injectable()
 export class AppService {
 
-    public _apiUrl: string = "http://106.14.137.103/api/"
+    public _apiUrl: string = "https://www.loveWuJiang.com/api/"
 
     //验证码发送倒数
     public _time: number = 0;
     public _sendCodeBtnText = "发送验证码";
 
-
+    public _wxUser:IWxUserInfo;
     //购物车数量
     cartNum: number;
 

@@ -23,7 +23,7 @@ export class HomePage {
 
   i: IShopItem;
 
-  imagesHost :string = "http://106.14.137.103"
+  imagesHost :string = "https://www.lovewujiang.com/"
 
   newList: IShopItem[];
 

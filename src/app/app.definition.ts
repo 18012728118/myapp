@@ -1,3 +1,3 @@
-interface Window {
-  Wechat: any
-}
+// interface Window {
+//   Wechat: any
+// }
