@@ -43,6 +43,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+    this.initPois() ;
     console.log(this.plt.platforms())
   }
 
@@ -57,6 +58,7 @@ export class HomePage {
   }
 
   initPois() {
+    console.log('initpois');
     let _geo: any;
     this.geolocation.getCurrentPosition().then((resp) => {
       console.log(resp.coords);

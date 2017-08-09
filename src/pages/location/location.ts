@@ -73,7 +73,19 @@ export class LocationPage {
 
 
   ionViewDidLoad() {
-    this.initPois(120.658958, 30.905481);
+    let _geo = {lat:30.905481,lng:120.658958};
+    this.geolocation.getCurrentPosition().then((resp) => {
+      if(resp.coords)
+        {
+        _geo.lat = resp.coords.latitude;
+        _geo.lng = resp.coords.longitude;
+        }
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+
+    this.initPois(_geo.lat,_geo.lng);
     console.log('ionViewDidLoad LocationPage');
     let map = this.map = new BMap.Map(this.mapElement.nativeElement, { enableMapClick: true });//创建地图实例
     map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -104,7 +116,7 @@ export class LocationPage {
     });
   }
 
-  getPois(lng: number, lat: number) {
+  getPois(lat: number,lng: number) {
     this.initPois(lng, lat);
   }
 }
