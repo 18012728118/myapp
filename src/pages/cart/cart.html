@@ -19,19 +19,17 @@
         <img src="img/{{m.Id%9}}.jpg">
       </ion-thumbnail>
       <h2>{{m.Name}}</h2>
-      <p>￥{{m.Price}} / {{m.Unit}}
-      </p>
-      <button ion-button item-end clear>
-              <button *ngIf="m.Count>0" ion-button class="item_buttons" >
-                        <ion-icon name="remove" (click)="remove(m)"></ion-icon>
-                      </button>
-      <button *ngIf="m.Count>0" ion-button class="item_buttons" clear>
-                            {{m.Count}}
-                          </button>
-      <button ion-button class="item_buttons">
-                            <ion-icon name="add" (click)="add(m)"></ion-icon>
-                          </button>
-      </button>
+      <p>{{m.Desc}}</p>
+      <div style=" display: flex;  align-items: center;">
+                    <div style="width:45%; float:left;">
+                      ￥{{m.Price}} / {{m.Unit}}
+                    </div>
+                    <div style="width:50%;float:right;display:flex;justify-content: flex-end; align-items: center;">
+                      <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>                      
+                       <b *ngIf="m.Count>0" class="item_buttons" >{{m.Count}}</b>
+                      <button ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
+                    </div>
+                  </div>
     </ion-item>
   </ion-list>
 </ion-content>
