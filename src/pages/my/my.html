@@ -21,7 +21,13 @@
       首要信息
     </ion-list-header>
     <ion-item>
-      <button ion-button (click)="login()">登录</button>
+      <button ion-button (click)="login()" block large color="secondary">帐号登录</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="camera()" large icon-left>
+        <ion-icon name="barcode"></ion-icon>
+        扫码
+      </button>
     </ion-item>
     <ion-item>
       会员卡号

@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
-
-/**
- * Generated class for the MyPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { NavController, NavParams, ModalController ,AlertController} from 'ionic-angular';
+import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
 
 @Component({
   selector: 'page-my',
@@ -14,9 +8,15 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 })
 export class MyPage {
 
+
+  cameraResult: BarcodeScanResult = { text: "", cancelled: true, format: "QR_CODE" };
+
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+        private barcodeScanner: BarcodeScanner,
+        private alertCtrl : AlertController
   ) {
   }
 
@@ -30,4 +30,41 @@ export class MyPage {
     let modal = this.modalCtrl.create("LoginPage");
     modal.present();
   }
+
+  camera() {
+    this.barcodeScanner.scan().then((barcodeData) => {
+      this.cameraResult = barcodeData;
+      if (/^quan\S+/i.test(this.cameraResult.text)) {
+        let confirm = this.alertCtrl.create({
+          title: '商家核销',
+          message: '大吃特吃二人套餐 一分',
+          buttons: [
+            {
+              text: '取消',
+              handler: () => {
+                console.log('Disagree clicked');
+              }
+            },
+            {
+              text: '同意核销',
+              handler: () => {
+                console.log('Agree clicked');
+                confirm.present();
+                let alert = this.alertCtrl.create({
+                  title: '核销成功!',
+                  buttons: ['OK']
+                });
+                alert.present();
+              }
+            }
+          ]
+        });
+        confirm.present();
+
+      }
+    }, (err) => {
+      // An error occurred
+    });
+  }
+
 }

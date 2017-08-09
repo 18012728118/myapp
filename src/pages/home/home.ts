@@ -9,7 +9,6 @@ import { Platform } from 'ionic-angular';
 import { AppService, IShopItem } from '../../app/app.service'
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
 
 @Component({
   selector: 'page-home',
@@ -27,7 +26,6 @@ export class HomePage {
 
   newList: IShopItem[];
 
-  cameraResult: BarcodeScanResult = { text: "", cancelled: true, format: "QR_CODE" };
 
   geoTitle: string
 
@@ -39,7 +37,6 @@ export class HomePage {
     public plt: Platform,
     public loadingCtrl: LoadingController,
     private geolocation: Geolocation,
-    private barcodeScanner: BarcodeScanner,
     private modalCtrl: ModalController
   ) {
   }
@@ -57,43 +54,6 @@ export class HomePage {
     });
 
     modal.present();
-  }
-
-
-  camera() {
-    this.barcodeScanner.scan().then((barcodeData) => {
-      this.cameraResult = barcodeData;
-      if (/^quan\S+/i.test(this.cameraResult.text)) {
-        let confirm = this.alertCtrl.create({
-          title: '商家核销',
-          message: '大吃特吃二人套餐 一分',
-          buttons: [
-            {
-              text: '取消',
-              handler: () => {
-                console.log('Disagree clicked');
-              }
-            },
-            {
-              text: '同意核销',
-              handler: () => {
-                console.log('Agree clicked');
-                confirm.present();
-                let alert = this.alertCtrl.create({
-                  title: '核销成功!',
-                  buttons: ['OK']
-                });
-                alert.present();
-              }
-            }
-          ]
-        });
-        confirm.present();
-
-      }
-    }, (err) => {
-      // An error occurred
-    });
   }
 
   initPois() {

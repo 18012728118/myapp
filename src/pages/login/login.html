@@ -6,11 +6,11 @@
 -->
 <ion-header>
 
-  <ion-navbar >
+  <ion-navbar>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">返回</button>
     </ion-buttons>
-    <ion-title>login</ion-title>
+    <ion-title>用户登录</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -33,13 +33,13 @@
 
   <button ion-button block (click)="register()" color="dark">注册新用户</button>
 
-  <div style="display: flex; justify-content: center;margin-top:50px;">
-    <button ion-button (click)="loginWx()" large>微信登陆</button>
+  <div style="display: flex; justify-content:center;  margin-top:150px;">
+    <button (click)="loginWx()" large clear ion-button color="secondary">
+      <img src="img/icon64_appwx_logo.png" style="height:50px;"/>
+      微信登陆</button>
   </div>
-    <p *ngIf="appService._wxUser">
-      {{appService._wxUser.nickname}}
-      <img [src]="appService._wxUser.headimgurl" />
-    </p>
-
+  <p *ngIf="appService._wxUser">
+    {{appService._wxUser.nickname}}
+    <img [src]="appService._wxUser.headimgurl" style="height:120px;width:120px;"/>
+  </p>
 </ion-content>
-       
