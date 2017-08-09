@@ -22,13 +22,13 @@ export class HomePage {
 
   i: IShopItem;
 
-  imagesHost :string = "https://www.lovewujiang.com/"
+  imagesHost: string = "https://www.lovewujiang.com/"
 
   newList: IShopItem[];
 
 
   geoTitle: string
-
+  loading: any;
   geoResult: any;
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -43,7 +43,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-    this.initPois() ;
+    this.initPois();
     console.log(this.plt.platforms())
   }
 
@@ -65,7 +65,6 @@ export class HomePage {
       _geo = resp.coords;
       let ak: string = 'f8vW5GLQR7CaKA52XsxGXpR0';
       let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + _geo.latitude + "," + _geo.longitude + "&output=json&pois=1&ak=" + ak
-
       this.http.get(getUrl)
         .map(r => {
           console.log(r);
@@ -90,28 +89,31 @@ export class HomePage {
   }
 
 
-
+  //到最顶部按键
   scrollToTop() {
     if (this.content)
       this.content.scrollToTop();
 
   }
 
+  //点击左侧分类 
   scrollToElement(id) {
     this.content.scrollTo(0, this.content.scrollTop + $('#cate' + id).offset().top - 50, 500);
   }
 
+
+  //SCROLL事件
   scroll(event) {
     // console.log(event);
     var fabbtn = document.getElementById("fabBtn");
     if (event && event.scrollTop) {
       if (event.scrollTop > 160) {
         fabbtn.style.visibility = "visible";
-        $('.leftMenu').addClass("onTop");
+        // $('.leftMenu').addClass("onTop");
       }
       else {
         fabbtn.style.visibility = "hidden";
-        $('.leftMenu').removeClass("onTop");
+        // $('.leftMenu').removeClass("onTop");
       }
     }
   }
@@ -130,7 +132,7 @@ export class HomePage {
     }
   }
 
-  
+
   //下拉刷新事件
   // doRefresh(refresher) {
   //   console.log('Begin async operation', refresher);
@@ -144,19 +146,22 @@ export class HomePage {
   refresh() {
     this.appService.listItems = [];
     this.appService.category = [];
-    this.appService.initCate();
     this.presentLoadingDefault();
+    this.appService.initCate().then(res => {
+      if (res) {
+        this.loading.dismiss();
+      }
+    });
   }
 
+
   presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
+    this.loading = this.loadingCtrl.create({
       content: '加载中...'
     });
 
-    loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000);
+    this.loading.present();
+
   }
 
 

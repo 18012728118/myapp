@@ -51,17 +51,13 @@ export class AppService {
     public _time: number = 0;
     public _sendCodeBtnText = "发送验证码";
 
-    public _wxUser:IWxUserInfo;
+    public _wxUser: IWxUserInfo;
     //购物车数量
     cartNum: number;
-
     //总价格价格
     totalPrice: number = 0;
-
     category: IShopCategory[] = [];
-
     listItems: IShopItem[] = [];
-
     cartItems: IShopItem[] = [];
 
     constructor(private _http: Http) {
@@ -69,9 +65,13 @@ export class AppService {
     }
 
     initCate() {
-        this.getShopItems();
-        this.getShopCategory();
-        //this.category.push({Id:0,Name:'全部',ParentId:0,Level:0,Sort:0,DateTimeCreate:'',StoreId:0});
+        return new Promise((resolve) => {
+            this.getShopItems();
+            this.getShopCategory();
+            setTimeout(() => {
+                return resolve(true);
+            }, 1000);
+        })
     }
 
     public getShopItems() {
@@ -92,7 +92,6 @@ export class AppService {
                 this.category = _l;
             });
     }
-
 
     addCartNum() {
         this.cartNum += 1;

@@ -32,24 +32,7 @@
   </ion-refresher> -->
 
 
-  <!-- 广告开始 -->
-  <ion-slides style="height:150px;" autoplay="2000" loop pager centeredSlides>
-    <ion-slide style="background-color: #F2CC12">
-      <h2>非常水果</h2>
-      <div>
-        广告页一
-      </div>
-    </ion-slide>
-    <ion-slide style="background-color: #F2CC12">
-      <h2>非常水果</h2>
-      <div>
-        <div *ngIf="geoResult">{{geoResult}}</div>
 
-        <div *ngIf="cameraResult">{{cameraResult}}</div>
-      </div>
-    </ion-slide>
-  </ion-slides>
-  <!-- 广告结束  -->
   <!-- 主区 开始  -->
   <ion-grid>
     <ion-row>
@@ -65,6 +48,24 @@
 
       <!-- 主菜单 -->
       <ion-col col-10>
+        <!-- 广告开始 -->
+        <ion-slides style="height:100px;" autoplay="2000" loop pager centeredSlides>
+          <ion-slide style="background-color: #F2CC12">
+            <h2>非常水果</h2>
+            <div>
+              广告页一
+            </div>
+          </ion-slide>
+          <ion-slide style="background-color: #F2CC12">
+            <h2>非常水果</h2>
+            <div>
+              <div *ngIf="geoResult">{{geoResult}}</div>
+
+              <div *ngIf="cameraResult">{{cameraResult}}</div>
+            </div>
+          </ion-slide>
+        </ion-slides>
+        <!-- 广告结束  -->
         <!-- <ion-scroll scrollY="true" [style.height]="content.contentHeight-155+'px'"> -->
         <ion-list id="items_list">
           <ng-container *ngFor="let cate of appService.category">
@@ -84,8 +85,8 @@
                       ￥{{m.Price}} / {{m.Unit}}
                     </div>
                     <div style="width:50%;float:right;display:flex;justify-content: flex-end; align-items: center;">
-                      <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>                      
-                       <b *ngIf="m.Count>0" class="item_buttons" >{{m.Count}}</b>
+                      <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>
+                      <b *ngIf="m.Count>0" class="item_buttons">{{m.Count}}</b>
                       <button ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
                     </div>
                   </div>

@@ -50,14 +50,13 @@ export class LocationPage {
     this.viewCtrl.dismiss(data);
   }
 
-  initPois(lng: number, lat: number) {
+  initPois(lat: number,lng: number) {
     let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + lat + "," + lng + "&output=json&pois=1&ak=f8vW5GLQR7CaKA52XsxGXpR0";
     this.http.get(getUrl)
       .map(r => {
         console.log(r);
         return r.json();
-      }
-      )
+      })
       .subscribe(res => {
         console.log(res);
         if (res.status == 0) {
@@ -73,20 +72,18 @@ export class LocationPage {
 
 
   ionViewDidLoad() {
-    let _geo = {lat:30.905481,lng:120.658958};
+    console.log('ionViewDidLoad LocationPage');
+    let _geo = { lat: 30.905481, lng: 120.658958 };
     this.geolocation.getCurrentPosition().then((resp) => {
-      if(resp.coords)
-        {
+      if (resp.coords) {
         _geo.lat = resp.coords.latitude;
         _geo.lng = resp.coords.longitude;
-        }
+      }
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-
-
-    this.initPois(_geo.lat,_geo.lng);
-    console.log('ionViewDidLoad LocationPage');
+    this.initPois(_geo.lat, _geo.lng);
     let map = this.map = new BMap.Map(this.mapElement.nativeElement, { enableMapClick: true });//创建地图实例
     map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     map.enableContinuousZoom();//连续缩放效果，默认禁用
@@ -116,7 +113,7 @@ export class LocationPage {
     });
   }
 
-  getPois(lat: number,lng: number) {
+  getPois(lat: number, lng: number) {
     this.initPois(lng, lat);
   }
 }
