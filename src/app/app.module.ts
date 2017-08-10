@@ -1,29 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, Content } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 
+//pages
 import { MyApp } from './app.component';
-
 import { MyPage } from '../pages/my/my';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { HomePage } from '../pages/home/home';
 import { CartPage } from '../pages/cart/cart';
 import { TabsPage } from '../pages/tabs/tabs';
 
+//cordova plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation'
+import { BarcodeScanner} from '@ionic-native/barcode-scanner'
 
-import { HttpModule } from '@angular/http';
-
-import { AppService } from './app.service'
-
-
+//pipie
 import { CartFilterPipe } from '../pipes/cart-pipe';
 
-import { Geolocation } from '@ionic-native/geolocation'
+//provider
+import { AuthProvider } from '../providers/auth';
+import { AppService } from './app.service'
 
-import { BarcodeScanner} from '@ionic-native/barcode-scanner'
 import * as $ from 'jquery';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import * as $ from 'jquery';
     AppService
     ,
 
-    Geolocation,BarcodeScanner
+    Geolocation,BarcodeScanner,
+    AuthProvider
   ]
 })
 export class AppModule {

@@ -5,7 +5,6 @@ ion-toolbar{
   justify-content: space-between;
 }
 
-
   ion-thumbnail {
     min-height: 70px;
     min-width: 70px;
@@ -42,15 +41,9 @@ ion-toolbar{
 
 
 .leftMenu{
-
     position: fixed;
     top:80px;
     left: 0;
-}
-ion-buttons.onTop {
-  position: fixed;
-  top: 60px;
-  left: 0;
 }
 
 .item-ios,

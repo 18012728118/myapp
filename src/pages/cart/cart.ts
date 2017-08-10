@@ -33,7 +33,7 @@ export class CartPage {
     this.appService.addCartNum();
   }
   remove(item: any) {
-    if (item.count > 0) {
+    if (item.Count > 0) {
       item.Count -= 1;
       this.appService.removeCartNum();
     }
