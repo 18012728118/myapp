@@ -15,8 +15,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation'
-import { BarcodeScanner} from '@ionic-native/barcode-scanner'
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner'
+import { IonicStorageModule } from '@ionic/storage';
 //pipie
 import { CartFilterPipe } from '../pipes/cart-pipe';
 
@@ -41,7 +41,8 @@ import * as $ from 'jquery';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -60,7 +61,7 @@ import * as $ from 'jquery';
     AppService
     ,
 
-    Geolocation,BarcodeScanner,
+    Geolocation, BarcodeScanner,
     AuthProvider
   ]
 })

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { LocationPage } from './location';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { LocationPage } from './location';
   ],
   imports: [
     IonicPageModule.forChild(LocationPage),
+    IonicStorageModule.forRoot()
   ],
 })
-export class LocationPageModule {}
+export class LocationPageModule { }

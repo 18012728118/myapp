@@ -9,6 +9,7 @@ import { Platform } from 'ionic-angular';
 import { AppService, IShopItem } from '../../app/app.service'
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -27,9 +28,12 @@ export class HomePage {
   newList: IShopItem[];
 
 
-  geoTitle: string
+  geoTitle: any;
   loading: any;
   geoResult: any;
+
+  _geo = { lat: 30.905481, lng: 120.658958, poisTitle: "请选择收货地址" };
+
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
     public http: Http,
@@ -37,41 +41,51 @@ export class HomePage {
     public plt: Platform,
     public loadingCtrl: LoadingController,
     private geolocation: Geolocation,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storage: Storage
   ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+
     this.initPois();
     console.log(this.plt.platforms())
+    this.storage.get('location').then(value => {
+      if (value) {
+        this._geo = value;
+      }
+    });
+
   }
 
   goLocation() {
     let modal = this.modalCtrl.create("LocationPage");
-
-    modal.onDidDismiss(data => {
-      this.geoTitle = data.pois.name;
-    });
+    modal.onDidDismiss(() => {
+      this.storage.get('location').then(value => {
+              if (value) {
+        this._geo = value;
+              }
+      });
+    })
 
     modal.present();
   }
 
   initPois() {
     console.log('initpois');
-    let _geo: any;
     this.geolocation.getCurrentPosition().then((resp) => {
       console.log(resp.coords);
-      _geo = resp.coords;
+      this._geo.lat = resp.coords.latitude;
+      this._geo.lng = resp.coords.longitude;
       let ak: string = 'f8vW5GLQR7CaKA52XsxGXpR0';
-      let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + _geo.latitude + "," + _geo.longitude + "&output=json&pois=1&ak=" + ak
+      let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + this._geo.lat + "," + this._geo.lng + "&output=json&pois=1&ak=" + ak
       this.http.get(getUrl)
         .map(r => {
-          console.log(r);
+          // console.log(r);
           return r.json();
         })
         .subscribe(res => {
-          console.log(res);
+          // console.log(res);
           if (res.status == 0) {
             this.geoTitle = res.result.formatted_address;
           }

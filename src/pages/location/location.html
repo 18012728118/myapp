@@ -7,17 +7,19 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>location</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="back()">返回</button>
+    </ion-buttons>
+    <ion-title>收货地址设置</ion-title>
   </ion-navbar>
-
 </ion-header>
 <ion-content>
   <div id="map" #map>baidumap</div>
   <ion-list>
     <ion-list-header>
-        <button ion-button>
+      <button ion-button>
           <ion-icon name='md-navigate'></ion-icon>
-         {{ geoTitle }}
+         当前设置送货位置: {{ _geo.poisTitle }} 附近
     </button>
     </ion-list-header>
     <ion-item *ngFor="let p of poisList">
