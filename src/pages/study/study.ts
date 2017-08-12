@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams ,Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,Content ,ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the StudyPage page.
@@ -27,6 +27,7 @@ export class StudyPage {
   public id  : number;
   constructor(public navCtrl: NavController
     , public navParams: NavParams,
+    private viewCtrl : ViewController
   ) {
     this.starttime = new Date()
     this. id = navParams.get('id');
@@ -37,6 +38,10 @@ export class StudyPage {
     console.log(this.content.contentHeight)
     this.reset();
 
+  }
+
+   dismiss() {
+    this.viewCtrl.dismiss();
   }
 
   c(value: string) {

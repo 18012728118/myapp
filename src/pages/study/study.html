@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">返回</button>
+    </ion-buttons>
     <ion-title>study</ion-title>
   </ion-navbar>
 
@@ -14,11 +17,9 @@
 
 <ion-content padding>
   <div class="top">
-            {{x}}
-            <span *ngIf="type<=4">+</span>
-            <span *ngIf="type===5">-</span>
-            {{y}}=
-      {{answer}}
+    {{x}}
+    <span *ngIf="type<=4">+</span>
+    <span *ngIf="type===5">-</span> {{y}}= {{answer}}
   </div>
   <ion-grid>
     <ion-row>
