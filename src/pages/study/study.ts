@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams ,Content } from 'ionic-angular';
 
 /**
  * Generated class for the StudyPage page.
@@ -8,7 +8,7 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 import * as _ from 'lodash';
-
+@IonicPage()
 @Component({
   selector: 'page-study',
   templateUrl: 'study.html',
