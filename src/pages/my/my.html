@@ -23,16 +23,20 @@
     <ion-item>
       <button ion-button (click)="login()" block large color="secondary">帐号登录</button>
     </ion-item>
-    <ion-item>
+    <ion-item style="display: flex; justify-content: space-between; ">
       <button ion-button (click)="camera()" large icon-left>
         <ion-icon name="barcode"></ion-icon>
         扫码
+      </button>
+      <button ion-button (click)="doSomething()" large icon-left>
+        <ion-icon name="barcode"></ion-icon>
+        清除Storage
       </button>
     </ion-item>
     <ion-item>
       会员卡号
       <ion-icon name='color-wand' item-start></ion-icon>
-      <ion-note item-end>00001</ion-note>
+      <ion-note item-end>{{cardId}}</ion-note>
     </ion-item>
 
     <ion-item>

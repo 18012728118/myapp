@@ -5,7 +5,6 @@ import { Headers, RequestOptions } from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
 
-import { StorageService } from "./StorageService";
 import { UserInfoData } from "../model/UserInfoData";
 
 @Injectable()
@@ -13,22 +12,22 @@ export class HttpService {
     myInfoLocal: any;
     local: Storage;
     constructor(private http: Http,
-        private storageService: StorageService) {
+    ) {
 
     }
 
-    public httpGetWithAuth(url: string) {
-        let user = this.storageService.read<UserInfoData>('UserInfo');
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', user.ID + '-' + user.UserToken);
-        let options = new RequestOptions({ headers: headers });
-        return this.http.get(url, options).toPromise()
-            .then(res => res.json())
-            .catch(err => {
-                this.handleError(err)
-            })
-    }
+    // public httpGetWithAuth(url: string) {
+    //     let user = this.storageService.get('UserInfo');
+    //     var headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', user.ID + '-' + user.UserToken);
+    //     let options = new RequestOptions({ headers: headers });
+    //     return this.http.get(url, options).toPromise()
+    //         .then(res => res.json())
+    //         .catch(err => {
+    //             this.handleError(err)
+    //         })
+    // }
 
     public httpGetNoAuth(url: string) {
 
@@ -41,6 +40,7 @@ export class HttpService {
                 this.handleError(err);
             });
     }
+        
     public httpPostNoAuth(url: string, body: any) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');

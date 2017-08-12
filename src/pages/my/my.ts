@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController ,AlertController} from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
+
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-my',
@@ -9,28 +11,35 @@ import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner
 export class MyPage {
 
 
+  cardId: any;
+
   cameraResult: BarcodeScanResult = { text: "", cancelled: true, format: "QR_CODE" };
 
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
-        private barcodeScanner: BarcodeScanner,
-        private alertCtrl : AlertController
+    private barcodeScanner: BarcodeScanner,
+    private alertCtrl: AlertController,
+    private storage: Storage
   ) {
+
+    //storage.set('age', 'Max');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyPage');
   }
 
-  
-  login(){
-    
+
+  login() {
     let modal = this.modalCtrl.create("LoginPage");
     modal.present();
   }
 
+  doSomething() {
+    this.storage.clear();
+  }
   camera() {
     this.barcodeScanner.scan().then((barcodeData) => {
       this.cameraResult = barcodeData;
