@@ -1,7 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, Content } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+
+import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
+
 
 //pages
 import { MyApp } from './app.component';
@@ -40,6 +43,7 @@ import * as $ from 'jquery';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
     IonicStorageModule.forRoot()

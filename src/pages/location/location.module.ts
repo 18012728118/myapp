@@ -11,5 +11,8 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicPageModule.forChild(LocationPage),
     IonicStorageModule.forRoot()
   ],
+  exports:[
+    LocationPage
+  ]
 })
 export class LocationPageModule { }

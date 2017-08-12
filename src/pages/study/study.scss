@@ -1,0 +1,14 @@
+page-study {
+  .row {
+    min-height: 100px;
+  }
+  .button-full {
+    height: 100%;
+  }
+  .top {
+    height: 100px;
+    font-size: 70px;
+    display: flex;
+    justify-content: flex-start;
+  }
+}

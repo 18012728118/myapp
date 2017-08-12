@@ -8,11 +8,6 @@ import { HomePage } from '../home/home';
 
 import { AppService } from '../../app/app.service'
 
-
-@IonicPage({
-  name: 'tabs',
-  segment: 'tabs'
-})
 @Component({
   templateUrl: 'tabs.html'
 })

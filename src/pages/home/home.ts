@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { trigger, transition, style, state, animate, keyframes } from '@angular/core';
 import { NavController, AlertController, Content, LoadingController, ModalController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map'
@@ -13,13 +14,33 @@ import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  animations:[
+    trigger('bounce',[
+      state('*',style({
+        transform:'translateX(0)'
+      })),
+      transition('* => inactive',animate('700ms ease-out',keyframes([
+        style({transform:'translateX(0)',offset:0}),
+        style({transform:'translate(65px,65px)',offset:.3}),
+        style({transform:'translateX(0)',offset:1})
+      ]))),
+      
+      transition('* => active',animate('700ms ease-out',keyframes([
+        style({transform:'translateX(0)',offset:0}),
+        style({transform:'translate(65px,65px)',offset:.3}),
+        style({transform:'translateX(0)',offset:1})
+      ])))
+    ])
+  ]
 })
 
 export class HomePage {
   @ViewChild(Content) content: Content
 
   items: any;
+
+ state:string = 'inactive';
 
   i: IShopItem;
 
@@ -62,9 +83,9 @@ export class HomePage {
     let modal = this.modalCtrl.create("LocationPage");
     modal.onDidDismiss(() => {
       this.storage.get('location').then(value => {
-              if (value) {
-        this._geo = value;
-              }
+        if (value) {
+          this._geo = value;
+        }
       });
     })
 
@@ -137,6 +158,8 @@ export class HomePage {
     item.Count += 1;
     this.appService.addCartNum();
     console.log(item);
+
+    this.state = (this.state === 'active' ? 'inactive' : 'active');
   }
 
   remove(item: IShopItem) {

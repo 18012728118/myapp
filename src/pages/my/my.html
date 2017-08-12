@@ -46,13 +46,18 @@
       </ion-label>
       <ion-icon name='brush' item-start></ion-icon>
     </ion-item>
-
-
     <ion-item>
-      <ion-icon name='wine' item-start></ion-icon>
-      收货地址管理
+      <button ion-button (click)="gotoAddress()" block clear icon-left>
+        <ion-icon name="home"></ion-icon>
+       收货地址管理
+      </button>
     </ion-item>
-
+    <ion-item>
+      <button ion-button (click)="gotoStudy()" block clear icon-left>
+        <ion-icon name="add"></ion-icon>
+       加法学习
+      </button>
+    </ion-item>
 
   </ion-list>
 </ion-content>

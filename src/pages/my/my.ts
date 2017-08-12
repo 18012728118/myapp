@@ -31,6 +31,14 @@ export class MyPage {
     console.log('ionViewDidLoad MyPage');
   }
 
+  gotoAddress() {
+    let modal = this.modalCtrl.create("AddressPage");
+    modal.present();
+  }
+  gotoStudy() {
+    let modal = this.modalCtrl.create("StudyPage");
+    modal.present();
+  }
 
   login() {
     let modal = this.modalCtrl.create("LoginPage");

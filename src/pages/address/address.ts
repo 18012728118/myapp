@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ViewController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the AddressPage page.
@@ -15,18 +15,11 @@ import { IonicPage, NavController, NavParams ,ViewController} from 'ionic-angula
 })
 export class AddressPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-      private viewCtrl: ViewController
-) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddressPage');
   }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
-
 
 }
