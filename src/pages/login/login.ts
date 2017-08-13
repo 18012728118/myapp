@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 
-import { AppService } from '../../app/app.service';
+import { AppService,ApiUrl } from '../../app/app.service';
 
 /**
  * Generated class for the LoginPage page.
@@ -51,14 +51,9 @@ export class LoginPage {
 
 
   loginWx() {
-    // this._http.post(this.appService._apiUrl + "app/postWxLoginCode", reee)
-    // .map(res=>res.json())
-    // .subscribe(res => {
-    //   alert(res);
-    // });
     Wechat.auth("snsapi_userinfo", "wechat2", response => {
       var self = this;
-      this._http.post(this.appService._apiUrl + "app/postWxLoginCode", response)
+      this._http.post(ApiUrl + "postWxLoginCode", response)
         .map(res => res.json())
         .subscribe(res => {
           this.appService._wxUser = res;

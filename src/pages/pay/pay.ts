@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, ViewController, ModalController } 
 
 import { Http} from '@angular/http';
 
-import { AppService ,IShopItem } from '../../app/app.service'
+import { AppService ,IShopItem,ApiUrl } from '../../app/app.service'
 
 /**
  * Generated class for the PayPage page.
@@ -41,7 +41,7 @@ export class PayPage {
 
   payOff()
   {
-    let payOffUrl = this.appService._apiUrl + 'app/PostCarts'
+    let payOffUrl = ApiUrl + 'PostCarts'
     this._http.post(payOffUrl,
       this.appService.cartItems)
       .subscribe(res=>{

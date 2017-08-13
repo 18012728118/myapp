@@ -42,10 +42,10 @@ export interface IWxUserInfo {
     privilege: any,
     unionid: string
 }
+export const ApiUrl :string = "https://www.loveWuJiang.com/api/v1/";
+
 @Injectable()
 export class AppService {
-
-    public _apiUrl: string = "https://www.loveWuJiang.com/api/"
 
     //验证码发送倒数
     public _time: number = 0;
@@ -75,7 +75,7 @@ export class AppService {
     }
 
     public getShopItems() {
-        let _url: string = this._apiUrl + "app/get";
+        let _url: string = ApiUrl + "get";
         this._http.get(_url)
             .subscribe((res) => {
                 this.listItems = res.json();
@@ -85,7 +85,7 @@ export class AppService {
     }
 
     public getShopCategory() {
-        let _url = this._apiUrl + "app/getCategory";
+        let _url = ApiUrl + "getCategory";
         this._http.get(_url)
             .subscribe((res) => {
                 let _l: IShopCategory[] = res.json();
