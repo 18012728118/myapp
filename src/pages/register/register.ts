@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 
-import { AppService } from '../../app/app.service';
+import { AppService , ApiUrl } from '../../app/app.service';
 
 /**
  * Generated class for the RegisterPage page.
@@ -71,7 +71,7 @@ export class RegisterPage {
   }
 
   sendCode() {
-    this._http.get(this.appService._apiUrl + 'app/getCode?tel=' + this.reg.Telphone)
+    this._http.get(ApiUrl + 'getCode?tel=' + this.reg.Telphone)
     .map(res=>res.json())
       .subscribe(res => {
         console.log(res);
