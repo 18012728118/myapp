@@ -99,7 +99,7 @@ export class HomePage {
       this._geo.lat = resp.coords.latitude;
       this._geo.lng = resp.coords.longitude;
       let ak: string = 'f8vW5GLQR7CaKA52XsxGXpR0';
-      let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + this._geo.lat + "," + this._geo.lng + "&output=json&pois=1&ak=" + ak
+      let getUrl: string = "https://api.map.baidu.com/geocoder/v2/?location=" + this._geo.lat + "," + this._geo.lng + "&output=json&pois=1&ak=" + ak
       this.http.get(getUrl)
         .map(r => {
           // console.log(r);

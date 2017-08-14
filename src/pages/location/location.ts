@@ -61,7 +61,7 @@ export class LocationPage {
   }
 
   initPois(lat: number, lng: number) {
-    let getUrl: string = "http://api.map.baidu.com/geocoder/v2/?location=" + lat + "," + lng + "&output=json&pois=1&ak=f8vW5GLQR7CaKA52XsxGXpR0";
+    let getUrl: string = "https://api.map.baidu.com/geocoder/v2/?location=" + lat + "," + lng + "&output=json&pois=1&ak=f8vW5GLQR7CaKA52XsxGXpR0";
     this.http.get(getUrl)
       .map(r => {
         // console.log(r);

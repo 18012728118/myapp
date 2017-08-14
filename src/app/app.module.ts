@@ -38,7 +38,6 @@ import * as $ from 'jquery';
     MyPage,
     HomePage,
     TabsPage,
-
     CartFilterPipe
   ],
   imports: [
