@@ -16,7 +16,7 @@
     </ion-list-header>
     <ion-item *ngFor="let m of appService.cartItems">
       <ion-thumbnail item-start>
-        <img src="img/{{m.Id%9}}.jpg">
+              <img *ngIf='m.LogoUrl' src="{{m.LogoUrl}}!w100h100" class="thumbImg">
       </ion-thumbnail>
       <h2>{{m.Name}}</h2>
       <p>{{m.Desc}}</p>

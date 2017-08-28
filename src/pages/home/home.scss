@@ -41,12 +41,14 @@ ion-toolbar{
 
 
 .leftMenu{
-    position: fixed;
-    top:80px;
-    left: 0;
 }
 
 .item-ios,
 .item-md {
   padding-left: 0;
+}
+
+
+ion-fab[left] {
+  left:0;
 }

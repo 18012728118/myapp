@@ -24,25 +24,22 @@
       <ion-icon name="arrow-round-up"></ion-icon>
         </button>
   </ion-fab>
+  <ion-fab top left style="width: 16.66667%;max-width: 16.66667%;">
+      <button ion-button mini *ngFor="let cate of appService.category" clear (click)="scrollToElement(cate.Id)" style="padding:0;" block>
+        {{ cate.Name }}
+      </button>
+    </ion-fab>
   <!-- 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
-      <img src="img/1.jpg" />
     </ion-refresher-content>
   </ion-refresher> -->
-
-
-
   <!-- 主区 开始  -->
   <ion-grid>
     <ion-row>
       <!-- 左侧分类 -->
       <ion-col col-2 style="border-right: .5px solid #c8c7cc;">
-        <ion-buttons class='leftMenu'>
-          <button ion-button full *ngFor="let cate of appService.category" clear (click)="scrollToElement(cate.Id)">
-{{ cate.Name }}
-      </button>
-        </ion-buttons>
+
       </ion-col>
       <!-- 左侧分类 结束 -->
 
@@ -76,7 +73,7 @@
               <ng-container *ngIf="m.CategoryId==cate.Id">
                 <ion-item>
                   <ion-thumbnail item-start class="thumbImg">
-                    <img [@bounce]='state' *ngIf='m.LogoUrl' src="{{imagesHost+m.LogoUrl}}" class="thumbImg">
+                    <img                     *ngIf='m.LogoUrl' src="{{m.LogoUrl}}!w100" class="thumbImg">
                   </ion-thumbnail>
                   <h2>{{m.Name}}</h2>
                   <p>{{m.Desc}}</p>
@@ -87,7 +84,7 @@
                     <div style="width:50%;float:right;display:flex;justify-content: flex-end; align-items: center;">
                       <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>
                       <b *ngIf="m.Count>0" class="item_buttons">{{m.Count}}</b>
-                      <button  ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
+                      <button ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
                     </div>
                   </div>
                 </ion-item>
