@@ -59,6 +59,7 @@ export class LoginPage {
           this.appService._wxUser = res;
           self.ref.markForCheck();
           self.ref.detectChanges();
+          this.dismiss();
         });
 
     }, reason => {

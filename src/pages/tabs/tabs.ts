@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavParams,IonicPage } from 'ionic-angular'
+import { NavParams, IonicPage } from 'ionic-angular'
 
 import { CartPage } from '../cart/cart';
 import { MyPage } from '../my/my';
@@ -18,17 +18,15 @@ export class TabsPage {
   myPage = MyPage;
 
   public tabId: number;
-  selectTabIndex :number = 0;
+  selectTabIndex: number = 0;
 
   constructor(public app: AppService,
     public params: NavParams
   ) {
     this.tabId = params.get('tabId');
-    console.log("tabId:"+this.tabId);
-
     if (this.tabId != undefined || this.tabId != null) {
       this.selectTabIndex = this.tabId;
     }
-    console.log("selectTabIndex:"+this.selectTabIndex );
+    console.log("selectTabIndex:" + this.selectTabIndex);
   }
 }

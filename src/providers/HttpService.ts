@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { Observable } from "rxjs/observable";
 import { Headers, RequestOptions } from "@angular/http";
 
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs';
 
 import { UserInfoData } from "../model/UserInfoData";
 
@@ -52,16 +51,16 @@ export class HttpService {
             });
     }
 
-    public httpPostWithAuth(body: any, url: string) {
+    public httpPostWithAuth(body: any, url: string,openid:string) {
 
-        return this.myInfoLocal = this.local.getJson('UserInfo')
-            .then((result) => {
+        // return this.myInfoLocal = this.local.getJson('UserInfo')
+        //     .then((result) => {
                 var headers = new Headers();
                 headers.append('Content-Type', 'application/json');
-                headers.append('Authorization', result.ID + '-' + result.UserToken);
+                headers.append('Authorization', openid);
                 let options = new RequestOptions({ headers: headers });
-                return this.http.post(url, body, options).toPromise();
-            });
+                return this.http.post(url, body, options).map(res=>res.json()).toPromise();
+            // });
     }
 
     private handleError(error: Response) {

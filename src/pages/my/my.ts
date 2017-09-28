@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
-
+import {Http} from "@angular/http"
 import { Storage } from '@ionic/storage';
+import { AppService, ApiUrl } from '../../app/app.service';
+import { HttpService } from '../../providers/HttpService'
+
+
+declare var WeixinJSBridge: any;
 
 @Component({
   selector: 'page-my',
@@ -21,7 +26,11 @@ export class MyPage {
     private modalCtrl: ModalController,
     private barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
-    private storage: Storage
+    private storage: Storage,
+    private appService: AppService,
+    private http :Http,
+    private authHttp:HttpService
+
   ) {
 
     //storage.set('age', 'Max');
@@ -29,6 +38,59 @@ export class MyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyPage');
+    this.authHttp.httpPostWithAuth("", ApiUrl + "GetShopMember", this.appService._wxUser.openid)
+    .then(res => {
+      console.log(res);
+      this.appService._wxUser.ShopMember = res;
+    });
+  }
+
+
+  goScan()
+  {
+    if(this.appService.isWeixinBrowser()){
+      this.appService.scanQRCode(1).then(res=>{
+        alert(res);
+      })
+    }
+    else
+    {
+      this.camera();
+    }
+  }
+
+  memberRecharge() {
+    this.toPay2();
+  }
+  toPay2() {
+    let alert = this.alertCtrl.create({
+      title: '联系客服转帐充值',
+      subTitle: "<h2>会员充值最低300元</h2><img src='http://img.wjhaomama.com/4/img/2017-09/09_39_48_197.png!w500' />",
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  toPay() {
+    this.http.get("http://m.wjhaomama.com/TenPayV3/getpay?itemid=" + 14 + "&openid=oBtN8t4KDw_BbLIxR6iyvEQRApgg" )
+//    this.http.get("http://m.wjhaomama.com/TenPayV3/getpay?itemid=" + 12 + "&openid=" + this.appService._wxUser.openid)
+      .map(res => res.json())
+      .subscribe(res => {
+        WeixinJSBridge.invoke(
+          'getBrandWCPayRequest', {
+            "appId": res.appId,
+            "timeStamp": res.timeStamp,
+            "nonceStr": res.nonceStr,
+            "package": res.package,
+            "signType": res.signType,
+            "paySign": res.paySign
+          },
+          (res)=> {
+            if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+              alert("支付成功");
+            } 
+          }
+        )
+      });
   }
 
   gotoAddress() {

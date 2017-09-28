@@ -43,6 +43,7 @@ export class AuthProvider {
     window.localStorage.removeItem('token')
     return true;
   }
+
   login(data) {
     return this.http.post(this.baseUrl + 'login', data)
       .map(this.extractData);

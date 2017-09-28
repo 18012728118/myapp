@@ -26,6 +26,9 @@ import { CartFilterPipe } from '../pipes/cart-pipe';
 //provider
 import { AuthProvider } from '../providers/auth';
 import { AppService } from './app.service'
+import{ HttpService} from '../providers/HttpService'
+
+import {PipesModule} from '../pipes/pipes.module'
 
 import * as $ from 'jquery';
 
@@ -37,15 +40,15 @@ import * as $ from 'jquery';
     CartPage,
     MyPage,
     HomePage,
-    TabsPage,
-    CartFilterPipe
+    TabsPage
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,9 +64,8 @@ import * as $ from 'jquery';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AppService
-    ,
-
+    AppService,
+    HttpService,
     Geolocation, BarcodeScanner,
     AuthProvider
   ]
