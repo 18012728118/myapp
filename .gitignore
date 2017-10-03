@@ -11,7 +11,6 @@ log.txt
 *.sublime-workspace
 .vscode/
 npm-debug.log*
-
 .idea/
 .sass-cache/
 .tmp/
@@ -28,11 +27,11 @@ plugins/android.json
 plugins/ios.json
 www/
 $RECYCLE.BIN/
-
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-lovewujiang.keystore
+.sourcemaps/
+.vs/
 *.apk
-package-lock.jsons
+*.keystore
 other/xiaomi/
