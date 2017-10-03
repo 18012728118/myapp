@@ -33,5 +33,4 @@ UserInterfaceState.xcuserstate
 .sourcemaps/
 .vs/
 *.apk
-*.keystore
-other/xiaomi/
+package-lock.json

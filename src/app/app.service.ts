@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+<<<<<<< HEAD
 import { LoadingController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 
 declare var wx: any;
+=======
+>>>>>>> parent of 4d01b70... saf
 
 export interface IShopItem {
     Id: number,
@@ -14,7 +17,7 @@ export interface IShopItem {
     CategoryId: number,
     Tags: string,
     Price: number,
-    PriceVip: number,
+    priceVip: number,
     Unit: string,
     State: boolean,
     Stock: number,
@@ -22,10 +25,7 @@ export interface IShopItem {
     Comment: string,
     Desc: string,
     Content: string,
-    LogoUrl: string,
-    DayBuyLimit: number,
-    Sort: number,
-    Pics: Array<string>
+    LogoUrl: string
 }
 
 export interface IShopCategory {
@@ -35,8 +35,7 @@ export interface IShopCategory {
     Level: number,
     Sort: number,
     DateTimeCreate: string,
-    StoreId: number,
-    AdList: Array<any>
+    StoreId: number
 }
 
 export interface IWxUserInfo {
@@ -49,32 +48,27 @@ export interface IWxUserInfo {
     country: string,
     headimgurl: string,
     privilege: any,
-    unionid: string,
-    ShopMember: any;
+    unionid: string
 }
-export const ApiUrl: string = "http://shop.wjhaomama.com/api/v1/";
+export const ApiUrl :string = "https://www.loveWuJiang.com/api/v1/";
 
 @Injectable()
 export class AppService {
 
-    _w: any = window;
     //验证码发送倒数
     public _time: number = 0;
     public _sendCodeBtnText = "发送验证码";
 
-    public loading: any;
     public _wxUser: IWxUserInfo;
-    public _store: any;
     //购物车数量
     cartNum: number;
     //总价格价格
     totalPrice: number = 0;
-    totalPriceVip: number = 0;
     category: IShopCategory[] = [];
     listItems: IShopItem[] = [];
     cartItems: IShopItem[] = [];
-    cacheCarts: IShopItem[] = [];
 
+<<<<<<< HEAD
     constructor(
         private _http: Http,
         private loadingCtrl: LoadingController,
@@ -249,6 +243,20 @@ export class AppService {
                     });
                 });
         }
+=======
+    constructor(private _http: Http) {
+        this.cartNum = 0;
+    }
+
+    initCate() {
+        return new Promise((resolve) => {
+            this.getShopItems();
+            this.getShopCategory();
+            setTimeout(() => {
+                return resolve(true);
+            }, 1000);
+        })
+>>>>>>> parent of 4d01b70... saf
     }
 
     public getShopItems() {
@@ -262,12 +270,11 @@ export class AppService {
     }
 
     public getShopCategory() {
-        let _url = ApiUrl + "getCategoryDtc";
+        let _url = ApiUrl + "getCategory";
         this._http.get(_url)
             .subscribe((res) => {
                 let _l: IShopCategory[] = res.json();
                 this.category = _l;
-                console.log(this.category);
             });
     }
 
@@ -285,13 +292,9 @@ export class AppService {
     updateCartItems() {
         this.cartItems = this.listItems.filter(d => d.Count > 0);
         this.totalPrice = 0;
-        this.totalPriceVip = 0;
         this.cartItems.forEach(e => {
             this.totalPrice += e.Count * e.Price;
-            this.totalPriceVip += e.Count * e.PriceVip;
         })
-        //console.log("set cache:" + JSON.stringify(this.cartItems));
-        this.storage.set("cacheCarts", this.cartItems);
     }
 
     removeCartAll() {
@@ -300,6 +303,5 @@ export class AppService {
         });
         this.cartNum = 0;
         this.updateCartItems();
-        this.storage.remove("cacheCarts");
     }
 }
