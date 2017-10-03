@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
-import {Http} from "@angular/http"
+import { Http } from "@angular/http"
 import { Storage } from '@ionic/storage';
 import { AppService, ApiUrl } from '../../app/app.service';
 import { HttpService } from '../../providers/HttpService'
-
+import { AppUpdate } from '@ionic-native/app-update';
 
 declare var WeixinJSBridge: any;
 
@@ -28,8 +28,9 @@ export class MyPage {
     private alertCtrl: AlertController,
     private storage: Storage,
     private appService: AppService,
-    private http :Http,
-    private authHttp:HttpService
+    private http: Http,
+    private authHttp: HttpService,
+    private appUpdate: AppUpdate
 
   ) {
 
@@ -38,25 +39,29 @@ export class MyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyPage');
-    this.authHttp.httpPostWithAuth("", ApiUrl + "GetShopMember", this.appService._wxUser.openid)
-    .then(res => {
-      console.log(res);
-      this.appService._wxUser.ShopMember = res;
-    });
+    if (this.appService._wxUser) {
+      this.authHttp.httpPostWithAuth("", ApiUrl + "GetShopMember", this.appService._wxUser.unionid)
+        .then(res => {
+          console.log(res);
+          this.appService._wxUser.ShopMember = res;
+        });
+    }
   }
 
-
-  goScan()
-  {
-    if(this.appService.isWeixinBrowser()){
-      this.appService.scanQRCode(1).then(res=>{
+  goScan() {
+    if (this.appService.isWeixinBrowser()) {
+      this.appService.scanQRCode(1).then(res => {
         alert(res);
       })
     }
-    else
-    {
+    else {
       this.camera();
     }
+  }
+
+  goUpdate() {
+    const updateUrl = 'https://lovewujiang.com/apk/update.xml';
+    this.appUpdate.checkAppUpdate(updateUrl);
   }
 
   memberRecharge() {
@@ -71,8 +76,8 @@ export class MyPage {
     alert.present();
   }
   toPay() {
-    this.http.get("http://m.wjhaomama.com/TenPayV3/getpay?itemid=" + 14 + "&openid=oBtN8t4KDw_BbLIxR6iyvEQRApgg" )
-//    this.http.get("http://m.wjhaomama.com/TenPayV3/getpay?itemid=" + 12 + "&openid=" + this.appService._wxUser.openid)
+    this.http.get("http://m.wjhaomama.com/TenPayV3/getpay?itemid=" + 14 + "&openid=oBtN8t4KDw_BbLIxR6iyvEQRApgg")
+      //    this.http.get("http://m.wjhaomama.com/TenPayV3/getpay?itemid=" + 12 + "&openid=" + this.appService._wxUser.openid)
       .map(res => res.json())
       .subscribe(res => {
         WeixinJSBridge.invoke(
@@ -84,10 +89,10 @@ export class MyPage {
             "signType": res.signType,
             "paySign": res.paySign
           },
-          (res)=> {
-            if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+          (res) => {
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
               alert("支付成功");
-            } 
+            }
           }
         )
       });
@@ -101,6 +106,12 @@ export class MyPage {
     let modal = this.modalCtrl.create("StudyPage");
     modal.present();
   }
+
+  goOrderList() {
+    let modal = this.modalCtrl.create("OrderListPage");
+    modal.present();
+  }
+
 
   login() {
     let modal = this.modalCtrl.create("LoginPage");

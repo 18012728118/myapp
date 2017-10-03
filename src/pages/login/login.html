@@ -17,7 +17,6 @@
 
 <ion-content padding>
   <ion-list>
-
     <ion-item>
       <ion-label floating>手机号</ion-label>
       <ion-input type="tel"></ion-input>
@@ -29,16 +28,15 @@
     </ion-item>
 
   </ion-list>
-  <button ion-button block (click)="postLogin()">登录</button>
-  <button ion-button block (click)="register()" color="dark">注册新用户</button>
-
+  <button ion-button block (click)="postLogin()" disabled="disabled">登录</button>
+  <!-- <button ion-button block (click)="register()" color="dark">注册新用户</button> -->
   <div style="display: flex; justify-content:center;  margin-top:150px;">
-    <button (click)="loginWx()" large clear ion-button color="secondary">
-      <img src="https://www.lovewujiang.com/img/icon64_appwx_logo.png" style="height:50px;"/>
-      微信登陆</button>
+      <button (click)="loginWx()" large clear ion-button color="secondary">
+        <img src="https://www.lovewujiang.com/img/icon64_appwx_logo.png" style="height:50px;"/>
+        微信登陆</button>
   </div>
   <p *ngIf="appService._wxUser">
     {{appService._wxUser.nickname}}
-    <img [src]="appService._wxUser.headimgurl" style="height:120px;width:120px;"/>
+    <img [src]="appService._wxUser.headimgurl" style="height:120px;width:120px;" />
   </p>
 </ion-content>

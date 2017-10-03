@@ -17,7 +17,7 @@
     <div id="title">
       <span>{{item.Name}}</span>
     </div>
-    <ion-fab top right>
+    <ion-fab top right *ngIf="appService.getClientType()!='wechat'">
         <button ion-fab color="light" mini><i class="fa fa-share" aria-hidden="true"></i></button>
         <ion-fab-list side="left">
           <!-- 发送给好友 -->

@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <h3 style="float:left;">总价合计:{{appService.totalPrice.toFixed(2)}}</h3>
     <ion-buttons end>
-      <button ion-button (click)="toPay()" *ngIf="appService.totalPrice>0">
-        去付款
+      <button ion-button full (click)="toPay()" *ngIf="appService.totalPrice>0">去付款
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -31,11 +29,16 @@
           <button ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
         </div>
       </div>
-      
+
       <div *ngIf="m.PriceVip&& m.PriceVip<m.Price" style="clear:both;">
-          <span style="color:#f53d3d;font-weight:bold;">会员价:￥{{m.PriceVip.toFixed(2)}}</span>
+        <span style="color:#f53d3d;font-weight:bold;">会员价:￥{{m.PriceVip.toFixed(2)}}</span>
       </div>
     </ion-item>
+    <ion-item>
+        <span style="font-size:2.5rem;">总价合计:{{appService.totalPrice.toFixed(2)}}</span>
+    </ion-item>
   </ion-list>
-  <h2>成功拍下称重商品后客服会按实际重量修改价格发货</h2><h2> 会员卡扣款用户会按实际交易金额扣款</h2><h2>实际交易金额以收货明细单为准</h2>
+  <h2>成功拍下称重商品后客服会按实际重量修改价格发货</h2>
+  <h2> 会员卡扣款用户会按实际交易金额扣款</h2>
+  <h2>实际交易金额以收货明细单为准</h2>
 </ion-content>

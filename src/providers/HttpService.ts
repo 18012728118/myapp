@@ -5,12 +5,14 @@ import { Headers, RequestOptions } from "@angular/http";
 import { Observable } from 'rxjs';
 
 import { UserInfoData } from "../model/UserInfoData";
+import { AppService } from '../app/app.service';
 
 @Injectable()
 export class HttpService {
     myInfoLocal: any;
     local: Storage;
     constructor(private http: Http,
+        private appservice:AppService
     ) {
 
     }
@@ -57,7 +59,7 @@ export class HttpService {
         //     .then((result) => {
                 var headers = new Headers();
                 headers.append('Content-Type', 'application/json');
-                headers.append('Authorization', openid);
+                headers.append('Authorization', openid===""? this.appservice._wxUser.unionid:openid );
                 let options = new RequestOptions({ headers: headers });
                 return this.http.post(url, body, options).map(res=>res.json()).toPromise();
             // });

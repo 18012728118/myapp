@@ -1,9 +1,20 @@
 page-my {
-    ion-item-divider{
-        //padding-left:10px;
-        ion-label {
-        padding-left:20px;
-        
-        }
+  ion-item-divider {
+    //padding-left:10px;
+    ion-label {
+      padding-left: 20px;
     }
+  }
+  #top {
+    background-color: color($colors,customBlue,base);
+    padding: 20px;
+    h1 {
+    }
+  }
+  ion-list button{
+      span.fa{
+        color: color($colors, customBlue, base);    
+        font-size:2.5rem;
+      }
+  }
 }

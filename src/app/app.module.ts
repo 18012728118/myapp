@@ -31,6 +31,7 @@ import{ HttpService} from '../providers/HttpService'
 import {PipesModule} from '../pipes/pipes.module'
 
 import * as $ from 'jquery';
+import { AppUpdate } from '@ionic-native/app-update';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import * as $ from 'jquery';
   ],
   providers: [
     Content,
+    AppUpdate,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

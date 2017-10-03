@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 
@@ -78,7 +78,8 @@ export class AppService {
     constructor(
         private _http: Http,
         private loadingCtrl: LoadingController,
-        private storage: Storage
+        private storage: Storage,
+        private toastCtrl: ToastController
     ) {
         this.cartNum = 0;
     }
@@ -141,15 +142,40 @@ export class AppService {
         this.loading.dismiss();
     }
 
+
     public isWeixinBrowser() {
         var ua = navigator.userAgent.toLowerCase();
         return (/micromessenger/.test(ua)) ? true : false;
     }
 
+    public getClientType() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (/micromessenger/.test(ua))
+            return "wechat";
+        if (/iphone/.test(ua))
+            return "ios";
+        if (/ipad/.test(ua))
+            return "ios";
+        if (/android/.test(ua))
+            return "android";
+        return "unknow decices";
+    }
+
+
+    public showToast(title, duration, position) {
+        let toast = this.toastCtrl.create({
+            message: title,
+            duration: duration,
+            position: position
+        });
+        // toast.onDidDismiss(() => {
+        // });
+        toast.present();
+    }
 
     public GetInit() {
         let _url: string = "http://shop.wjhaomama.com/wx/GetInit?appId=" + this._w.AppId
-            //    + "&fortest=TT"
+              + "&fortest=TT"
             ;
         return new Promise((resolve) => {
             this._http.get(_url).map(res => res.json())
@@ -186,41 +212,43 @@ export class AppService {
 
 
     jssdkInit(shareData) {
-        var _url = encodeURIComponent(location.href.split('#')[0]);
-        this._http.get("http://shop.wjhaomama.com/Api/V1/" + "jssdk?url=" + _url + "&appId=wx1dfe7106c7a40821")
-            .map(res => res.json()).subscribe(res => {
-                //alert(_url);
-                if (res.success) {
-                    wx.config({
-                        debug: false,
-                        appId: res.data.AppId,
-                        timestamp: res.data.Timestamp,
-                        nonceStr: res.data.NonceStr,
-                        signature: res.data.Signature,
-                        jsApiList: [
-                            'checkJsApi',
-                            'onMenuShareTimeline',
-                            'onMenuShareAppMessage',
-                            'onMenuShareQQ',
-                            'onMenuShareWeibo',
-                            'hideMenuItems',
-                            'showMenuItems',
-                            'hideAllNonBaseMenuItem',
-                            'showAllNonBaseMenuItem',
-                            'chooseImage',
-                            'scanQRCode',
-                            'openLocation',
-                            'getLocation'
-                        ]
+        if (this.isWeixinBrowser()) {
+            var _url = encodeURIComponent(location.href.split('#')[0]);
+            this._http.get("http://shop.wjhaomama.com/Api/V1/" + "jssdk?url=" + _url + "&appId=wx1dfe7106c7a40821")
+                .map(res => res.json()).subscribe(res => {
+                    //alert(_url);
+                    if (res.success) {
+                        wx.config({
+                            debug: false,
+                            appId: res.data.AppId,
+                            timestamp: res.data.Timestamp,
+                            nonceStr: res.data.NonceStr,
+                            signature: res.data.Signature,
+                            jsApiList: [
+                                'checkJsApi',
+                                'onMenuShareTimeline',
+                                'onMenuShareAppMessage',
+                                'onMenuShareQQ',
+                                'onMenuShareWeibo',
+                                'hideMenuItems',
+                                'showMenuItems',
+                                'hideAllNonBaseMenuItem',
+                                'showAllNonBaseMenuItem',
+                                'chooseImage',
+                                'scanQRCode',
+                                'openLocation',
+                                'getLocation'
+                            ]
+                        });
+                    };
+                    wx.ready(() => {
+                        if (shareData) {
+                            console.log("wx ready()");
+                            this.wxshare(shareData.title, shareData.desc, shareData.link, shareData.imgUrl);
+                        }
                     });
-                };
-                wx.ready(() => {
-                    if (shareData) {
-                        console.log("wx ready()");
-                        this.wxshare(shareData.title, shareData.desc, shareData.link, shareData.imgUrl);
-                    }
                 });
-            });
+        }
     }
 
     public getShopItems() {

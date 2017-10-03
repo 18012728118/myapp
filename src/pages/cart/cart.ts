@@ -5,7 +5,7 @@ import { ToastController } from 'ionic-angular';
 
 import 'rxjs/add/operator/map'
 
-import { AppService, IShopItem } from '../../app/app.service'
+import { AppService } from '../../app/app.service'
 
 
 
@@ -80,11 +80,11 @@ export class CartPage {
       duration: 1000,
       position: 'top'
     });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
+        // toast.onDidDismiss(() => {
+    // });
     toast.present();
+    
+
+
   }
 }

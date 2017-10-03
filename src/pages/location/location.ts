@@ -98,11 +98,19 @@ export class LocationPage {
       });
     }
     else {
-      this.geolocation.getCurrentPosition().then((resp) => {
+      var options = {
+        enableHighAccuracy: true,  // 是否使用 GPS
+        maximumAge: 30000,         // 缓存时间
+        timeout: 10000,            // 超时时间
+        coorType: 'bd09ll'         // 默认是 gcj02，可填 bd09ll 以获取百度经纬度用于访问百度 API
+      }
+      this.geolocation.getCurrentPosition(options).then((resp) => {
         if (resp.coords) {
+          //alert("geolocation:"+resp.coords.latitude+" "+resp.coords.longitude);
+          //this.bd_encrypt(resp.coords.latitude, resp.coords.longitude);
           this._geo.lat = resp.coords.latitude;
           this._geo.lng = resp.coords.longitude;
-          this._geo.poisTitle = "请选择下方位置"
+          this._geo.poisTitle = "请选择下方位置 附近"
           this.wxInit();
         }
       }).catch((error) => {

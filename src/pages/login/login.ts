@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 
-import { AppService,ApiUrl } from '../../app/app.service';
+import { AppService, ApiUrl } from '../../app/app.service';
 
 /**
  * Generated class for the LoginPage page.
@@ -24,15 +24,24 @@ export class LoginPage {
 
   _resultText: string = "result";
   _r: any;
+
+  _installedWechat: boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private modalCtrl: ModalController, private viewCtrl: ViewController,
     private _http: Http,
     private appService: AppService,
     private ref: ChangeDetectorRef) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    
+    Wechat.isInstalled(function (installed) {
+      this._installedWechat = installed ? true : false;
+    }, function (reason) {
+      alert("Failed: " + reason);
+    });
   }
 
   postLogin() {
@@ -51,7 +60,7 @@ export class LoginPage {
 
 
   loginWx() {
-    Wechat.auth("snsapi_userinfo", "wechat2", response => {
+    Wechat.auth("snsapi_userinfo", "store_"+this.appService._store.Id, response => {
       var self = this;
       this._http.post(ApiUrl + "postWxLoginCode", response)
         .map(res => res.json())

@@ -33,11 +33,12 @@ export class DetailPage {
     let vip = this.item.PriceVip < this.item.Price ? ',会员卡支付再减' + (this.item.Price - this.item.PriceVip) + '元' : '';
 
     this.parmas = "page=detail&itemid=" + this.item.Id;
-    this.verb = location.href.indexOf('?') >= 0 ? "&" : "?";
+    this.verb =this.appService._store.ShareData.link.indexOf('?') > -1 ? "&" : "?";
 
     this.sharelink = this.appService._store.ShareData.link + this.verb + this.parmas;
     this.shareTitle = this.appService._store.ShareData.title + " "
       + this.item.Name + " 只要￥" + this.item.Price + "/" + this.item.Unit + vip;
+
     appService.wxshare(
       this.shareTitle,
       this.appService._store.ShareData.desc,

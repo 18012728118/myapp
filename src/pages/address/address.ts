@@ -77,7 +77,7 @@ export class AddressPage {
 
             this.appService.ShowLoading();
             console.log(this.appService._wxUser);
-            this.authHttp.httpPostWithAuth(this.selectAddress, ApiUrl + "AddressDelete", this.appService._wxUser.openid)
+            this.authHttp.httpPostWithAuth(this.selectAddress, ApiUrl + "AddressDelete", this.appService._wxUser.unionid)
               .then(res => {
                 if (res.success) {
                   this.appService.LoadingDismiss();
