@@ -5,34 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+
   <ion-navbar>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">返回</button>
-    </ion-buttons>
-    <ion-title>我的收货地址管理</ion-title>
+    <ion-title>address</ion-title>
   </ion-navbar>
+
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list radio-group [(ngModel)]="selectAddress">
-    <ion-item *ngFor="let a of addressList">
-      <ion-label>
-        <p>{{a.RealName}} {{a.Phone}}</p>
-        <p> {{a.LocationLable}}</p>
-      </ion-label>
-      <ion-radio [value]="a"></ion-radio>
-    </ion-item> 
-  </ion-list>
-  <button ion-button (click)="selectedAddress()" color="secondary" block *ngIf="addressList.length>0" [disabled]="!selectAddress" >选中并设为默认</button>
-  <button ion-button (click)="deleteAddress()" color="danger" block *ngIf="addressList.length>0" style="margin-top:50px">删除选中地址</button>
-  
+
 </ion-content>
-
-<ion-footer>
-  <button ion-button block clear icon-left (click)="addressAdd()">
-    <ion-icon name="add" color="primary"></ion-icon>
-    新增收货地址
-    </button>
-
-</ion-footer>

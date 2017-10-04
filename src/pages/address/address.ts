@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
-import { Http } from '@angular/http';
-import { AppService, IShopItem, ApiUrl } from '../../app/app.service'
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-// import {AddressAddNewPage} from '../address-add-new/address-add-new'
-
-import { HttpService } from '../../providers/HttpService'
-
+/**
+ * Generated class for the AddressPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
@@ -14,23 +14,13 @@ import { HttpService } from '../../providers/HttpService'
   templateUrl: 'address.html',
 })
 export class AddressPage {
-  addressList = [];
-  selectAddress: any;
-  alert: any;
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    private modalCtrl: ModalController,
-    private viewCtrl: ViewController,
-    private _http: Http,
-    private appService: AppService,
-    private alertCtrl: AlertController,
-    private authHttp: HttpService
-  ) {
-    this.init();
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddressPage');
+<<<<<<< HEAD
 
   }
 
@@ -116,17 +106,8 @@ export class AddressPage {
         this.appService.LoadingDismiss();
         this.showAlert(error);
       });
+=======
+>>>>>>> parent of 4d01b70... saf
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
-
-  addressAdd() {
-    let modal = this.modalCtrl.create("AddressnewPage");
-    modal.present();
-    modal.onDidDismiss(() => {
-      this.init();
-    })
-  }
 }
