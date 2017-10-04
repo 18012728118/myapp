@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Request, Headers, Response } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthProvider {
 
-  baseUrl: string = 'https://www.lovewujiang.com/'
+  baseUrl: string = 'https://lovewujiang.com/api/v1/'
   constructor(public http: Http) {
 
 
@@ -43,6 +43,7 @@ export class AuthProvider {
     window.localStorage.removeItem('token')
     return true;
   }
+
   login(data) {
     return this.http.post(this.baseUrl + 'login', data)
       .map(this.extractData);
@@ -50,7 +51,7 @@ export class AuthProvider {
 
   private extractData(res: Response) {
     let body = res.json();
-    if (body.success === true) {
+    if (body.success) {
       window.localStorage.setItem('token', body.token);
     }
     return body || {};

@@ -1,15 +1,11 @@
-<<<<<<< HEAD
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, AlertController, Content } from 'ionic-angular';
-=======
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
->>>>>>> parent of 4d01b70... saf
 
 
-import { Http} from '@angular/http';
+import { Http } from '@angular/http';
 
-import { AppService ,IShopItem,ApiUrl } from '../../app/app.service'
+import { AppService, IShopItem, ApiUrl } from '../../app/app.service'
+import { HttpService } from '../../providers/HttpService'
 
 /**
  * Generated class for the PayPage page.
@@ -24,28 +20,25 @@ import { AppService ,IShopItem,ApiUrl } from '../../app/app.service'
   templateUrl: 'pay.html',
 })
 export class PayPage {
-<<<<<<< HEAD
   @ViewChild(Content) content: Content
 
   payType: string;
   addressList = [];
   selectAddress: any;
   _comment: string = "";
-=======
-
->>>>>>> parent of 4d01b70... saf
   constructor(public navCtrl: NavController
     , public navParams: NavParams,
     private viewCtrl: ViewController,
-    private _http:Http,
-    private appService :AppService    ,
+    private _http: Http,
+    private appService: AppService,
     public modalCtrl: ModalController,
-
+    private alertCtrl: AlertController,
+    private authHttp: HttpService
   ) {
+    this.init();
   }
 
   ionViewDidLoad() {
-<<<<<<< HEAD
   }
 
   payOfftest() {
@@ -141,34 +134,30 @@ export class PayPage {
   backToHome() {
     let data = { 'success': true };
     this.viewCtrl.dismiss(data);
-=======
-    console.log('ionViewDidLoad PayPage');
->>>>>>> parent of 4d01b70... saf
   }
 
   dismiss() {
-    let data = { 'foo': 'bar' };
+    let data = { 'success': false };
     this.viewCtrl.dismiss(data);
   }
 
-  payOff()
-  {
+  payOff() {
     let payOffUrl = ApiUrl + 'PostCarts'
     this._http.post(payOffUrl,
       this.appService.cartItems)
-      .subscribe(res=>{
+      .subscribe(res => {
         console.log(res);
+        this.backToHome();
       });
   }
 
-<<<<<<< HEAD
   editAddress() {
     this.selectAddress = undefined;
-=======
-  editAddress(){
->>>>>>> parent of 4d01b70... saf
     let modal = this.modalCtrl.create("AddressPage");
     modal.present();
+    modal.onDidDismiss((data) => {
+      this.init();
+    })
   }
 
 

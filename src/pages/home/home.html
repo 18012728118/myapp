@@ -1,94 +1,88 @@
-<ion-header>
-  <ion-toolbar no-border-top color="clear">
-    <button ion-button clear (click)="goLocation()">
+<!-- <ion-header>
+  <ion-toolbar no-border-top color="clear"> -->
+<!-- <button ion-button clear (click)="goLocation()">
           <ion-icon name='md-navigate'></ion-icon>
          {{ _geo.poisTitle }}
     </button>
     <ion-buttons end>
-      <!-- 
+
         <button ion-button icon-only (click)="geo()">
         <ion-icon name='navigate'></ion-icon>
       </button> -->
-      <!-- <button ion-button icon-only (click)="camera()">
+<!-- <button ion-button icon-only (click)="camera()">
         <ion-icon name='camera'></ion-icon>
       </button> -->
-      <button ion-button icon-only (click)="refresh()">
+<!-- <button ion-button icon-only (click)="refresh()">
         <ion-icon name='refresh'></ion-icon>
-      </button>
-    </ion-buttons>
+      </button> -->
+<!-- </ion-buttons>
   </ion-toolbar>
-</ion-header>
-<ion-content (ionScroll)="scroll($event)">
+</ion-header> -->
+<ion-content>
+  <div style=" overflow:hidden; width:0px; height:0; margin:0 auto; position:absolute; top:-800px;"><img src="http://img.wjhaomama.com/4/img/logo.png"></div>
   <ion-fab bottom left style="opacity:.7; " id="fabBtn" style="visibility :hidden;">
     <button ion-fab mini (click)="scrollToTop()" color="secondary">
       <ion-icon name="arrow-round-up"></ion-icon>
         </button>
   </ion-fab>
   <ion-fab top left style="width: 16.66667%;max-width: 16.66667%;">
-      <button ion-button mini *ngFor="let cate of appService.category" clear (click)="scrollToElement(cate.Id)" style="padding:0;" block>
+    <button class="btnSideCate" ion-button mini *ngFor="let cate of appService.category | orderBy: 'Sort':'desc' |filter:'IsAppShow':true"
+      (click)="scrollToElement(cate.Id)" clear block>
         {{ cate.Name }}
       </button>
-    </ion-fab>
-  <!-- 
+  </ion-fab>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
     </ion-refresher-content>
-  </ion-refresher> -->
+  </ion-refresher>
   <!-- 主区 开始  -->
   <ion-grid>
     <ion-row>
       <!-- 左侧分类 -->
-      <ion-col col-2 style="border-right: .5px solid #c8c7cc;">
+      <ion-col col-2>
 
       </ion-col>
       <!-- 左侧分类 结束 -->
-
       <!-- 主菜单 -->
       <ion-col col-10>
-        <!-- 广告开始 -->
-        <ion-slides style="height:100px;" autoplay="2000" loop pager centeredSlides>
-          <ion-slide style="background-color: #F2CC12">
-            <h2>非常水果</h2>
-            <div>
-              广告页一
-            </div>
-          </ion-slide>
-          <ion-slide style="background-color: #F2CC12">
-            <h2>非常水果</h2>
-            <div>
-              <div *ngIf="geoResult">{{geoResult}}</div>
-
-              <div *ngIf="cameraResult">{{cameraResult}}</div>
-            </div>
-          </ion-slide>
-        </ion-slides>
-        <!-- 广告结束  -->
         <!-- <ion-scroll scrollY="true" [style.height]="content.contentHeight-155+'px'"> -->
         <ion-list id="items_list">
-          <ng-container *ngFor="let cate of appService.category">
-            <ion-list-header id="cate{{cate.Id}}">
-              {{cate.Name}}
+          <ng-container *ngFor="let cate of appService.category | orderBy: 'Sort':'desc'|filter:'IsAppShow':true">
+            <ion-list-header id="cate{{cate.Id}}" color="primary">
+              <h2 class="list-item-title ">{{cate.Name}}</h2>
+              <!-- 广告开始 -->
+              <ion-slides style="height:100px;" autoplay="5000" [loop]="cate.AdList.length>1" pager centeredSlides *ngIf="cate.AdList.length>0">
+                <ion-slide *ngFor="let ad of cate.AdList">
+                  <img class="slideImg" [src]="ad.ImgPath+'!w400h300w'" />
+                </ion-slide>
+              </ion-slides>
+              <!-- 广告结束  -->
             </ion-list-header>
-            <div *ngFor="let m of appService.listItems" style=" position:relative;">
-              <ng-container *ngIf="m.CategoryId==cate.Id">
-                <ion-item>
-                  <ion-thumbnail item-start class="thumbImg">
-                    <img                     *ngIf='m.LogoUrl' src="{{m.LogoUrl}}!w100" class="thumbImg">
-                  </ion-thumbnail>
-                  <h2>{{m.Name}}</h2>
-                  <p>{{m.Desc}}</p>
-                  <div style="  display: flex;  align-items: center;">
-                    <div style="width:45%; float:left;">
-                      ￥{{m.Price}} / {{m.Unit}}
-                    </div>
-                    <div style="width:50%;float:right;display:flex;justify-content: flex-end; align-items: center;">
-                      <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>
-                      <b *ngIf="m.Count>0" class="item_buttons">{{m.Count}}</b>
-                      <button ion-button icon-only small (click)="add(m)"><ion-icon name="add"></ion-icon></button>
-                    </div>
+            <div *ngFor="let m of appService.listItems | filter: 'CategoryId':cate.Id | orderBy: ['Sort','Name']:['desc', 'asc']">
+              <ion-item>
+                <ion-thumbnail item-start class="thumbImg" (click)='goDetail(m)'>
+                  <img [class]="'thumb'+m.Id" *ngIf='m.LogoUrl' src="{{m.LogoUrl}}!w100thumb" class="thumbImg">
+                  <img [class]="'thumb'+m.Id" *ngIf='!m.LogoUrl' src="http://img.wjhaomama.com/4/img/logo.png!w100thumb" class="thumbImg">
+                </ion-thumbnail>
+                <h2>{{m.Name}}</h2>
+                <p *ngIf="m.Desc">{{m.Desc}}</p>
+                <div style="display: flex;align-items:center;">
+                  <div style="width:45%;float:left;color:#f53d3d;font-weight:bold;">
+                    ￥{{m.Price}}元/{{m.Unit}}
                   </div>
-                </ion-item>
-              </ng-container>
+                  <div style="width:50%;float:right;display:flex;justify-content:flex-end;align-items: center;"  *ngIf="m.Stock!=0">
+                    <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)"><ion-icon name="remove"></ion-icon></button>
+                    <b *ngIf="m.Count>0" class="item_buttons">{{m.Count}}</b>
+                    <button ion-button icon-only small (click)="add(m)" [disabled]="m.DayBuyLimit>0&&m.Count>=m.DayBuyLimit"><ion-icon name="add"></ion-icon></button>
+                  </div>
+                  <div style="width:50%;float:right;text-align:right;"  *ngIf="m.Stock==0">
+                      <span style="color:#f53d3d;">售完</span>
+                  </div>
+                </div>
+                <div *ngIf="m.PriceVip&& m.PriceVip<m.Price" style="clear:both;">
+                    <span>会员卡支付:￥{{m.PriceVip}}元</span>
+                </div>
+              </ion-item>
             </div>
           </ng-container>
         </ion-list>
@@ -98,4 +92,12 @@
     </ion-row>
   </ion-grid>
   <!-- 主区结束 -->
+
+  <ion-fab left bottom>
+    <button ion-fab mini color="secondary"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="toKeFu()"><ion-icon name="contact"></ion-icon></button>
+      <button ion-fab (click)="scrollToTop()"><ion-icon name="arrow-up"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

@@ -17,30 +17,30 @@
 
 <ion-content padding>
 
-  <ion-list radio-group>
+  <ion-list radio-group [(ngModel)]="selectAddress">
     <ion-list-header style="font-size:1.2em;">
       收货地址
-      <button ion-button clear item-end  (click)="editAddress()">编辑</button>
+      <button ion-button clear item-end (click)="editAddress()" *ngIf="addressList.length==0">编辑</button>
+      <button ion-button clear item-end (click)="editAddress()" *ngIf="addressList.length>0">选择其它地址</button>
     </ion-list-header>
     <ion-item>
       <ion-label>
-        <p> 东方大街XXXX号</p>
+        <h2 style="padding-top:5px;">金城店自提</h2>
       </ion-label>
-      <ion-radio checked="true" value="1"></ion-radio>
+      <ion-radio value="1"></ion-radio>
     </ion-item>
-
-    <ion-item>
-      <ion-label>
-        <p>很远的地方</p>
-        <p>tel:sdfsdafasdfasdfasdf</p>
-
-      </ion-label>
-      <ion-radio value="2"></ion-radio>
-    </ion-item>
-
+    <ng-container *ngFor="let address of addressList ">
+      <ion-item>
+        <ion-label>
+          <p>{{address.RealName}} {{address.Phone}}</p>
+          <p> {{address.LocationLable}}</p>
+        </ion-label>
+        <ion-radio [value]="address"></ion-radio>
+      </ion-item>
+    </ng-container>
   </ion-list>
 
-  <ion-list radio-group>
+  <ion-list radio-group [(ngModel)]="payType">
     <ion-list-header style="font-size:1.2em;">
       <ion-icon name="finger-print" style="font-size:2em;"></ion-icon>
       付款方式
@@ -48,16 +48,11 @@
     <ion-item>
       <ion-label>
         <ion-icon name='card'></ion-icon>
-        会员卡支付
+        会员卡
+        <span *ngIf="appService._wxUser.ShopMember.Balance>=appService.totalPriceVip"></span> [余额:￥{{appService._wxUser.ShopMember.Balance.toFixed(2)}}]
+        <span *ngIf="appService._wxUser.ShopMember.Balance<appService.totalPriceVip">[余额不足,请充值]</span>
       </ion-label>
-      <ion-radio value="card"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <ion-icon name='chatbubbles'></ion-icon>
-        微信支付
-      </ion-label>
-      <ion-radio value="weixin" checked></ion-radio>
+      <ion-radio value="card" [disabled]="appService._wxUser.ShopMember.Balance<appService.totalPriceVip"></ion-radio>
     </ion-item>
     <ion-item color="clear">
       <ion-label>
@@ -66,8 +61,14 @@
       </ion-label>
       <ion-radio value="later"></ion-radio>
     </ion-item>
+    <ion-item color="clear">
+      <ion-label>
+        <ion-icon name='basket'></ion-icon>
+        自提
+      </ion-label>
+      <ion-radio value="self"></ion-radio>
+    </ion-item>
   </ion-list>
-<<<<<<< HEAD
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -147,17 +148,5 @@
       <button ion-fab (click)="toKeFu()"><ion-icon name="contact"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-=======
->>>>>>> parent of 4d01b70... saf
 
-  <ion-item *ngFor="let m of appService.cartItems">
-    <ion-thumbnail item-start>
-      <img src="img/{{m.Id%9}}.jpg">
-    </ion-thumbnail>
-    <h2>{{m.Name}}</h2>
-    <p>￥{{m.Price}} / {{m.Unit}}
-      <br/>{{m.Comment}}
-    </p>
-  </ion-item>
-  <button ion-button (click)="payOff()">支付完成通知</button>
 </ion-content>

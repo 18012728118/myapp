@@ -1,21 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
-<<<<<<< HEAD
 import { Http } from "@angular/http"
 import { Storage } from '@ionic/storage';
 import { AppService, ApiUrl } from '../../app/app.service';
-<<<<<<< HEAD
-import { HttpService } from '../../providers/HttpService';
-declare var WeixinJSBridge: any;
-=======
 import { HttpService } from '../../providers/HttpService'
-import { AppUpdate } from '@ionic-native/app-update';
-=======
->>>>>>> parent of 4d01b70... saf
-
-import { Storage } from '@ionic/storage';
->>>>>>> 857bfc3985598426d2fe910b30c584cf0d5914bb
+// import { AppUpdate } from '@ionic-native/app-update';
+import { AuthProvider } from '../../providers/auth'
+declare var WeixinJSBridge: any;
 
 @Component({
   selector: 'page-my',
@@ -34,15 +26,13 @@ export class MyPage {
     private modalCtrl: ModalController,
     private barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
-<<<<<<< HEAD
     private storage: Storage,
     private appService: AppService,
     private http: Http,
-    private authHttp: HttpService
+    private authHttp: HttpService,
+    // private appUpdate: AppUpdate,
+    private auth: AuthProvider
 
-=======
-    private storage: Storage
->>>>>>> parent of 4d01b70... saf
   ) {
 
     //storage.set('age', 'Max');
@@ -50,7 +40,6 @@ export class MyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyPage');
-<<<<<<< HEAD
     if (this.appService._wxUser) {
       this.authHttp.httpPostWithAuth("", ApiUrl + "GetShopMember", this.appService._wxUser.unionid)
         .then(res => {
@@ -72,6 +61,8 @@ export class MyPage {
   }
 
   goUpdate() {
+    // const updateUrl = 'https://lovewujiang.com/apk/update.xml';
+    // this.appUpdate.checkAppUpdate(updateUrl);
   }
 
   memberRecharge() {
@@ -106,8 +97,6 @@ export class MyPage {
           }
         )
       });
-=======
->>>>>>> parent of 4d01b70... saf
   }
 
   gotoAddress() {
@@ -117,6 +106,14 @@ export class MyPage {
   gotoStudy() {
     let modal = this.modalCtrl.create("StudyPage");
     modal.present();
+  }
+
+  logout() {
+    this.appService._wxUser = undefined;
+    this.auth.logout();
+    if (!this.auth.isLogged()) {
+      this.appService.showToast("登出成功", 2000, "top");
+    }
   }
 
   goOrderList() {

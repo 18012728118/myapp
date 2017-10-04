@@ -15,7 +15,8 @@ export interface IRegister {
   Telphone: string,
   Password: string,
   Password2: string,
-  Code: string
+  Code: string,
+  StoreId : number
 }
 
 export interface ICallback {
@@ -41,7 +42,7 @@ export class RegisterPage {
     private toastCtrl: ToastController
 
   ) {
-    this.reg = { Telphone: "", Password: "", Code: "", Password2: "" };
+    this.reg = { Telphone: "", Password: "", Code: "", Password2: "" , StoreId:this.appService._store.Id };
   }
 
   ionViewDidLoad() {
@@ -67,23 +68,51 @@ export class RegisterPage {
   }
 
   postRegister() {
-    console.log(this.reg);
+    if (!/^1(3|4|5|7|8)[0-9]\d{8}$/i.test(this.reg.Telphone)) {
+      this.appService.showToast("手机号码错误", 2000, "middle");
+      return;
+    }
+    if(!/^\d{6}$/i.test(this.reg.Code))
+    {
+      this.appService.showToast("验证码为六位数字", 2000, "middle");
+      return;
+    }
+    if(!/^[^\s]{6,}$/i.test(this.reg.Password))
+    {
+      this.appService.showToast("密码长度大于5位并不含空格", 2000, "middle");
+      return;
+    }
+    this._http.post(ApiUrl+"Register",this.reg)
+    .map(res=>res.json())
+    .subscribe(res=>{
+      console.log(res);
+      if(res.success)
+      {
+        this.appService.showToast("注册成功", 2000, "top");
+      }
+      else
+      {
+        this.appService.showToast(res.msg, 2000, "middle");
+      }
+    });
   }
 
   sendCode() {
-    this._http.get(ApiUrl + 'getCode?tel=' + this.reg.Telphone)
+    if (!/^1(3|4|5|7|8)[0-9]\d{8}$/i.test(this.reg.Telphone)) {
+      this.appService.showToast("手机号码错误", 2000, "top");
+      return;
+    }
+
+    this._http.get(ApiUrl + 'getCode?tel=' + this.reg.Telphone+"&storeid="+this.appService._store.Id)
     .map(res=>res.json())
       .subscribe(res => {
-        console.log(res);
-        console.log(res.success);
         if (res.success) {
-          this.presentToast(res.data);
+          this.appService.showToast("发送成功",2000,"top");
           this.appService._time = 60;
           this.interval();
-
         }
         else {
-          this.presentToast(res);
+          this.presentToast(res.data);
         }
       }, error => {
         this.presentToast(error);

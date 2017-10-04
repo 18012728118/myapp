@@ -5,11 +5,7 @@ import { ToastController } from 'ionic-angular';
 
 import 'rxjs/add/operator/map'
 
-<<<<<<< HEAD
 import { AppService } from '../../app/app.service'
-=======
-import { AppService ,IShopItem } from '../../app/app.service'
->>>>>>> parent of 4d01b70... saf
 
 
 
@@ -54,7 +50,26 @@ export class CartPage {
   }
 
   toPay() {
-    let modal = this.modalCtrl.create("PayPage");
+    if (this.appService._wxUser) {
+
+      let modal = this.modalCtrl.create("PayPage");
+      modal.onDidDismiss(data => {
+        console.log(data);
+        if (data.success) {
+          this.appService.removeCartAll();
+
+          this.navCtrl.parent.select(0);
+        }
+      });
+      modal.present();
+    }
+    else {
+      this.login();
+    }
+  }
+
+  login() {
+    let modal = this.modalCtrl.create("LoginPage");
     modal.present();
   }
 
