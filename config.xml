@@ -75,11 +75,13 @@
         <plugin name="cordova-plugin-baidu-geolocation" spec="https://github.com/ETENG-OSP/cordova-plugin-baidu-geolocation">
             <variable name="API_KEY" value="f8vW5GLQR7CaKA52XsxGXpR0" />
         </plugin>
+        <plugin name="cordova-plugin-app-update" spec="^1.3.11" />
     </platform>
     <platform name="ios">
         <plugin name="cordova-plugin-geolocation" spec="~1.0.0" />
     </platform>
     <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.5.1" />
     <plugin name="cordova-plugin-app-update" spec="^1.3.11" />
     <plugin name="cordova-plugin-baidu-geolocation" spec="git+https://github.com/ETENG-OSP/cordova-plugin-baidu-geolocation.git">
         <variable name="API_KEY" value="f8vW5GLQR7CaKA52XsxGXpR0" />
@@ -94,7 +96,7 @@
     </plugin>
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="jpush-phonegap-plugin" spec="~3.2.6">
+    <plugin name="jpush-phonegap-plugin" spec="^3.2.6">
         <variable name="APP_KEY" value="9d675fe8a62698afacbaa634" />
     </plugin>
     <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8" />

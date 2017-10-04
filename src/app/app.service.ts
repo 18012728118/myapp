@@ -175,7 +175,7 @@ export class AppService {
 
     public GetInit() {
         let _url: string = "http://shop.wjhaomama.com/wx/GetInit?appId=" + this._w.AppId
-              + "&fortest=TT"
+              //+ "&fortest=TT"
             ;
         return new Promise((resolve) => {
             this._http.get(_url).map(res => res.json())

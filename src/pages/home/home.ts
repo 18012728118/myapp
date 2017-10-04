@@ -54,14 +54,12 @@ export class HomePage {
     private popCtrl: PopoverController,
     private toastCtrl :ToastController
   ) {
-    appService.ShowLoading();
   }
 
   ionViewDidLoad() {
-    //console.log(this.plt.platforms());
+    //console.log(this.plt.platforms());    
     this.appService.GetInit().then(res => {
       if (res) {
-        this.appService.LoadingDismiss();
         let searchP = new URL(location.href);
         let page = searchP.searchParams.get("page");
         if (page) {

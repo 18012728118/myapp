@@ -4,9 +4,7 @@ import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner
 import { Http } from "@angular/http"
 import { Storage } from '@ionic/storage';
 import { AppService, ApiUrl } from '../../app/app.service';
-import { HttpService } from '../../providers/HttpService'
-import { AppUpdate } from '@ionic-native/app-update';
-
+import { HttpService } from '../../providers/HttpService';
 declare var WeixinJSBridge: any;
 
 @Component({
@@ -29,8 +27,7 @@ export class MyPage {
     private storage: Storage,
     private appService: AppService,
     private http: Http,
-    private authHttp: HttpService,
-    private appUpdate: AppUpdate
+    private authHttp: HttpService
 
   ) {
 
@@ -60,8 +57,6 @@ export class MyPage {
   }
 
   goUpdate() {
-    const updateUrl = 'https://lovewujiang.com/apk/update.xml';
-    this.appUpdate.checkAppUpdate(updateUrl);
   }
 
   memberRecharge() {
