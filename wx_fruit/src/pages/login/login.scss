@@ -1,0 +1,24 @@
+page-login {
+    .quicklogin {
+
+        margin-top: 10rem;
+        height: .85rem;
+        position: relative;
+        padding: .245rem .1rem 0 .1rem;
+        border-top: 1px solid #d7d7d7;
+        h4 {
+            position: absolute;
+            top: -0.5rem;
+            left: 50%;
+            font-size:1.3rem;
+            background-color: white;
+            padding: 0.15rem 2rem;
+            color: #bfbfbf;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+        button{
+            margin-top:3rem;
+        }
+    }
+}

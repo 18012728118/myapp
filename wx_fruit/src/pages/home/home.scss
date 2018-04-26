@@ -1,0 +1,130 @@
+ion-list-header {
+  position: relative;
+}
+
+.slideImg {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.list-item-title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.7em;
+  z-index: 9999;
+  text-shadow: 2px 3px 2px #000;
+}
+
+page-home {
+  ion-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  ion-thumbnail {
+    min-height: 70px;
+    min-width: 70px;
+  }
+  .thumbImg {
+    width: 70px;
+    height: 70px;
+  }
+  .item-ios ion-thumbnail ion-img,
+  .item-ios ion-thumbnail img {
+    width: 70px;
+    height: 70px;
+  }
+  .count0 {
+    line-height: 2em;
+  }
+  .item-ios.item-block .item-inner {
+    padding-right: 0px;
+  }
+  .item-md.item-block .item-inner {
+    padding-right: 0px;
+  }
+  .label-ios {
+    margin: 5px 0px 5px 0;
+  }
+  .label-md {
+    margin: 5px 0px 5px 0;
+  }
+}
+
+.item_buttons {
+  padding: 0 8px;
+}
+
+.item-ios,
+.item-md {
+  padding-left: 0;
+}
+
+ion-fab[left] {
+  left: 0;
+}
+
+.btnSideCate {
+  padding: 0;
+  font-size: .9em;
+  color: #333;
+  height: 4em;
+  font-weight: bold; //background-color: #bbb;
+}
+
+ion-col[col-2] {
+  //background-color:#bbb;
+  border-right: .5px solid #c8c7cc;
+}
+
+ion-backdrop {
+  opacity: .85;
+}
+
+page-home {
+  .toolbar-title-ios,
+  .toolbar-title-md {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+  ion-content {
+    position: relative;
+  }
+  #cartsContainer {
+    background-color: color($colors, light, base);
+    position: fixed;
+    display: none;
+    bottom: 0;
+    width: 100%;
+  }
+  ion-footer {
+    .label-ios {
+      margin: 5px 0px 5px 0;
+    }
+    .label-md {
+      margin: 5px 0px 5px 0;
+    }
+    .toolbar-ios,
+    .toolbar-md {
+      padding: 0;
+    }
+    ion-buttons {
+      margin: 0;
+    }
+    .bar-button-ios,
+    .bar-button-md {
+      border-radius: 0;
+    }
+    .bar-button-default-ios,
+    .bar-button-default-md {
+      padding-left: 20px;
+      padding-right: 20px;
+      min-height: 50px;
+      background-color: color($colors, primary, base);
+      color: color($colors, light, base);
+    }
+  }
+}

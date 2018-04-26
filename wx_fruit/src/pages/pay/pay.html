@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>付款页面</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list radio-group (ionChange)="radioChange($event)">
+    <ion-list-header style="font-size:1.2em;">
+      收货地址
+      <button ion-button clear item-end (click)="editAddress()" *ngIf="(user$ |async).addressList.length==0">编辑</button>
+      <button ion-button clear item-end (click)="editAddress()" *ngIf="(user$ |async).addressList.length>0">选择其它地址</button>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        <h2 style="padding-top:5px;">金城店自提</h2>
+      </ion-label>
+      <ion-radio [value]="shopJCAddress"></ion-radio>
+    </ion-item>
+    <ng-container *ngFor="let address of (user$ |async).addressList ">
+      <ion-item>
+        <ion-label>
+          <p>{{address.RealName}} {{address.Phone}}</p>
+          <p> {{address.LocationLable}}</p>
+        </ion-label>
+        <ion-radio [value]="address" [checked]="address === (cache$ |async).selectAddress"></ion-radio>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+  <ion-list radio-group *ngIf="(user$|async).shopMember as u" (ionChange)="payTypeChange($event)">
+    <ion-list-header style="font-size:1.2em;">
+      <ion-icon name="finger-print" style="font-size:2em;"></ion-icon>
+      付款方式
+    </ion-list-header>
+    <ion-item *ngIf="(cache$|async).totalVipPrice as c">
+      <ion-label>
+        <ion-icon name='card'></ion-icon>
+        会员卡
+        <span *ngIf="u.Balance>=c"></span> [余额:￥{{u.Balance.toFixed(2)}}]
+        <span *ngIf="u.Balance<c">[余额不足,请充值]</span>
+      </ion-label>
+      <ion-radio value="card" [disabled]="u.Balance< c"  [checked]="(cache$|async).payType ==='card'"></ion-radio>
+    </ion-item>
+    <ion-item color="clear">
+      <ion-label>
+        <ion-icon name='speedometer'></ion-icon>
+        货到付款
+      </ion-label>
+      <ion-radio value="later" [checked]="(cache$|async).payType ==='later'"></ion-radio>
+    </ion-item>
+    <!-- <ion-item color="clear">
+      <ion-label>
+        <ion-icon name='basket'></ion-icon>
+        自提
+      </ion-label>
+      <ion-radio value="self"></ion-radio>
+    </ion-item> -->
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>备注:</ion-label>
+          <ion-input type="text" [(ngModel)]="_comment" (ngModelChange)='changed($event)' name="comment"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button (click)="payOfftest()" block [disabled]="!(cache$ |async).payType">确认订单</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <h2 *ngIf="cache$ | async">
+        {{(cache$|async).shop.Notice}}
+      </h2>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        商品名
+      </ion-col>
+      <ion-col col-4 *ngIf="payType!='card'">
+        价格/单位
+      </ion-col>
+      <ion-col col-4 *ngIf="payType=='card'">
+        会员价/单位
+      </ion-col>
+      <ion-col col-2>
+        数量
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let m of (cache$ |async).cartItems">
+      <ion-col col-6>
+        {{m.Name}}
+      </ion-col>
+      <ion-col col-4 *ngIf="payType!='card'">
+        ￥{{m.Price}} / {{m.Unit}}
+      </ion-col>
+      <ion-col col-4 *ngIf="payType=='card'">
+        ￥{{m.PriceVip}} / {{m.Unit}}
+      </ion-col>
+      <ion-col col-2>
+        {{m.Count}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3 *ngIf="(cache$ |async) as p">
+          合计:￥{{p.totalPrice.toFixed(2)}}
+        </h3>
+      </ion-col>
+      <ion-col>
+        <span *ngIf="payType=='card'">
+          <h3 color="secondary">会员价:{{p.totalPriceVip.toFixed(2)}}</h3>
+        </span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:20px;">
+      <ion-col col-6>
+
+      </ion-col>
+      <ion-col>
+        <button ion-button block (click)="UI.openModal('modal_Recharge')" color="secondary">会员卡充值</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab left bottom>
+    <button ion-fab mini color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <a ion-fab href="tel:15301555655">
+        <ion-icon name="call"></ion-icon>
+      </a>
+      <button ion-fab (click)="UI.openModal('modal_KeFu')">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+
+</ion-content>
+<modal id="modal_KeFu">
+  <div class="modal">
+    <div class="modal-body" *ngIf="(cache$ |async).shop as s">
+      <h3>客服微信号</h3>
+      <img [src]="s.Setting.KeFuWxQRImg" />
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+<modal id="modal_Recharge">
+  <div class="modal">
+    <div class="modal-body" *ngIf="(cache$ |async).shop as s">
+      <h2>联系客服转帐充值</h2>
+      <img [src]="s.Setting.KeFuWxQRImg" />
+      <h3>会员充值最低300元</h3>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

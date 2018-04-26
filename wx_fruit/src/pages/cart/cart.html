@@ -1,0 +1,40 @@
+<ion-content>
+  <ion-list padding no-lines>
+    <ion-list-header>
+      购物清单
+      <button ion-button clear item-end (click)="removeAll()" *ngIf="(cache$ |async).total>0">清空</button>
+    </ion-list-header>
+    <ion-item *ngFor="let m of (cache$ |async).cartItems">
+      <ion-thumbnail item-start>
+        <img *ngIf='m.LogoUrl' src="{{m.LogoUrl}}!w100thumb" class="thumbImg">
+        <img [class]="'thumb'+m.Id" *ngIf='!m.LogoUrl' src="http://img.wjhaomama.com/4/img/logo.png!w100thumb" class="thumbImg" style="z-index:9999;">
+      </ion-thumbnail>
+      <h2>{{m.Name}}</h2>
+      <p>{{m.Desc}}</p>
+      <div style=" display: flex;  align-items: center;">
+        <div style="width:45%; float:left;">
+          ￥{{m.Price}} / {{m.Unit}}
+        </div>
+        <div style="width:50%;float:right;display:flex;justify-content: flex-end; align-items: center;">
+          <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m)">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <b *ngIf="m.Count>0" class="item_buttons">{{m.Count}}</b>
+          <button ion-button icon-only small (click)="add(m)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="m.PriceVip&& m.PriceVip<m.Price" style="clear:both;">
+        <span style="color:#f53d3d;font-weight:bold;">会员价:￥{{m.PriceVip.toFixed(2)}}</span>
+      </div>
+    </ion-item>
+    <!-- <ion-item>
+        <span style="font-size:2.5rem;">总价合计:{{appService.totalPrice.toFixed(2)}}</span>
+    </ion-item> -->
+  </ion-list>
+  <!-- <h2>成功拍下称重商品后客服会按实际重量修改价格发货</h2>
+  <h2> 会员卡扣款用户会按实际交易金额扣款</h2>
+  <h2>实际交易金额以收货明细单为准</h2> -->
+</ion-content>

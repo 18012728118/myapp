@@ -1,0 +1,32 @@
+<ion-header hideBackButton=false>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">返回</button>
+    </ion-buttons>
+    <ion-title>重设密码</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>手机号</ion-label>
+      <ion-input type="tel" [(ngModel)]="reg.Telphone"></ion-input>
+     <button item-right ion-button color="secondary" [disabled]="verifyTel() " (click)="sendCode()" >{{appService._sendCodeBtnText}}</button>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>验证码</ion-label>
+      <ion-input type="number" [(ngModel)]="reg.Code"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>设置密码</ion-label>
+      <ion-input type="password" [(ngModel)]="reg.Password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <div padding>
+    <button ion-button block (click)="postForgot()">确定</button>
+  </div>
+</ion-content>

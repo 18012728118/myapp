@@ -1,0 +1,39 @@
+<!--
+  Generated template for the LocationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="back()">返回</button>
+    </ion-buttons>
+    <ion-title>收货地址设置</ion-title>
+  </ion-navbar>
+  
+</ion-header>
+<ion-content>
+  <div id="map" #map>请确定您的手机已打开定位</div>
+  <ion-list style="height:55%;overflow-y:scroll;">
+    <ion-list-header>
+      <button ion-button>
+          <ion-icon name='md-navigate'></ion-icon>
+         当前设置大概收货位置: {{ _geo.poisTitle }} 附近
+    </button>
+    </ion-list-header>
+    <ion-item *ngFor="let p of poisList">
+      <button clear ion-button block (click)="dismiss(p)">
+        {{p.name}}
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <button ion-button block clear icon-left (click)="toHome()" color="secondary" >
+    <ion-icon name="navigate" color="secondary"></ion-icon>
+    定位到发货点
+    </button>
+</ion-footer>
+

@@ -1,0 +1,109 @@
+<ion-header id="header" no-border>
+  <ion-navbar>
+    <ion-searchbar placeholder="搜索" cancelButtonText="清除" showCancelButton [(ngModel)]="searchText" autocomplete="off"></ion-searchbar>
+    <!-- (ionInput)="filterItems($event)"-->
+    <button ion-button menuToggle end>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+<ion-content fullscreen  #popoverContent>
+    <!-- (ionScroll)="scroll($event)" -->
+  <!-- <ion-fab bottom left style="opacity:.7; " id="fabBtn" style="visibility :hidden;">
+    <button ion-fab mini (click)="scrollToTop()" color="secondary">
+      <ion-icon name="arrow-round-up"></ion-icon>
+        </button>
+  </ion-fab> -->
+  <ion-fab top left style="width: 16.66667%;max-width: 16.66667%;margin-top:-10px;" *ngIf="cache$ |async as c">
+    <button class="btnSideCate" ion-button mini *ngFor="let cate of c.categoryList | orderBy: 'Sort':'desc' |filter:'IsAppShow':true"
+      (click)="scrollToElement(cate.Id)" clear block>
+      {{ cate.Name }}
+    </button>
+  </ion-fab>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <!-- 主区 开始  -->
+  <ion-grid>
+    <ion-row>
+      <!-- 左侧分类 -->
+      <ion-col col-2>
+      </ion-col>
+      <!-- 左侧分类 结束 -->
+      <!-- 主菜单 -->
+      <ion-col col-10>
+        <!-- <ion-scroll scrollY="true" [style.height]="content.contentHeight-155+'px'"> -->
+        <ion-list id="items_list" *ngIf="cache$ |async as c">
+          <ng-container *ngFor="let cate of c.categoryList | orderBy: 'Sort':'desc'|filter:'IsAppShow':true">
+            <ion-list-header id="cate{{cate.Id}}" color="primary">
+              <h2 class="list-item-title ">{{cate.Name}}</h2>
+              <!-- 广告开始 -->
+              <ion-slides style="height:100px;" autoplay="3000" [loop]="cate.AdList.length>1" pager centeredSlides *ngIf="cate.AdList.length>0">
+                <ion-slide *ngFor="let ad of cate.AdList">
+                  <img class="slideImg" [src]="ad.ImgPath+'!w400h300w'" />
+                </ion-slide>
+              </ion-slides>
+              <!-- 广告结束  -->
+            </ion-list-header>
+            <div *ngFor="let m of c.itemList | search: searchText  | orderBy: ['Sort','Name']:['desc', 'asc']  | filter: 'CategoryId':cate.Id">
+
+              <ion-item>
+                <ion-thumbnail item-start class="thumbImg" (click)='goDetail(m)'>
+                  <img [class]="'thumb'+m.Id" *ngIf='m.LogoUrl' src="{{m.LogoUrl}}!w100thumb" class="thumbImg">
+                  <img [class]="'thumb'+m.Id" *ngIf='!m.LogoUrl' src="http://img.wjhaomama.com/4/img/logo.png!w100thumb" class="thumbImg">
+                </ion-thumbnail>
+                <h2>{{m.Name}}</h2>
+                <p *ngIf="m.Desc">{{m.Desc}}</p>
+                <div style="display: flex;align-items:center;">
+                  <div style="width:45%;float:left;color:#f53d3d;font-weight:bold;">
+                    ￥{{m.Price}}元/{{m.Unit}}
+                  </div>
+                  <div style="width:50%;float:right;display:flex;justify-content:flex-end;align-items: center;" *ngIf="m.Stock!=0">
+                    <button ion-button icon-only small *ngIf="m.Count>0" (click)="remove(m,c.itemList)">
+                      <ion-icon name="remove"></ion-icon>
+                    </button>
+                    <b *ngIf="m.Count>0" class="item_buttons">{{m.Count}}</b>
+                    <button ion-button icon-only small (click)="add(m,c.itemList )" [disabled]="m.DayBuyLimit>0&&m.Count>=m.DayBuyLimit">
+                      <ion-icon name="add"></ion-icon>
+                    </button>
+                  </div>
+                  <div style="width:50%;float:right;text-align:right;" *ngIf="m.Stock==0">
+                    <span style="color:#f53d3d;">售完</span>
+                  </div>
+                </div>
+                <div *ngIf="m.PriceVip&& m.PriceVip<m.Price" style="clear:both;">
+                  <span>会员卡支付:￥{{m.PriceVip}}元</span>
+                </div>
+              </ion-item>
+            </div>
+          </ng-container>
+        </ion-list>
+        <!-- </ion-scroll> -->
+      </ion-col>
+      <!-- 主菜单 结束  -->
+    </ion-row>
+  </ion-grid>
+  <ion-fab left bottom edge style="left:15px;">
+    <button ion-fab color="primary" [disabled]="(cache$ |async).total<=0" (click)="presentRadioPopover($event)">
+      <ion-icon name="cart">
+      </ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 style="justify-content:  center;display: flex;align-items: center;">
+          <ion-label style="text-align:right;font-size:2rem;" color="primary" *ngIf="(cache$ |async).total>0">合计:￥{{(cache$ |async).totalPrice.toFixed(2)}}元</ion-label>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button block (click)="toPay()" [disabled]="(cache$ |async).totalPrice<=0" style="font-size:2rem;">
+            去付款
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

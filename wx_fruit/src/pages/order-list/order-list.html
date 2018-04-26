@@ -1,0 +1,98 @@
+<!--
+  Generated template for the OrderListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <!-- <ion-buttons start>
+      <button ion-button (click)="dismiss()">返回</button>
+    </ion-buttons> -->
+    <ion-title>我的订单明细</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div padding>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="未完成">
+        处理中
+      </ion-segment-button>
+      <ion-segment-button value="正在派送">
+        正在派送
+      </ion-segment-button>
+      <ion-segment-button value="完成">
+        已完成
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="pet">
+    <ng-container *ngFor="let p of ['未完成','正在派送','完成']">
+      <div *ngSwitchCase="p">
+        <ion-card *ngFor="let x of orders | filter:'State':pet">
+          <ion-card-header>
+            订单编号:{{x.Id}}
+            <br/>下单时间:{{x.DateTimeCreate}}
+            <span *ngIf="x.DatetimeComplate">
+              <br/>完成时间:{{x.DatetimeComplate}}</span>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-6>
+                  <b>商品名称</b>
+                </ion-col>
+                <ion-col col-4>
+                  <b>价格/单位</b>
+                </ion-col>
+                <ion-col col-2>
+                  <b>数量</b>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngFor="let c of x.ShopCarts">
+                <ion-col col-6>
+                  {{c.ShopItemName}}
+                </ion-col>
+                <ion-col col-4>￥{{c.ShopItemPrice.toFixed(2)}}/{{c.ShopItemUnit}}</ion-col>
+                <ion-col col-2>{{c.Count}}</ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="x.PricePaidIn">
+                <ion-col col-3>实收:</ion-col>
+                <ion-col col-9>￥{{x.PricePaidIn.toFixed(2)}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-3>收货方式:</ion-col>
+                <ion-col col-9> {{x.Type}}</ion-col>
+              </ion-row>
+              <ion-row *ngIf="x.PayType!='未付'">
+                <ion-col col-3>支付方式:</ion-col>
+                <ion-col col-9> {{x.PayType}}</ion-col>
+              </ion-row>
+              <ion-row *ngIf="x.AddressLocationLable">
+                <ion-col col-3>收货地址:</ion-col>
+                <ion-col col-9>{{x.AddressLocationLable}}</ion-col>
+              </ion-row>
+              <ion-row *ngIf="x.AddressRealName">
+                <ion-col col-3>收货人:</ion-col>
+                <ion-col col-9> {{x.AddressRealName}}</ion-col>
+              </ion-row>
+              <ion-row *ngIf="x.AddressPhone">
+                <ion-col col-3>收货电话:</ion-col>
+                <ion-col col-9>{{x.AddressPhone}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-3>预计应收:</ion-col>
+                <ion-col col-9 style="color:red">￥{{x.PriceOriginal.toFixed(2)}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>

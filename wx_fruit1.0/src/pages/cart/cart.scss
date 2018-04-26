@@ -1,0 +1,26 @@
+page-cart {
+  .label-ios {
+    margin: 5px 0px 5px 0;
+  }
+  .label-md {
+    margin: 5px 0px 5px 0;
+  }
+  .toolbar-ios,
+  .toolbar-md {
+    padding: 0;
+  }
+  ion-buttons {
+    margin: 0;
+  }
+  .bar-button-ios,
+  .bar-button-md {
+    border-radius: 0;
+  }
+  .bar-button-default-ios,.bar-button-default-md {
+    padding-left:40px;
+    padding-right:40px;
+    min-height: 50px;
+    background-color: color($colors, primary, base);
+    color: color($colors, light, base);
+  }
+}

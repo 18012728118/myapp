@@ -1,0 +1,32 @@
+<ion-menu [content]="content" side="right" type="overlay">
+  <!--  -->
+  <ion-content>
+    <ng-container *ngIf="user$ |async as u">
+      <div id="menuTop">
+        <div class="top" no-lines>
+          <h2>
+            {{u.wxUserInfo.nickname}}
+          </h2>
+        </div>
+      </div>
+      <div class="headLogo">
+        <img [src]="u.wxUserInfo.headimgurl">
+      </div>
+      <!-- <p>{{u.shopMember.Telphone}}</p> -->
+      <ion-list padding>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+
+        <button menuClose ion-item (click)="memberRecharge()" block>
+          会员卡充值
+          <span *ngIf="u.shopMember.Balance>0">余额：{{u.shopMember.Balance}}</span>
+        </button>
+        <button ion-item (click)="goScan()">
+          商家扫码
+        </button>
+      </ion-list>
+    </ng-container>
+  </ion-content>
+</ion-menu>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>

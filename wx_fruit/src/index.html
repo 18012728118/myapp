@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>非常水果商城</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4e8ef7">
+  <link href="build/main.css" rel="stylesheet">
+</head>
+<body>
+  <ion-app></ion-app>
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=f8vW5GLQR7CaKA52XsxGXpR0"></script>
+  <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script>
+    (function () {
+      window.BIMRUN_VERSION = 1.1;
+      window.AppId = "wx1dfe7106c7a40821";
+      window.StoreId = 4;
+      window.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcGVuaWQiOiJvLXZoVXVHV0xoMkg1cDZSZDhHVng1TXliVjhvIiwidGVscGhvbmUiOiIiLCJkYXRldGltZVVwZGF0ZSI6IlwvRGF0ZSgxNTIzOTUyNzQzOTE4KVwvIiwic3RvcmVJZCI6NCwibmlja25hbWUiOiLmiJHmg7PpnZnpnZkiLCJ1bmlvbmlkIjoib2kzVDkxWXV6LUFUdUdqclNjQksyQmFJdXdMUSIsIm1lbWJlcmlkIjozMjgyfQ.bVe1N8f0LoRzvZOFjLGigyTWRoxjwUY5PUNmFbptgJM";
+      var loadJs = function (name) {
+        var dom = document.createElement("script");
+        dom.async = false;
+        dom.src = "build/" + name + ".js?v=" + BIMRUN_VERSION;
+        document.body.appendChild(dom);
+        return dom;
+      };
+      loadJs("polyfills");
+      loadJs("vendor");
+      loadJs("main");
+    })();
+  </script>
+</body>
+</html>
