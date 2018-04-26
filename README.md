@@ -2,11 +2,11 @@
 
 ### 目录说明
 
-##wx_fruit
+### wx_fruit
 
 基于微信公众号的水果商城
 
-##wx_youxuan
+### wx_youxuan
 
 基于微信公众号的砍价团购系统
 
