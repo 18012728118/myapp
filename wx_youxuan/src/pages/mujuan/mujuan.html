@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-navbar *ngIf="_buyItem">
+    <ion-title>{{_buyItem.Name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-slides style="height:300px;" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
+    centeredSlides>
+    <ion-slide *ngFor="let x of _buyItem.LogoList">
+      <img [src]="x+'!w400h300w'" style="width:100%;" *ngIf="x" />
+    </ion-slide>
+  </ion-slides>
+  <ion-card style="padding:12px 8px;">
+    <h1 class="title">{{_buyItem.Name}}</h1>
+    <div class="desc_title">
+      <div class="leftBox">
+        <h1 class="price" style="float:left">
+          <!-- ￥{{_buyItem.VipPrice}} -->
+          累计募捐：￥{{_total}}
+        </h1>
+        <!-- <div style="float:left">
+          <p class="oldPrice">募捐进行中</p>
+          <p *ngIf="_buyItem.Count==0">
+            <b class="price">募捐已结束</b>
+          </p>
+        </div> -->
+      </div>
+      <div class="rightBox">
+        <p class="price">募捐进行中</p>
+        <p *ngIf="_buyItem.Count==0">
+          <b>募捐已结束</b>
+        </p>
+      </div>
+    </div>
+  </ion-card>
+  <ion-card padding class="button_group">
+    <span *ngFor="let m of moneyList">
+      <button small ion-button [ngClass]="getClass(m)" (click)="setCount(m)">捐助{{m}}元</button>
+    </span>
+  </ion-card>
+  <ion-card padding>
+    <h2>捐助名单：</h2>
+    <ul *ngFor="let i of _payList">
+      <li>{{i.RealName}} {{i.TelPhone}}
+        <span>￥{{i.count}}</span>
+      </li>
+    </ul>
+    <button block ion-button clear (click)="seeMore()" *ngIf="_skip+20<_totalNum">查看全部更多名单</button>
+  </ion-card>
+  <ion-card>
+    <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
+  </ion-card>
+
+  <ion-fab bottom right>
+    <a ion-fab mini href="tel:{{_buyItem.KeFuTel}}" *ngIf="_buyItem" color="light">
+      <ion-icon name="call"></ion-icon>
+    </a>
+    <a ion-fab mini color="primary" (click)='back()'>
+      <ion-icon name="home"></ion-icon>
+    </a>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div id="toolbarBox">
+      <div class="btnGroup" *ngIf="_buyItem.Count!=0">
+        <button ion-button icon-only clear color="secondary" *ngIf="_count>=2" (click)="remove(m)">
+          <ion-icon name="remove"></ion-icon>
+        </button>
+        <input type="number" step="1" [(ngModel)]="_count" style="max-width:4rem;" class="item_buttons" clear min="1" />
+        <button ion-button icon-only clear color="secondary" (click)="add(m)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+      <div *ngIf="_buyItem.Count==0"></div>
+      <button ion-button (click)="toPay()" color="secondary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
+      <button ion-button color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

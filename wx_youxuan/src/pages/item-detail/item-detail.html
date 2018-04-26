@@ -1,0 +1,72 @@
+<!--
+  Generated template for the ItemDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar *ngIf="_buyItem">
+    <ion-title>{{_buyItem.Name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ion-slides *ngIf="_buyItem" style="height:300px;" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
+    centeredSlides>
+    <ion-slide *ngFor="let x of _buyItem.LogoList">
+      <img [src]="x+'!w400h300w'" style="width:100%;" *ngIf="x" />
+    </ion-slide>
+  </ion-slides>
+  <ion-card style="padding:12px 8px;" *ngIf="_buyItem">
+    <h1 class="title">{{_buyItem.Name}}</h1>
+    <div class="desc_title">
+      <div class="leftBox">
+        <h1 class="price" style="float:left">￥{{_buyItem.VipPrice}}</h1>
+        <div style="float:left">
+          <p class="oldPrice">原价￥{{_buyItem.Price}}</p>
+          <p *ngIf="_buyItem.Count>0">还剩
+            <b class="price">{{_buyItem.Count}}</b>件
+          </p>
+          <p *ngIf="_buyItem.Count==0">
+            <b class="price">售完</b>
+          </p>
+        </div>
+      </div>
+      <div class="rightBox" *ngIf="remaningDays">
+        <p>距结束还剩</p>
+        <p>{{remaningDays}}</p>
+      </div>
+    </div>
+  </ion-card>
+  <ion-card *ngIf="_buyItem">
+    <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
+  </ion-card>
+
+  <ion-fab bottom right>
+    <a ion-fab mini href="tel:{{_buyItem.KeFuTel}}" *ngIf="_buyItem" color="light">
+      <ion-icon name="call"></ion-icon>
+    </a>
+    <a ion-fab mini color="primary"  (click)='back()'>
+      <ion-icon name="home"></ion-icon>
+    </a>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div id="toolbarBox" *ngIf="_buyItem">
+      <div class="btnGroup" *ngIf="_buyItem.Count!=0">
+        <button ion-button icon-only clear color="primary" *ngIf="_count>=2" (click)="remove(m)">
+          <ion-icon name="remove"></ion-icon>
+        </button>
+        <button ion-button disabled class="item_buttons" clear color="danger">{{_count}}</button>
+        <button ion-button icon-only clear color="primary" (click)="add(m)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+      <div *ngIf="_buyItem.Count==0"></div>
+      <button ion-button (click)="toPay()" color="primary" *ngIf="_buyItem.Count!=0">立刻支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
+      <button ion-button  color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

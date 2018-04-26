@@ -1,0 +1,91 @@
+.shadowBox {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+.title_bestShop {
+    height: 38px;
+    background: url(../assets/imgs/title_05.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+page-home {
+    .iconx {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+    .btn_col {
+        height: 8rem;
+        span.button-inner {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+        }
+    }
+    #hSlides {
+        ion-slide {
+            width: 100px;
+        }
+    } // ion-scroll {
+    //     white-space: nowrap;
+    // }
+    ion-chip {
+        font-weight: bold;
+        min-width: 8rem;
+        text-align: center;
+    }
+    ion-label {
+        font-size: 1.7rem;
+    }
+    ion-chip.selected {
+        border-bottom: 2px solid color($colors, primary, base);
+        color: color($colors, primary, base);
+        font-weight: bold;
+    }
+    .title {
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #333; //color:color($colors,primary,base);
+        padding: 5px;
+        margin: 0;
+    }
+    .button-md,
+    .button-ios {
+        font-size: 1.8rem;
+    }
+    .picBox {
+        .pic {
+            height: 40vw;
+            background-size:cover;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+        position: relative;
+        .price {
+            position: absolute;
+            left: 0;
+            bottom: 20px;
+            background: rgba(0, 0, 0, .6);
+            border-radius: 0 30px 30px 0;
+            padding: 0 20px 0 10px;
+            line-height: 1rem;
+            font-style: oblique;
+            .nowPrice {
+                color: color($colors, primary, base);
+                font-size: 16px;
+                margin: 10px 0 0 0;
+                font-weight: bold;
+            }
+            .oldprice {
+                margin: 9px 0 5px 0;
+                color: color($colors, light, base);
+                font-size: 12px;
+                text-decoration: line-through;
+            }
+        }
+    }
+}

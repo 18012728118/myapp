@@ -1,0 +1,49 @@
+<!--
+  Generated template for the SettingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>setting</ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+
+<ion-content padding *ngIf="initData.WxUser as p">
+  <ion-item>
+    <ion-thumbnail item-start>
+      <img src="{{p.headimgurl}}">
+    </ion-thumbnail>
+    <h2>{{p.nickname}}</h2>
+    <p>{{p.city}}</p>
+  </ion-item>
+  <ion-list>
+    <a ion-item>
+      收货地址管理
+    </a>
+    <!-- <a ion-item>
+              联系客服
+            </a> -->
+
+    <!-- 
+            <a ion-item (click)="upImg()">
+                上传图片
+              </a> -->
+    <a ion-item>
+      关于 {{initData.store.StoreName}}
+    </a>
+    <a ion-item href="tel:18012729981">
+      商务合作电话
+    </a>
+
+    <a ion-item (click)="goScan()">
+      商家扫码
+    </a>
+    <!-- <a ion-item (click)="clearStorage()">
+      清除登陆信息
+    </a> -->
+
+  </ion-list>
+</ion-content>

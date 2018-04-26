@@ -1,0 +1,179 @@
+page-kanjia {
+    // .help {
+    //     margin-top: 60px;
+    //     width: 140px;
+    //     display: flex;
+    //     align-items: center;
+    //     flex-direction: column;
+    //     .helpHead {
+    //         width: 140px;
+    //         height: 110px;
+    //         background: url(/assets/imgs/helpcuthead.png) no-repeat;
+    //         background-size: cover
+    //     }
+    //     .helpBody {
+    //         width: 96px;
+    //         background-color: #EB554A;
+    //         text-align: center;
+    //         border-radius: 0 0px 8px 8px;
+    //         img {
+    //             border-radius: 50%;
+    //             width: 55%;
+    //             margin: 5px 0;
+    //             ;
+    //         }
+    //     }
+    // }
+    .list-ios,.list-md{
+        margin-bottom:0;
+    }
+    .helper {
+        background-color: #EB554A;
+        border-radius: 20px;
+        margin: 10px 20px;
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .helpHead {
+                width: 100px;
+                height: 90px;
+                background: url(/assets/imgs/helpcuthead.png) no-repeat;
+                background-size: contain
+            }
+            .helpBody {
+                border-radius: 0 0px 8px 8px;
+                img {
+                    border-radius: 50%;
+                    width: 60px;
+                    margin: 5px 0;
+                }
+            }
+        }
+        .helpfoot {
+            padding: 0 0 5px 0;
+            text-align: center;
+            color: #fff;
+            font-size:120%;
+        }
+    }
+    .scroll-content {
+        background-color: #eee;
+    }
+    ion-grid {
+        background-color: #fff;
+    }
+    div.b {
+        font-weight: bold;
+        text-align: center;
+    }
+    .nowPrice {
+        display: flex;
+        width: 160px;
+        height: 2em;
+        margin: 5px auto 10px 10px;
+        div {
+            line-height: 2em;
+            text-align: center;
+        }
+        align-items: center;
+        border: 1px solid color($colors, primary, base);
+        .d1 {
+            background-color: color($colors, primary, base);
+            width: 80px;
+            color: #fff;
+        }
+        .d2 {
+            font-weight: bold;
+            width: 80px;
+        }
+    }
+    #priceBar {
+        height: 50px;
+        padding: 0;
+        color: #fff;
+        .left {
+            background-color: #F5A623;
+            display: flex;
+            align-items: center;
+            .col1 {
+                padding-left: 2px;
+                display: flex;
+                flex-direction: column;
+                div {
+                    text-align: center;
+                }
+                div.b {
+                    font-size: 20px;
+                }
+            }
+            .col2 {
+                font-size: 40px;
+                padding: 0 5px;
+            }
+            .col3 {
+                font-size: 14px;
+                display: flex;
+                flex-direction: column;
+                span {
+                    text-decoration: line-through;
+                }
+                .views {
+                    color: #D23C32;
+                    border: 1px solid #D23C32;
+                    border-radius: 8px;
+                    text-align: center;
+                    font-size: 16px;
+                }
+            }
+        }
+        .right {
+            background-color: #FFE547;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            .col1 {
+                color: #D23C32;
+            }
+            .col2,
+            .col3 {
+                display: flex;
+                color: #333;
+                justify-content: center;
+                .bg {
+                    margin: 0 3px;
+                    background: #333;
+                    border-radius: 3px;
+                    width: 1.5em;
+                    display: block;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    #itemTitle {
+        .title {
+            display: flex;
+            align-content: center;
+            align-items: center;
+            label {
+                font-size: 14px;
+            }
+        }
+    }
+    #noticeText {
+        color: #999;
+        height: 60px;
+    }
+    .tabsList {
+        ion-row {
+            display: flex;
+            align-items: center;
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+        }
+    }
+}

@@ -1,0 +1,293 @@
+<!-- <ion-header>
+  <ion-navbar *ngIf="_buyItem">
+    <ion-title>{{_buyItem.Name}}</ion-title>
+  </ion-navbar>
+</ion-header> -->
+<ion-content style="background-color:#ddd;">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉释放刷即刷新页面数据" refreshingSpinner="circles" refreshingText="刷新中...">>
+
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-slides *ngIf="_buyItem" style="height:60vw;" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
+    centeredSlides>
+    <ion-slide *ngFor="let x of _buyItem.LogoList">
+      <img [src]="x+'!w500'" style="width:100%;" *ngIf="x" />
+    </ion-slide>
+  </ion-slides>
+  <!-- <div *ngIf="_buyItem">
+    <img [src]="_buyItem.LogoList[0]" />
+  </div> -->
+  <ion-grid *ngIf="_buyItem" id="priceBar" no-padding>
+    <ion-row>
+      <ion-col col-9 class="left">
+        <div class="col1">
+          <div>底价</div>
+          <div class="b">
+            ￥
+          </div>
+        </div>
+        <div class="col2 b">
+          {{_buyItem.VipPrice.toFixed(2)}}
+        </div>
+        <div class="col3">
+          <div>原价:
+            <span>￥{{_buyItem.Price.toFixed(2)}}</span>
+          </div>
+          <div class="views">剩余 {{_buyItem.Count}}份</div>
+        </div>
+      </ion-col>
+      <ion-col col-3 class="right" no-padding>
+        <div class="col1">活动时间仅剩</div>
+        <div *ngIf="!_leftTime" style="font-size:20px;color:#333">
+          已结束
+        </div>
+        <div class="col2" *ngIf="_leftTime">
+          <div class="row">
+            <div class="bg">{{_leftTime.days}}</div>
+            <div>天</div>
+          </div>
+          <div class="row">
+            <div class="bg">{{_leftTime.hours}}</div>
+            <div>时</div>
+          </div>
+        </div>
+        <div class="col3" *ngIf="_leftTime">
+          <div class="row">
+            <div class="bg">{{_leftTime.minutes}}</div>
+            <div>分</div>
+          </div>
+          <div class="row">
+            <div class="bg">{{_leftTime.seconds}}</div>
+            <div>秒</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="_buyItem" no-padding id="itemTitle">
+    <ion-row>
+      <ion-col col-10 class="title">
+        <label>{{_buyItem.Name}}</label>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear full large (click)="openModal('modalRule')">
+          <div style="display:flex;flex-direction:column">
+            <ion-icon name="menu"></ion-icon>
+            <label>玩法</label>
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="_buyItem" id="noticeText" no-padding>
+    <ion-row>
+      {{_buyItem.NoticeText}}
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="_kanJiaUser" style="background-color:#fff;padding-bottom:10px;">
+    <ion-item no-lines>
+      <ion-avatar item-start>
+        <img src="{{_kanJiaUser.headimgurl}}">
+      </ion-avatar>
+      <h2>我是 {{_kanJiaUser.nickname}},大家来帮我砍一刀吧!!</h2>
+    </ion-item>
+    <progress-bar [cut]="_kanJiaUser.HelpPersonNum" [total]="_buyItem.KanJiaNeedPersonNum">
+    </progress-bar>
+    <div class="nowPrice">
+      <div class="d1">当前价格</div>
+      <div class="d2">￥{{_kanJiaUser.NowPrice.toFixed(2)}}</div>
+    </div>
+  </div>
+  <div class="helper">
+    <div class="row">
+      <div class="helpHead">
+      </div>
+      <div class="helpBody" *ngIf="helperlogourlList">
+        <img style="margin:0 10px;" *ngFor="let item of helperlogourlList;let i = index" [src]="item" (click)="openHelper(i)" />
+      </div>
+    </div>
+    <div class="helpfoot" *ngIf="_buyItem">
+      求助Ta能帮你砍掉 {{_buyItem.AdminHelpCutCount}}刀哦
+    </div>
+  </div>
+  <ion-card *ngIf="_buyItem" padding>
+    <ion-segment [(ngModel)]="pet" color="secondary">
+      <ion-segment-button value="tab1">
+        帮砍榜
+        <span *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">({{_kanJiaUser.KanJiaLogs?_kanJiaUser.KanJiaLogs.length:'0'}}位)</span>
+      </ion-segment-button>
+      <ion-segment-button value="tab2">
+        斩获名单({{_kanJiaUsers?_kanJiaUsers.length:'0'}}位)
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="pet">
+      <div *ngSwitchCase="'tab1'">
+        <ion-grid class="tabsList" *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">
+          <ion-row *ngFor="let u of _kanJiaUser.KanJiaLogs">
+            <ion-col col-3>
+              <ion-avatar item-start>
+                <img [src]="u.headimgurl">
+              </ion-avatar>
+            </ion-col>
+            <ion-col col-5>
+              {{u.nickname}}
+            </ion-col>
+            <ion-col col-4>
+              砍掉
+              <b class="cr">￥{{u.ReducePrice.toFixed(2)}}</b>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ion-grid class="tabsList" *ngSwitchCase="'tab2'">
+        <ion-row *ngFor="let u of _kanJiaUsers">
+          <ion-col col-3>
+            <ion-avatar item-start>
+              <img [src]="u.headimgurl">
+            </ion-avatar>
+          </ion-col>
+          <ion-col col-5>
+            {{u.nickname}}
+          </ion-col>
+          <ion-col col-4>
+            砍到
+            <b class="cr">￥{{u.NowPrice.toFixed(2)}}</b>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-card>
+  <ion-list>
+    <ion-item *ngIf="initData.store">
+      <ion-avatar item-start>
+        <img src="{{initData.store.LogoUrl}}!w100">
+      </ion-avatar>
+      <h2>{{initData.store.StoreName}}</h2>
+      <p>{{initData.store.Description}}</p>
+      <button ion-button clear item-end clear round outline (click)="guanzhu()">+关注</button>
+    </ion-item>
+  </ion-list>
+  <ion-card *ngIf="_buyItem">
+    <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
+  </ion-card>
+  <!-- <ion-fab right top>
+    <div class="help">
+      <div class="helpHead" (click)="hiddenHelpBody()">
+      </div>
+      <div class="helpBody" *ngIf="helperlogourlList">
+        <img *ngFor="let item of helperlogourlList;let i = index" [src]="item" (click)="openHelper(i)" />
+      </div>
+    </div>
+  </ion-fab> -->
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col col-2>
+          <button ion-button icon-only clear (click)="back()">
+            <ion-icon name="home"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-8 *ngIf="!_kanJiaUser && getType()=='self'">
+          <button ion-button outline block (click)="joinKanJia()" [disabled]="!_leftTime">
+            我要砍价
+          </button>
+        </ion-col>
+        <ion-col col-4 *ngIf="_kanJiaUser&& getType()=='self'" style="padding-right:5px;">
+          <button ion-button outline block (click)="toPay()" [disabled]="_buyItem.Count<=0 ||!_leftTime">
+            {{_buyItem.Count>0?'立即购买':'已结束'}}
+          </button>
+        </ion-col>
+        <ion-col col-4 *ngIf="_kanJiaUser&& getType()=='self'" style="padding-left:5px;">
+          <button ion-button color="primary" block (click)="openModal('custom-modal-2')">
+            邀请好友
+          </button>
+        </ion-col>
+        <ion-col col-4 *ngIf="getType()=='other'" style="padding-right:5px;">
+          <button ion-button outline block (click)="kanSelf()" [disabled]="!_leftTime">
+            自己参加
+          </button>
+        </ion-col>
+        <ion-col col-4 *ngIf="_kanJiaUser&& getType()=='other'" style="padding-left:5px;">
+          <button ion-button color="primary" block (click)="helpKan()" [disabled]="_kanJiaUser.HelpPersonNum >= _buyItem.KanJiaNeedPersonNum">
+            帮Ta砍一刀
+          </button>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button icon-only clear (click)="goOrder()">
+            <ion-icon name="contact"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+<modal id="modalRule">
+  <div class="modal">
+    <div class="modal-body" *ngIf="_buyItem" style="text-align:left;">
+      <p>开始时间：{{_buyItem.DateTimeStart}}</p>
+      <p>结束时间：{{_buyItem.DateTimeEnd}}</p>
+      <p>每人限购：{{_buyItem.LimitBuyCount}}件</p>
+      <p>需 {{_buyItem.KanJiaNeedPersonNum}} 人 帮减价可减至最低价</p>
+      <p>减至最低价可以付款</p>
+      <p>PS:关注公众号可以收到 减至最低价通知哦!
+        <button ion-button block (click)="guanzhu()">关注</button>
+      </p>
+      <div [innerHtml]="_buyItem.Rule | safeHtml">
+      </div>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+<modal id="custom-modal-2">
+  <div class="modal">
+    <div class="modal-body clear" style="margin:0 0 auto auto;padding:0;">
+      <img src="assets/imgs/modalShare.png" (click)="closeModal('custom-modal-2');" />
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+<modal id="modalMain">
+  <div class="modal">
+    <div class="modal-body" *ngIf="initData.store && _buyItem">
+      <h3 *ngIf="_buyItem.NeedSubscribe">本活动需关注公众号才可参与</h3>
+      <img src="{{initData.store.QRLogoUrl}}!w500" />
+      <h4>关注公众号接收最新通知</h4>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+<modal id="modalCut">
+  <div class="modal">
+    <div class="modal-body clear" style="margin-top:30%">
+      <img src="/assets/imgs/cutSuccess.png" />
+      <p style="color:#fff;font-weight:bold;">成功砍价
+        <!-- 掉￥{{cutPrice.toFixed(2)}}元 -->
+      </p>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+<modal id="modalHelper">
+  <div class="modal">
+    <div class="modal-body" style="margin-top:30%" *ngIf="_buyItem &&  helperqrlogourlList">
+      <img [src]="helperqrlogourlList[helpIndex]" />
+      <button ion-button block (click)="toHelper()">求助[记得先加Ta好友]</button>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>吴江优选</title>
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4e8ef7">
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link href="build/main.css" rel="stylesheet">
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script src="//at.alicdn.com/t/font_609006_egxibv91q44e7b9.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> -->
+</head>
+<body>
+  <ion-app></ion-app>
+  <script>
+    (function () {
+      window.BIMRUN_VERSION = 1.1;
+      var loadJs = function (name) {
+        var dom = document.createElement("script");
+        dom.async = false;
+        dom.src = "build/" + name + ".js?v=" + BIMRUN_VERSION;
+        document.body.appendChild(dom);
+        return dom;
+      };
+      loadJs("polyfills");
+      loadJs("vendor");
+      loadJs("main");
+    })();
+  </script>
+</body>
+</html>
