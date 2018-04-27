@@ -16,22 +16,16 @@ export class TabsPage {
   tabFavorate = "FavoratePage";
   tabSetting = "SettingPage";
 
-  constructor(private settings: Settings,
-    private app: App,
+  constructor(private app: App,
     private modalCtrl: ModalController,
     private initData: InitDataProvider,
     private api: Api) {
-
   }
   ionViewWillEnter() {
-    // this.settings.load().then(() => {
-    //   this.cartNum = this.settings.allSettings.cartNum;
-    // });
   }
 
   ionViewDidEnter() {
     setTimeout(() => {
-      // console.log("ionViewDidEnter");
       let page = this.api.getUriParam("page");
       let detailid = this.api.getUriParam("iid")
       if (page && detailid) {
@@ -43,7 +37,6 @@ export class TabsPage {
       }
     }, 500);
   }
-
 
   emptyCart() {
     console.log("emptyCart");

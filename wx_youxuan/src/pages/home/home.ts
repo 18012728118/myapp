@@ -18,12 +18,11 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     private api: Api,
-    private settings: Settings,
     private initData: InitDataProvider,
     private modalCtrl: ModalController) {
-    settings.load().then(() => {
-      // console.log(settings.settings);
-    });
+    // settings.load().then(() => {
+    //   // console.log(settings.settings);
+    // });
   }
 
   BuyList: any = [];

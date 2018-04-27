@@ -21,7 +21,6 @@ export class InitDataProvider {
   BuyItemList: any;
   SlideList: any;
   WxUser: any;
-  token: any;
   store: any;
 
   constructor(
@@ -57,11 +56,6 @@ export class InitDataProvider {
       this.cachestore.select("cache").subscribe(res => {
         this.BuyItemList = res.BuyItemList;
         this.SlideList = res.SlideList;
-        this.token = res.token;
-        if (this.token) {
-          console.log("localStorage_setItem_token")
-          localStorage.setItem("token", this.token);
-        }
         this.WxUser = res.WxUser;
         this.store = res.store;
         if (!this.WxUser || !this.store) return;
@@ -71,9 +65,7 @@ export class InitDataProvider {
       this.cachestore.select("wxShare").subscribe(res => {
         if (res) {
           console.log("wxShare changed,start to share " + res.title)
-          // wx.ready(() => {
           this.wxshare(res.title, res.desc, res.imgUrl, res.link);
-          // });
         }
       });
     });

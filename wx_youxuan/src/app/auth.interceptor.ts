@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/observable';
 import { Storage } from '@ionic/storage';
-import { AuthService } from '../services/antuService';
+import { AuthService } from '../services/anthService';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

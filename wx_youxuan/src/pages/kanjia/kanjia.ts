@@ -34,6 +34,8 @@ export class KanjiaPage {
   cutPrice = 0;
   helpIndex = 0;
 
+  payUserinfo = { name: "", telphone: "" };
+
   kanJiaUser$: Observable<KanJiaUser>;
 
   helperlogourlList: any = [];
@@ -69,7 +71,7 @@ export class KanjiaPage {
         })
         .catch(err => alert(err));
       this.getKanJiaUsers();
-
+      this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
     });
   }
 
@@ -207,15 +209,16 @@ export class KanjiaPage {
       inputs: [
         {
           name: 'realname',
-          placeholder: '联系人'
+          placeholder: '联系人',
+          value: this.payUserinfo.name
         },
         {
           name: 'telphone',
-          placeholder: '手机号'
+          placeholder: '手机号',
+          value: this.payUserinfo.telphone
         }
       ],
-      subTitle: "付款成功后。请至 我的订单 查看已购买商品 二维码 到商家验证消费. <br/>"
-        + this._buyItem.SuccessText,
+      subTitle: this._buyItem.SuccessText ? this._buyItem.SuccessText : "",
       buttons: [{
         text: '微信支付',
         handler: (data) => {
@@ -227,27 +230,31 @@ export class KanjiaPage {
             this.api.showToast("请正确填写联系人", 2000, 'top');
             return false;
           }
-          this.http.get<any>(`http://m.wjhaomama.com/TenPayV3/getpay?itemid=${this._buyItem.Id}&count=${this._count}&openid=${this.initData.WxUser.openid}&realname=${data.realname}&telphone=${data.telphone}`
+          this.payUserinfo = { name: data.realname, telphone: data.telphone };
+          this.http.get<any>(`http://m.wjhaomama.com/TenPayV3/getpay?itemid=${this._buyItem.Id}&count=${this._count}&realname=${data.realname}&telphone=${data.telphone}`
           )
-            .subscribe(res => {
-              if (!res.success) {
-                this.api.showErrorAlert(res.msg);
+            .subscribe(payRes => {
+              if (!payRes.success) {
+                this.api.showErrorAlert(payRes.msg);
                 return;
               }
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
-                  "appId": res.appId,
-                  "timeStamp": res.timeStamp,
-                  "nonceStr": res.nonceStr,
-                  "package": res.package,
-                  "signType": res.signType,
-                  "paySign": res.paySign
+                  "appId": payRes.appId,
+                  "timeStamp": payRes.timeStamp,
+                  "nonceStr": payRes.nonceStr,
+                  "package": payRes.package,
+                  "signType": payRes.signType,
+                  "paySign": payRes.paySign
                 },
                 (wxRes) => {
                   if (wxRes.err_msg == "get_brand_wcpay_request:ok")
                     this.api.showSuccessAlert("支付成功!请尽快至门店验证消费");
-                  else
-                    this.api.showErrorAlert(wxRes.err_msg);
+                  else if (wxRes.err_msg == "get_brand_wcpay_request:cancel")
+                    this.api.showSuccessAlert("用户取消支付");
+                  else if (wxRes.err_msg == "get_brand_wcpay_request:fail")
+                    this.api.showSuccessAlert("微信支付失败");
+                  this.api.showErrorAlert(wxRes.err_msg);
                 }
               )
             });
