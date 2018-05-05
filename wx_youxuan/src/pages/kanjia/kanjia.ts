@@ -40,7 +40,6 @@ export class KanjiaPage {
   helperlogourlList: any = [];
   helperqrlogourlList: any = [];
 
-  p = { cut: 2, total: 10 };
 
   constructor(
     public navCtrl: NavController,

@@ -1,22 +1,20 @@
 page-item-detail {
+    #itemTitle {
+        @include linear-gradient(left, $ibiza-sunset);
+        color: #fff;
+        margin:0 0 1.5rem 0;
+        padding:5px;
+        width:100vw;
+    }
     .title {
         margin: 5px 10px;
-    }
-    .detail_content {
-        margin: 20px 5px;
-    }
-    .card-ios p,
-    .card-md p {
-        margin: 0;
+        color: #fff;
     }
     .desc_title {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        * {
-            margin: 0;
-            padding: 0;
-        }
+
         .leftBox {
             display: flex;
             align-items: center;
@@ -27,15 +25,18 @@ page-item-detail {
             margin: 0 10px 0 20px;
         }
         .oldPrice {
-            text-decoration: line-through
+            text-decoration: line-through;
         }
         .price {
-            color: color($colors, danger, base)
+            color: #fff;
         }
         .rightBox {
             justify-content: center;
             margin-right: 20px;
             text-align: center;
+            * {
+                color: #fff;
+            }
         }
     }
 }
@@ -45,7 +46,7 @@ page-item-detail {
     justify-content: space-between;
     .btnGroup {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
     }
 }

@@ -59,17 +59,6 @@
           <ion-icon name="home"></ion-icon>
         </button>
       </ion-col>
-      <!-- <ion-col col-4>
-        <div *ngIf="_buyItem.Count!=0">
-          <button ion-button small icon-only clear color="secondary" *ngIf="_count>=2" (click)="remove(m)">
-            <ion-icon name="remove"></ion-icon>
-          </button>
-          <input type="number" step="1" [(ngModel)]="_count" style="max-width:3rem;" class="item_buttons" clear min="1" />
-          <button ion-button  small  icon-only clear color="secondary" (click)="add(m)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </div>
-      </ion-col> -->
       <ion-col col-8>
         <button ion-button block (click)="toPay()" color="secondary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
         <button ion-button block color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
