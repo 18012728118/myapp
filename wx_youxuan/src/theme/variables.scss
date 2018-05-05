@@ -13,7 +13,7 @@ $app-direction: ltr;
 
 
 @import "ionic.globals";
-
+@import 'gradient-mixins';
 
 // Shared Variables
 // --------------------------------------------------
@@ -48,6 +48,7 @@ $colors: (
 $chip-ios-background-color:#fff;
 $chip-ios-border-radius:0;
 
+
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
@@ -58,12 +59,6 @@ $tabs-md-tab-icon-size:26px;
 $tabs-md-tab-font-size:8px;
 
 
-// App Windows Variables
-// --------------------------------------------------
-// Windows only Sass variables can go here
-
-
-
 
 // App Theme
 // --------------------------------------------------
@@ -71,6 +66,9 @@ $tabs-md-tab-font-size:8px;
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
+
+$toolbar-ios-title-text-color:#fff;
+$toolbar-md-title-text-color:#fff;
 
 @import "ionic.theme.default";
 

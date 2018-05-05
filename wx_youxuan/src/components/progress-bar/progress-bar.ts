@@ -11,19 +11,26 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'progress-bar.html'
 })
 export class ProgressBarComponent {
-  progress: number;
-  text: string;
-  @Input('cut') Cut;
-  @Input('total') Total;
-  constructor() {
+  @Input('cut') cut;
+  @Input('total') total;
 
+  constructor() {
   }
   ngOnInit() {
-    this.progress = (this.Total - this.Cut) / this.Total * 100
-    if (this.Cut != this.Total)
-      this.text = (this.Total - this.Cut) + "/" + this.Total;
-      else
-      this.text = '已最低'
   }
 
+  get progress(): number {
+    if (this.cut > this.total)
+      this.cut = this.total;
+    return (this.total - this.cut) / this.total * 100
+  }
+
+  get text(): String {
+    if (this.cut > this.total)
+      this.cut = this.total;
+    if (this.cut != this.total)
+      return (this.total - this.cut) + "/" + this.total;
+    else
+      return '已最低'
+  }
 }

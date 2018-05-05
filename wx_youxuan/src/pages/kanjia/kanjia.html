@@ -82,7 +82,7 @@
   </ion-grid>
   <ion-grid *ngIf="_buyItem" id="noticeText" no-padding>
     <ion-row>
-      {{_buyItem.NoticeText}}
+      {{_buyItem.DateTimeEnd|fromNow}} {{_buyItem.NoticeText}}
     </ion-row>
   </ion-grid>
   <div *ngIf="_kanJiaUser" style="background-color:#fff;padding-bottom:10px;">
@@ -171,15 +171,6 @@
   <ion-card *ngIf="_buyItem">
     <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
   </ion-card>
-  <!-- <ion-fab right top>
-    <div class="help">
-      <div class="helpHead" (click)="hiddenHelpBody()">
-      </div>
-      <div class="helpBody" *ngIf="helperlogourlList">
-        <img *ngFor="let item of helperlogourlList;let i = index" [src]="item" (click)="openHelper(i)" />
-      </div>
-    </div>
-  </ion-fab> -->
 </ion-content>
 <ion-footer>
   <ion-toolbar>
@@ -227,8 +218,8 @@
 <modal id="modalRule">
   <div class="modal">
     <div class="modal-body" *ngIf="_buyItem" style="text-align:left;">
-      <p>开始时间：{{_buyItem.DateTimeStart}}</p>
-      <p>结束时间：{{_buyItem.DateTimeEnd}}</p>
+      <p>开始时间：{{_buyItem.DateTimeStart | moment:'MM月DD日 HH:mm'}}</p>
+      <p>结束时间：{{_buyItem.DateTimeEnd| moment:'MM月DD日 HH:mm'}}</p>
       <p>每人限购：{{_buyItem.LimitBuyCount}}件</p>
       <p>需 {{_buyItem.KanJiaNeedPersonNum}} 人 帮减价可减至最低价</p>
       <p>减至最低价可以付款</p>
@@ -255,7 +246,7 @@
 <modal id="modalMain">
   <div class="modal">
     <div class="modal-body" *ngIf="initData.store && _buyItem">
-      <h3 *ngIf="_buyItem.NeedSubscribe">本活动需关注公众号才可参与</h3>
+      <h3 *ngIf="_buyItem.NeedSubscribe">本活动需关注公众号才可参与,如果关注了还不能参与,请稍后重试</h3>
       <img src="{{initData.store.QRLogoUrl}}!w500" />
       <h4>关注公众号接收最新通知</h4>
       <div class="modal-close">

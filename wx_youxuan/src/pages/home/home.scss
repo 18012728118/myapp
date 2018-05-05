@@ -10,6 +10,11 @@
     background-size: 100% 100%;
 }
 
+.segment-ios-secondary .segment-button.segment-activated {
+    @include linear-gradient(bottom, $facebook-messenger);
+}
+
+
 page-home {
     .iconx {
         width: 1em;
@@ -60,7 +65,7 @@ page-home {
     .picBox {
         .pic {
             height: 40vw;
-            background-size:cover;
+            background-size: cover;
             background-repeat: no-repeat;
             background-position: 50% 50%;
         }

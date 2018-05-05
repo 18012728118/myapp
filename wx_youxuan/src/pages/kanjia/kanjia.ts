@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { InitDataProvider } from '../../providers/init-data/init-data';
 import { Api } from '../../providers/api/api';
 import { ModalService } from '../../services/modalService';
-
 import { HttpClient } from '@angular/common/http';
 import *  as $ from 'jquery';
 import { Observable } from 'rxjs/Observable';
@@ -41,9 +40,18 @@ export class KanjiaPage {
   helperlogourlList: any = [];
   helperqrlogourlList: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private initData: InitDataProvider,
-    private modalService: ModalService, private api: Api, private modalCtrl: ModalController, private alertCtrl: AlertController, private http: HttpClient, ) {
+  p = { cut: 2, total: 10 };
 
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private initData: InitDataProvider,
+    private modalService: ModalService,
+    private api: Api,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private http: HttpClient
+  ) {
     this._id = this.navParams.get("DetailId");
     this.init();
   }
@@ -251,9 +259,9 @@ export class KanjiaPage {
                   if (wxRes.err_msg == "get_brand_wcpay_request:ok")
                     this.api.showSuccessAlert("支付成功!请尽快至门店验证消费");
                   else if (wxRes.err_msg == "get_brand_wcpay_request:cancel")
-                    this.api.showSuccessAlert("用户取消支付");
+                    this.api.showErrorAlert("用户取消支付");
                   else if (wxRes.err_msg == "get_brand_wcpay_request:fail")
-                    this.api.showSuccessAlert("微信支付失败");
+                    this.api.showErrorAlert("微信支付失败");
                   this.api.showErrorAlert(wxRes.err_msg);
                 }
               )
@@ -280,7 +288,7 @@ export class KanjiaPage {
   }
 
   getRemainTime = (endTime) => {
-    let t = Date.parse(endTime) - Date.now()
+    let t = Date.parse(new Date(endTime).toUTCString()) - Date.parse(new Date().toUTCString())
     if (t < 0)
       return null;
     let seconds = Math.floor((t / 1000) % 60)

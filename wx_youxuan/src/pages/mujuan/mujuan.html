@@ -50,31 +50,35 @@
   <ion-card>
     <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
   </ion-card>
-
-  <ion-fab bottom right>
-    <a ion-fab mini href="tel:{{_buyItem.KeFuTel}}" *ngIf="_buyItem" color="light">
-      <ion-icon name="call"></ion-icon>
-    </a>
-    <a ion-fab mini color="primary" (click)='back()'>
-      <ion-icon name="home"></ion-icon>
-    </a>
-  </ion-fab>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <div id="toolbarBox">
-      <div class="btnGroup" *ngIf="_buyItem.Count!=0">
-        <button ion-button icon-only clear color="secondary" *ngIf="_count>=2" (click)="remove(m)">
-          <ion-icon name="remove"></ion-icon>
+    <ion-row>
+      <ion-col col-2>
+        <button ion-button icon-only clear (click)="back()">
+          <ion-icon name="home"></ion-icon>
         </button>
-        <input type="number" step="1" [(ngModel)]="_count" style="max-width:4rem;" class="item_buttons" clear min="1" />
-        <button ion-button icon-only clear color="secondary" (click)="add(m)">
-          <ion-icon name="add"></ion-icon>
+      </ion-col>
+      <!-- <ion-col col-4>
+        <div *ngIf="_buyItem.Count!=0">
+          <button ion-button small icon-only clear color="secondary" *ngIf="_count>=2" (click)="remove(m)">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <input type="number" step="1" [(ngModel)]="_count" style="max-width:3rem;" class="item_buttons" clear min="1" />
+          <button ion-button  small  icon-only clear color="secondary" (click)="add(m)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+      </ion-col> -->
+      <ion-col col-8>
+        <button ion-button block (click)="toPay()" color="secondary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
+        <button ion-button block color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button icon-only clear (click)="goOrder()">
+          <ion-icon name="contact"></ion-icon>
         </button>
-      </div>
-      <div *ngIf="_buyItem.Count==0"></div>
-      <button ion-button (click)="toPay()" color="secondary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
-      <button ion-button color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
-    </div>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>

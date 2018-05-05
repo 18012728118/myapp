@@ -169,7 +169,6 @@ export class Api {
     }
   }
 
-
   public wxshare(title, desc, link, imgUrl) {
     this.store.dispatch(new WxShareActions.Update({
       title,
@@ -261,7 +260,6 @@ export class Api {
   public showErrorAlert(msg?: string) {
     let alert = this.alertCtrl.create({
       title: '出错了',
-      subTitle: `<img src="/assets/imgs/error.png" /><p>${msg}</p>`,
       buttons: ['Ok']
     });
     alert.present();

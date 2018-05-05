@@ -1,4 +1,4 @@
-export interface WxShareModel {
+export interface WxShareState {
     title: string,
     desc: string,
     imgUrl: string,

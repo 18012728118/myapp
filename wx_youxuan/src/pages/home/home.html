@@ -10,43 +10,6 @@
       <img [src]="s.ImageUrl" />
     </ion-slide>
   </ion-slides>
-  <!-- <helper></helper> -->
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col col-3>
-        <button class="btn_col" ion-button block clear>
-          <svg class="iconx" aria-hidden="true" style="font-size:4rem;;">
-            <use xlink:href="#icon-kaoqinyichang"></use>
-          </svg>
-          <ion-label>亲子游</ion-label>
-        </button>
-      </ion-col>
-      <ion-col col-3>
-        <button class="btn_col" ion-button block clear>
-          <svg class="iconx" aria-hidden="true" style="font-size:4rem;">
-            <use xlink:href="#icon-bazhaoyu"></use>
-          </svg>
-          <ion-label>亲子活动</ion-label>
-        </button>
-      </ion-col>
-      <ion-col col-3>
-        <button class="btn_col" ion-button block clear>
-          <svg class="iconx" aria-hidden="true" style="font-size:4rem;">
-            <use xlink:href="#icon-hebaodan"></use>
-          </svg>
-          <ion-label>宝妈福利</ion-label>
-        </button>
-      </ion-col>
-      <ion-col col-3>
-        <button class="btn_col" ion-button block clear>
-          <svg class="iconx" aria-hidden="true" style="font-size:4rem;">
-            <use xlink:href="#icon-bangbangtang"></use>
-          </svg>
-          <ion-label>亲子游</ion-label>
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
   <ion-grid>
     <ion-row>
       <ion-col col-5>
@@ -60,8 +23,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <div class="title_bestShop"></div> -->
-  <!-- <ion-scroll scrollX="true" style="width:100vw;height:40px">
+   <!-- <ion-scroll scrollX="true" style="width:100vw;height:40px">
     <ion-row nowrap class="headerChip">
       <div *ngFor="let tabItem of hScroll">
         <ion-chip (click)="tapS(tabItem)" [ngClass]="tabItem.selected?'selected':''">
@@ -70,8 +32,7 @@
         </ion-chip>
       </div>
     </ion-row>
-  </ion-scroll> -->
-
+  </ion-scroll>  -->
   <ion-segment [(ngModel)]="pet" color="secondary" padding>
     <ion-segment-button value="Normal">
       <span>正在进行中</span>
@@ -83,8 +44,7 @@
       <span>往期回顾</span>
     </ion-segment-button>
   </ion-segment>
-  
-  <div style="padding:5px;">
+  <div style="padding:5px; min-height:200px;background: url(/assets/imgs/emptylist.png) 50% 0 no-repeat">
     <div *ngFor="let i of initData.BuyItemList | checkState: pet" class="shadowBox" style="margin-bottom:10px;">
       <div class="picBox">
         <div class="pic" [style.background-image]="'url('+i.LogoList[0]+'!w500)'">
@@ -117,7 +77,7 @@
         </div>
         <div *ngIf="i.Type==3">
           <button block ion-button [color]="i.Count!=0?'primary':'disable'" (click)="goDetail(i)" icon-left>
-            {{i.Count!=0?'去砍价':'已结束'}}
+            {{i.Count!=0?'去砍价':'已结束'}}{{i.Data}}
           </button>
         </div>
       </div>

@@ -59,7 +59,7 @@ export class InitDataProvider {
         this.WxUser = res.WxUser;
         this.store = res.store;
         if (!this.WxUser || !this.store) return;
-        this.wxshare(this.store.StoreName, this.store.Description, this.store.LogoUrl, this.store.WxOpenLink);
+        this.wxshare(this.store.ShareTitle, this.store.ShareDesc, this.store.ShareImgUrl, this.store.WxOpenLink);
       });
 
       this.cachestore.select("wxShare").subscribe(res => {

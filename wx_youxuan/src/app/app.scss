@@ -15,7 +15,6 @@
 .fab {
     contain: initial;
 }
-
 // Mixin itself
 @mixin clearfix() {
     &::after {
@@ -27,7 +26,6 @@
 .clear {
     @include clearfix();
 }
-
 .cr {
     color: color($colors, primary, base);
 }
@@ -38,10 +36,20 @@
     }
 }
 
-.card-ios p,
-.card-md p {
+.detail_content p,.detail_content  p {
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
+}
+
+.ion-page>ion-content {
+    background-color: #EBEBEB;
+}
+
+ion-header .toolbar-background {
+    @include linear-gradient(left, $ibiza-sunset);
+}
+ion-header .back-button{
+    color:#fff;
 }

@@ -1,3 +1,20 @@
 page-order {
-
+    .card {
+        margin:30px auto;
+        ion-label {
+            font-weight: bold;
+            color: color($colors, primary, base);
+            font-size: 1.8rem;
+        }
+        .card-header {
+            @include linear-gradient(right, $facebook-messenger);
+            color: #fff;
+        }
+        .card-content {
+            p {
+                font-size: 1.5rem;
+            }
+        }
+        
+    }
 }
