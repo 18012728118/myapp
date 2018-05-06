@@ -11,12 +11,12 @@ import 'rxjs/add/operator/map';
 //redux 
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs/Observable';
-import { Cache } from "../store/types/cache.model";
 import * as CacheActions from '../store/actions/cache.action';
+import { HttpClient } from '@angular/common/http';
+import { AppState } from './app.state';
 
-interface AppState {
-  cache: Cache
-}
+declare var WeixinJSBridge;
+declare var wx: any;
 
 @Component({
   template: `
@@ -24,40 +24,28 @@ interface AppState {
   `
 })
 export class MyApp {
-  _w: any = window;
   rootPage: any = "TabsPage";
-
-  query(params?: any): any {
-    return this.api.httpGet("GetInit", params);
-  }
 
   constructor(
     platform: Platform,
-    private initData: InitDataProvider,
     private api: Api,
     private store: Store<AppState>
   ) {
-    localStorage.setItem("token_yx_" + this._w.storeId, this._w.token)
+    if (api.isLocalTest) {
+      console.log(window['storeId']);
+      console.log(window['token']);
+    }
+    localStorage.setItem("token_yx_" + window['storeId'], window['token'])
+    this.api.jssdk();
+    this.store.select(z => z.wxShare).subscribe(res => {
+      if (res) {
+        console.log("wxShare changed,start to share " + res.title)
+        this.api.initWxShare(res.title, res.desc, res.imgUrl, res.link);
+      }
+    });
     platform.ready().then(() => {
-      this.query().subscribe((res: any) => {
-        this.store.dispatch(new CacheActions.Init(res));
-      });
-      //注册返回键处理
-      // platform.registerBackButtonAction(() => {
-      //   console.log("platform.registerBackButtonAction");
-      //   const overlay = this.ionicApp._overlayPortal.getActive();
-      //   const nav = this.app.getActiveNav();
 
-      //   if (overlay && overlay.dismiss) {
-      //     overlay.dismiss();
-      //     return;
-      //   }
-      //   if (nav.canGoBack()) {
-      //     nav.pop();
-      //     return;
-      //   }
-      // });
-      //注册返回键处理 END
     });
   }
+
 }

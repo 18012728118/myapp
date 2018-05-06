@@ -13,6 +13,6 @@ export class FromNowPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value) {
-    return moment(value).lang('zh-cn').endOf('hour').fromNow();
+    return moment(value).locale('zh-cn').endOf('hour').fromNow();
   }
 }

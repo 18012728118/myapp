@@ -1,11 +1,11 @@
 
-import { Cache } from "../types/cache.model"
 
 import * as CacheActions from "../actions/cache.action";
+import { CacheState } from "../state/cache.State";
 
 export type Action = CacheActions.All;
 
-const defaultCache: Cache = {
+const defaultCache: CacheState = {
     WxUser: null,
     store: null,
     token: null,
@@ -13,7 +13,7 @@ const defaultCache: Cache = {
     SlideList: null
 }
 
-export function cacheReducer(state: Cache = defaultCache, action: Action) {
+export function cacheReducer(state: CacheState = defaultCache, action: Action) {
     switch (action.type) {
         case CacheActions.SAVE:
             return { ...state, [action.payload.key]: action.payload.value }

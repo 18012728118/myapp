@@ -18,97 +18,31 @@ declare var WeixinJSBridge;
 declare var wx: any;
 @Injectable()
 export class InitDataProvider {
+
   BuyItemList: any;
   SlideList: any;
   WxUser: any;
   store: any;
-
   constructor(
     public api: Api,
     private http: HttpClient,
     private cachestore: Store<AppState>
   ) {
-    var _url = encodeURIComponent(location.href.split('#')[0]);
-    console.log("InitDataProvider start")
-    http.get<any>("http://m.wjhaomama.com/V1/" + "jssdk?url=" + _url).subscribe(res2 => {
-      wx.config({
-        debug: false,
-        appId: res2.AppId,
-        timestamp: res2.Timestamp,
-        nonceStr: res2.NonceStr,
-        signature: res2.Signature,
-        jsApiList: [
-          'checkJsApi',
-          'onMenuShareTimeline',
-          'onMenuShareAppMessage',
-          'onMenuShareQQ',
-          'onMenuShareWeibo',
-          'hideMenuItems',
-          'showMenuItems',
-          'hideAllNonBaseMenuItem',
-          'showAllNonBaseMenuItem',
-          'chooseImage',
-          'scanQRCode',
-          'openLocation',
-          'getLocation'
-        ]
-      });
-      this.cachestore.select("cache").subscribe(res => {
-        this.BuyItemList = res.BuyItemList;
-        this.SlideList = res.SlideList;
-        this.WxUser = res.WxUser;
-        this.store = res.store;
-        if (!this.WxUser || !this.store) return;
-        this.wxshare(this.store.ShareTitle, this.store.ShareDesc, this.store.ShareImgUrl, this.store.WxOpenLink);
-      });
-
-      this.cachestore.select("wxShare").subscribe(res => {
-        if (res) {
-          console.log("wxShare changed,start to share " + res.title)
-          this.wxshare(res.title, res.desc, res.imgUrl, res.link);
-        }
-      });
+    this.cachestore.select("cache").subscribe(res => {
+      this.BuyItemList = res.BuyItemList;
+      this.SlideList = res.SlideList;
+      this.WxUser = res.WxUser;
+      this.store = res.store;
+      if (!this.WxUser || !this.store) return;
+      this.api.wxshare(this.store.ShareTitle, this.store.ShareDesc, this.store.ShareImgUrl, this.store.WxOpenLink);
     });
-  }
 
+
+  }
 
   public initDefaultShare() {
     if (this.store)
       this.cachestore.dispatch(new WxShareActions.Update({ title: this.store.StoreName, desc: this.store.Description, imgUrl: this.store.LogoUrl, link: this.store.WxOpenLink }))
-  }
-
-  private wxshare(title, desc, imgUrl, link) {
-    wx.onMenuShareAppMessage({
-      title: title,
-      desc: desc,
-      link: link,
-      imgUrl: imgUrl,
-      type: 'link',
-      success: () => {
-        console.log("success onMenuShareAppMessage");
-        this.api.postWithAuthToken("shareCallback", { title, link }).then(res =>
-          console.log(res));
-      },
-      cancel: () => {
-        console.log("cancel onMenuShareAppMessage");
-      }
-    });
-
-    wx.onMenuShareTimeline({
-      title: title,
-      desc: desc,
-      link: link,
-      imgUrl: imgUrl,
-      success: () => {
-        console.log("success onMenuShareTimeline");
-        this.api.postWithAuthToken("shareCallback", { title, link }).then(res =>
-          console.log(res));
-      },
-      cancel: () => {
-        console.log("cancel onMenuShareTimeline");
-      }
-    }
-    );
   }
 
 }

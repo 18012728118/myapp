@@ -1,13 +1,19 @@
-MuJuanPage {
+page-mujuan {
+    #itemTitle {
+        @include linear-gradient(right, $ibiza-sunset);
+        color: #fff;
+        margin: 0 0 1.5rem 0;
+        padding: 5px;
+        width: 100vw;
+        *{
+            color:#fff;
+        }
+    }
     .title {
         margin: 5px 10px;
     }
     .detail_content {
         margin: 20px 5px;
-    }
-    .card-ios p,
-    .card-md p {
-        margin: 0;
     }
     .desc_title {
         display: flex;

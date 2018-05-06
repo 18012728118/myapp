@@ -11,10 +11,10 @@
   </ion-navbar> -->
 </ion-header>
 <ion-content>
-  <ion-slides *ngIf="_buyItem" style="height:30vh;" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
+  <ion-slides id="detail_Slide" *ngIf="_buyItem" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
     centeredSlides>
     <ion-slide *ngFor="let x of _buyItem.LogoList">
-      <img [src]="x+'!w500'" style="width:100%;" *ngIf="x" />
+      <img [src]="x+'!w500'"  *ngIf="x" />
     </ion-slide>
   </ion-slides>
   <ion-card  *ngIf="_buyItem" id="itemTitle">

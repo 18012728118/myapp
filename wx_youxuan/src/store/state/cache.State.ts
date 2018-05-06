@@ -1,4 +1,4 @@
-export interface Cache {
+export interface CacheState {
     WxUser: any;
     store: any;
     token: any;

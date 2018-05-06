@@ -53,3 +53,12 @@ ion-header .toolbar-background {
 ion-header .back-button{
     color:#fff;
 }
+
+ion-slides#detail_Slide
+{
+    height:30vh;
+    ion-slide img{
+        min-height:30vh;
+        min-width:100vw;
+    }
+}

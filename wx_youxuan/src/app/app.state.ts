@@ -1,9 +1,9 @@
-import { Cache } from "../store/types/cache.model";
 import { WxShareState } from "../store/types/wxShare.model";
 import { KanJiaState } from "../store/state/kanJia.State";
+import { CacheState } from "../store/state/cache.State";
 
 export interface AppState {
-    cache: Cache,
+    cache: CacheState,
     wxShare: WxShareState,
     kanJiaUser: KanJiaState
 }

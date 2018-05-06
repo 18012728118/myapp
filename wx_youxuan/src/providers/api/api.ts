@@ -10,6 +10,7 @@ import { AppState } from '../../app/app.state';
 import { wxShareReducer } from '../../store/reducers/wxShare.reduce';
 import * as WxShareActions from "../../store/actions/wxShare.action";
 import { InitDataProvider } from '../providers';
+import { ENV } from '@app/env';
 
 declare var WeixinJSBridge: any;
 declare var wx: any;
@@ -42,26 +43,22 @@ export class Api {
     public storage: Storage,
     private store: Store<AppState>
   ) {
-
   }
 
-  httpGet(endpoint: string, params?: any, reqOpts?: any) {
-    if (!reqOpts) {
-      reqOpts = {
-        params: new HttpParams()
-      };
-    }
 
+
+
+  httpGet(endpoint: string) {
     // Support easy query params for GET requests
-    if (params) {
-      reqOpts.params = new HttpParams();
-      for (let k in params) {
-        reqOpts.params = reqOpts.params.set(k, params[k]);
-      }
-    }
+    // if (params) {
+    //   reqOpts.params = new HttpParams();
+    //   for (let k in params) {
+    //     reqOpts.params = reqOpts.params.set(k, params[k]);
+    //   }
+    // }
     if (!this.isLocalTest())
-      return this.http.get(ApiUrl + endpoint, reqOpts);
-    return this.http.get(TestApiUrl + endpoint, reqOpts);
+      return this.http.get(ApiUrl + endpoint);
+    return this.http.get(TestApiUrl + endpoint);
   }
 
   public addFavorate(item: any): Promise<any> {
@@ -85,68 +82,51 @@ export class Api {
   }
 
   public isLocalTest(): Boolean {
-    if (/(localhost|192.168.|127.0.)/i.test(document.location.host)) {
-      return true
-    }
-    return false;
+    return ENV.isDebugMode;
   }
 
   getWithAuth(endpoint: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.storage.get("token_wjapp").then(token => {
-        let headers = new HttpHeaders();
-        let url = "";
-        headers = headers.append("Authorization", token);
-        if (!this.isLocalTest()) {
-          url = ApiUrl + endpoint;
+      let url = "";
+      if (!this.isLocalTest()) {
+        url = ApiUrl + endpoint;
+      }
+      else {
+        url = TestApiUrl + endpoint;
+      }
+      // this.http.get<any>(url, { headers: headers }).subscribe(res => {
+      this.http.get<any>(url).subscribe(res => {
+        if (res.success) {
+          resolve(res.data);
         }
         else {
-          url = TestApiUrl + endpoint;
+          reject(res.msg);
         }
-        // this.http.get<any>(url, { headers: headers }).subscribe(res => {
-        this.http.get<any>(url).subscribe(res => {
-          if (res.success) {
-            resolve(res.data);
-          }
-          else {
-            reject(res.msg);
-          }
-        }, err => {
-          reject("httpget error");
-        });
-      })
-        .catch(err => {
-          reject("storage error");
-        });
+      }, err => {
+        reject("httpget error");
+      });
     });
   }
 
 
   postWithAuthToken(endpoint: string, body: any, reqOpts?: any): Promise<any> {
     let promise = new Promise((resolve, reject) => {
-      this.storage.get("token_wjapp").then(token => {
-        let headers = new HttpHeaders();
-        headers = headers.append("Authorization", token);
-        let url = "";
-        if (!this.isLocalTest()) {
-          url = ApiUrl + endpoint;
-        }
-        else {
-          url = TestApiUrl + endpoint;
-        }
-        //this.http.post<any>(url, body, { headers: headers }).subscribe(res => {
-        this.http.post<any>(url, body).subscribe(res => {
-          if (res.success)
-            resolve(res.data);
-          else
-            reject(res.msg)
-        }, err => {
-          reject(err);
-        });
-      })
-        .catch(err => {
-          reject(err);
-        });
+      let url = "";
+      if (!this.isLocalTest()) {
+        url = ApiUrl + endpoint;
+      }
+      else {
+        url = TestApiUrl + endpoint;
+      }
+      //this.http.post<any>(url, body, { headers: headers }).subscribe(res => {
+      this.http.post<any>(url, body).subscribe(res => {
+        if (res.success)
+          resolve(res.data);
+        else
+          reject(res.msg)
+      }, err => {
+        reject(err);
+      });
     });
     return promise;
   }
@@ -175,7 +155,7 @@ export class Api {
       desc,
       imgUrl,
       link
-    }))
+    }));
   }
 
   // public chooseImage(photo) {
@@ -203,6 +183,73 @@ export class Api {
   //     }
   //   })
   // }
+
+
+  public initWxShare(title, desc, imgUrl, link) {
+    wx.onMenuShareAppMessage({
+      title: title,
+      desc: desc,
+      link: link,
+      imgUrl: imgUrl,
+      type: 'link',
+      success: () => {
+        console.log("success onMenuShareAppMessage");
+        this.postWithAuthToken("shareCallback", { title, link }).then(res =>
+          console.log(res));
+      },
+      cancel: () => {
+        console.log("cancel onMenuShareAppMessage");
+      }
+    });
+
+    wx.onMenuShareTimeline({
+      title: title,
+      desc: desc,
+      link: link,
+      imgUrl: imgUrl,
+      success: () => {
+        console.log("success onMenuShareTimeline");
+        this.postWithAuthToken("shareCallback", { title, link }).then(res =>
+          console.log(res));
+      },
+      cancel: () => {
+        console.log("cancel onMenuShareTimeline");
+      }
+    }
+    );
+  }
+
+  public jssdk() {
+    var _url = encodeURIComponent(location.href.split('#')[0]);
+    console.log("InitDataProvider start")
+    this.http.get("http://m.wjhaomama.com/V1/" + "jssdk?url=" + _url).subscribe((res: any) => {
+      wx.config({
+        debug: false,
+        appId: res.AppId,
+        timestamp: res.Timestamp,
+        nonceStr: res.NonceStr,
+        signature: res.Signature,
+        jsApiList: [
+          'checkJsApi',
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo',
+          'hideMenuItems',
+          'showMenuItems',
+          'hideAllNonBaseMenuItem',
+          'showAllNonBaseMenuItem',
+          'chooseImage',
+          'scanQRCode',
+          'openLocation',
+          'getLocation'
+        ]
+      });
+    }
+    )
+  };
+
+
 
   public scanQRCode(needResult) {
     needResult = needResult ? needResult : 0;

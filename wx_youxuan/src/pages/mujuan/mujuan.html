@@ -1,32 +1,19 @@
-<ion-header>
-  <ion-navbar *ngIf="_buyItem">
-    <ion-title>{{_buyItem.Name}}</ion-title>
-  </ion-navbar>
-</ion-header>
 <ion-content>
-  <ion-slides style="height:300px;" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
-    centeredSlides>
+  <ion-slides id="detail_Slide" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1" centeredSlides>
     <ion-slide *ngFor="let x of _buyItem.LogoList">
-      <img [src]="x+'!w400h300w'" style="width:100%;" *ngIf="x" />
+      <img [src]="x+'!w500'" *ngIf="x" />
     </ion-slide>
   </ion-slides>
-  <ion-card style="padding:12px 8px;">
+  <ion-card id="itemTitle" style="padding:12px 8px;">
     <h1 class="title">{{_buyItem.Name}}</h1>
     <div class="desc_title">
       <div class="leftBox">
         <h1 class="price" style="float:left">
-          <!-- ￥{{_buyItem.VipPrice}} -->
           累计募捐：￥{{_total}}
         </h1>
-        <!-- <div style="float:left">
-          <p class="oldPrice">募捐进行中</p>
-          <p *ngIf="_buyItem.Count==0">
-            <b class="price">募捐已结束</b>
-          </p>
-        </div> -->
       </div>
       <div class="rightBox">
-        <p class="price">募捐进行中</p>
+        <p class="price" *ngIf="_buyItem.Count>0">募捐进行中</p>
         <p *ngIf="_buyItem.Count==0">
           <b>募捐已结束</b>
         </p>
@@ -59,7 +46,18 @@
           <ion-icon name="home"></ion-icon>
         </button>
       </ion-col>
-      <ion-col col-8>
+      <ion-col col-4>
+        <div class="btnGroup" *ngIf="_buyItem.Count!=0">
+          <button ion-button icon-only small clear color="primary" *ngIf="_count>=2" (click)="remove(m)">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <button ion-button disabled class="item_buttons" clear color="danger">{{_count}}</button>
+          <button ion-button icon-only small clear color="primary" (click)="add(m)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+      <ion-col col-4>
         <button ion-button block (click)="toPay()" color="secondary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
         <button ion-button block color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
       </ion-col>

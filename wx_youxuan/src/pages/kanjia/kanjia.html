@@ -6,13 +6,12 @@
 <ion-content style="background-color:#ddd;">
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉释放刷即刷新页面数据" refreshingSpinner="circles" refreshingText="刷新中...">>
-
     </ion-refresher-content>
   </ion-refresher>
-  <ion-slides *ngIf="_buyItem" style="height:60vw;" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
+  <ion-slides id="detail_Slide" *ngIf="_buyItem" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
     centeredSlides>
     <ion-slide *ngFor="let x of _buyItem.LogoList">
-      <img [src]="x+'!w500'" style="width:100%;" *ngIf="x" />
+      <img [src]="x+'!w500'" *ngIf="x" />
     </ion-slide>
   </ion-slides>
   <!-- <div *ngIf="_buyItem">
@@ -38,11 +37,11 @@
         </div>
       </ion-col>
       <ion-col col-3 class="right" no-padding>
-        <div class="col1">活动时间仅剩</div>
-        <div *ngIf="!_leftTime" style="font-size:20px;color:#333">
+        <div class="col1" *ngIf="_leftTime && _buyItem.Count!=0">活动时间仅剩</div>
+        <div *ngIf="!_leftTime || _buyItem.Count==0" style="font-size:20px;color:#333">
           已结束
         </div>
-        <div class="col2" *ngIf="_leftTime">
+        <div class="col2" *ngIf="_leftTime && _buyItem.Count!=0">
           <div class="row">
             <div class="bg">{{_leftTime.days}}</div>
             <div>天</div>
@@ -52,7 +51,7 @@
             <div>时</div>
           </div>
         </div>
-        <div class="col3" *ngIf="_leftTime">
+        <div class="col3" *ngIf="_leftTime && _buyItem.Count!=0">
           <div class="row">
             <div class="bg">{{_leftTime.minutes}}</div>
             <div>分</div>
@@ -125,34 +124,40 @@
       <div *ngSwitchCase="'tab1'">
         <ion-grid class="tabsList" *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">
           <ion-row *ngFor="let u of _kanJiaUser.KanJiaLogs">
-            <ion-col col-3>
+            <ion-col col-2>
               <ion-avatar item-start>
                 <img [src]="u.headimgurl">
               </ion-avatar>
             </ion-col>
-            <ion-col col-5>
+            <ion-col col-3>
               {{u.nickname}}
             </ion-col>
             <ion-col col-4>
               砍掉
               <b class="cr">￥{{u.ReducePrice.toFixed(2)}}</b>
             </ion-col>
+            <ion-col col-3>
+              {{u.DateTimeCreate | fromNow}}
+            </ion-col>
           </ion-row>
         </ion-grid>
       </div>
       <ion-grid class="tabsList" *ngSwitchCase="'tab2'">
         <ion-row *ngFor="let u of _kanJiaUsers">
-          <ion-col col-3>
+          <ion-col col-2>
             <ion-avatar item-start>
               <img [src]="u.headimgurl">
             </ion-avatar>
           </ion-col>
-          <ion-col col-5>
+          <ion-col col-3>
             {{u.nickname}}
           </ion-col>
           <ion-col col-4>
-            砍到
+            减至
             <b class="cr">￥{{u.NowPrice.toFixed(2)}}</b>
+          </ion-col>
+          <ion-col col-3>
+            {{u.DateTimeCreate | fromNow}}
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -246,7 +251,7 @@
 <modal id="modalMain">
   <div class="modal">
     <div class="modal-body" *ngIf="initData.store && _buyItem">
-      <h3 *ngIf="_buyItem.NeedSubscribe">本活动需关注公众号才可参与,如果关注了还不能参与,请稍后重试</h3>
+      <h3 *ngIf="_buyItem.NeedSubscribe">本活动需关注公众号才可参与</h3>
       <img src="{{initData.store.QRLogoUrl}}!w500" />
       <h4>关注公众号接收最新通知</h4>
       <div class="modal-close">
