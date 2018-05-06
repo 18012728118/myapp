@@ -20,6 +20,7 @@ interface AppState {
 })
 export class SettingPage {
 
+  _w: any = window;
   wxUser: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,8 +43,7 @@ export class SettingPage {
     this.api.scanQRCode(1);
   }
 
-  clearStorage()
-  {
+  clearStorage() {
     //localStorage.removeItem("token");
   }
 }

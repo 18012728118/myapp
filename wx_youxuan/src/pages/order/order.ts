@@ -14,16 +14,21 @@ export class OrderPage {
   loading: any;
   qrUrl: string = "";
   modalData: any;
+  now: Date = new Date();
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController,
     private api: Api,
     private initData: InitDataProvider,
     private loadingCtrl: LoadingController,
-    private modalService: ModalService
+    private modalService: ModalService,
+
   ) {
     // this.modalService.open("modalCut");
   }
+
+  doDate(data) { return new Date(data); }
+
   ionViewDidEnter() {
     this.orderList = null;
     this.loading = this.loadingCtrl.create({
@@ -36,7 +41,7 @@ export class OrderPage {
           this.orderList = res;
           this.loading.dismiss();
         })
-    }, 1000);
+    }, 300);
   }
 
   ionViewDidLoad() {

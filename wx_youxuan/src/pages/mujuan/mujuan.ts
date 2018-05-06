@@ -74,6 +74,9 @@ export class MuJuanPage {
       });
   }
 
+  goOrder() {
+    this.navCtrl.push("OrderPage");
+  }
   //更多名单 
   seeMore() {
     if (this._skip + 20 < this._total) {

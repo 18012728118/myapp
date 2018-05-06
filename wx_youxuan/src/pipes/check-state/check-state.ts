@@ -21,6 +21,9 @@ export class CheckStatePipe implements PipeTransform {
           if (it.Count > 0 && new Date(it.DateTimeStart) <= new Date() && new Date(it.DateTimeEnd) >= new Date()) {
             return true;
           }
+          // console.log(it.Name)
+          // console.log(new Date(it.DateTimeStart))
+          // console.log(new Date(it.DateTimeEnd))
           return false;
         case "WillStart":
           if (it.Count > 0 && new Date(it.DateTimeStart) >= new Date()) {

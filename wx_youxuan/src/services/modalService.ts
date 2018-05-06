@@ -16,14 +16,14 @@ export class ModalService {
 
     open(id: string) {
         // open modal specified by id
-        let modal = _.find(this.modals, { id: id });
+        let modal: any = _.find(this.modals, { id: id });
         console.log(modal);
         modal.open();
     }
 
     close(id: string) {
         // close modal specified by id
-        let modal = _.find(this.modals, { id: id });
+        let modal: any = _.find(this.modals, { id: id });
         modal.close();
     }
 }

@@ -1,29 +1,4 @@
 page-kanjia {
-    // .help {
-    //     margin-top: 60px;
-    //     width: 140px;
-    //     display: flex;
-    //     align-items: center;
-    //     flex-direction: column;
-    //     .helpHead {
-    //         width: 140px;
-    //         height: 110px;
-    //         background: url(/assets/imgs/helpcuthead.png) no-repeat;
-    //         background-size: cover
-    //     }
-    //     .helpBody {
-    //         width: 96px;
-    //         background-color: #EB554A;
-    //         text-align: center;
-    //         border-radius: 0 0px 8px 8px;
-    //         img {
-    //             border-radius: 50%;
-    //             width: 55%;
-    //             margin: 5px 0;
-    //             ;
-    //         }
-    //     }
-    // }
     .list-ios,.list-md{
         margin-bottom:0;
     }
@@ -93,7 +68,7 @@ page-kanjia {
         padding: 0;
         color: #fff;
         .left {
-            background-color: #F5A623;
+            @include linear-gradient(right, $ibiza-sunset);
             display: flex;
             align-items: center;
             .col1 {
@@ -119,21 +94,23 @@ page-kanjia {
                     text-decoration: line-through;
                 }
                 .views {
-                    color: #D23C32;
-                    border: 1px solid #D23C32;
-                    border-radius: 8px;
+                    color: #ccc;
+                    border: 1px solid #CCC;
+                    border-radius: 3px;
                     text-align: center;
                     font-size: 16px;
                 }
             }
         }
         .right {
-            background-color: #FFE547;
+            // background-color: #FFE547;
+            @include linear-gradient(right,$pastel-orange-at-the-sun);
+            
             display: flex;
             flex-direction: column;
             text-align: center;
             .col1 {
-                color: #D23C32;
+                color: #eee;
             }
             .col2,
             .col3 {
