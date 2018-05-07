@@ -8,7 +8,7 @@ export class AppService {
     }
 
     public getInit() {
-        return this.api.httpGet('GetInit').toPromise();
+        return this.api.httpGet('GetInit?sid='+window['storeId']).toPromise();
     }
 
 }

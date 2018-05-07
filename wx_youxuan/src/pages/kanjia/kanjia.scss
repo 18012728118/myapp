@@ -1,4 +1,7 @@
 page-kanjia {
+    .userList .col:nth-last-child(1){
+        text-align: right;
+    }
     .list-ios,.list-md{
         margin-bottom:0;
     }

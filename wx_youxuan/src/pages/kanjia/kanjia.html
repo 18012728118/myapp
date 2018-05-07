@@ -120,7 +120,7 @@
         斩获名单({{_kanJiaUsers?_kanJiaUsers.length:'0'}}位)
       </ion-segment-button>
     </ion-segment>
-    <div [ngSwitch]="pet">
+    <div [ngSwitch]="pet" class="userList">
       <div *ngSwitchCase="'tab1'">
         <ion-grid class="tabsList" *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">
           <ion-row *ngFor="let u of _kanJiaUser.KanJiaLogs">
