@@ -50,7 +50,9 @@ export function provideSettings(storage: Storage) {
     ComponentsModule,
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      backButtonText: '返回'
+    }),
     IonicStorageModule.forRoot(),
     StoreModule.forRoot({
       cache: cacheReducer,

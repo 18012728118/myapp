@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Storage } from '@ionic/storage';
 
@@ -37,16 +37,13 @@ export class Api {
 
   private cachestore: Store<AppState>
 
-  constructor(public http: HttpClient,
-    public toast: ToastController,
-    public alertCtrl: AlertController,
-    public storage: Storage,
+  constructor(private http: HttpClient,
+    private toast: ToastController,
+    private alert: AlertController,
+    private storage: Storage,
     private store: Store<AppState>
   ) {
   }
-
-
-
 
   httpGet(endpoint: string) {
     // Support easy query params for GET requests
@@ -270,7 +267,7 @@ export class Api {
             this.showErrorAlert(checkResponse.msg);
             return;
           }
-          let confirm = this.alertCtrl.create({
+          let confirm = this.alert.create({
             title: '是否使用此消费券?',
             message: `<h2>${checkResponse.data.body}<p>价格:${(checkResponse.data.price / 100)}</p><p>数量:${checkResponse.data.count}</p></h2>`,
             buttons: [
@@ -294,9 +291,8 @@ export class Api {
         });
   }
 
-
   public showSuccessAlert(msg?: string) {
-    let alert = this.alertCtrl.create({
+    let alert = this.alert.create({
       title: '成功',
       subTitle: `<img src="/assets/imgs/success.png" /><p>${msg}</p>`,
       buttons: ['Ok']
@@ -305,7 +301,7 @@ export class Api {
   }
 
   public showErrorAlert(msg?: string) {
-    let alert = this.alertCtrl.create({
+    let alert = this.alert.create({
       title: '出错了',
       buttons: ['Ok']
     });

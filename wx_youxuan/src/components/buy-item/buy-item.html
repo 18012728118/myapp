@@ -1,0 +1,20 @@
+<ion-card>
+  <ion-row>
+    <ion-col col-4>
+      <img class="logoImg" [src]="item.LogoList[0]+'!w100h100'" (click)="goDetail(item)" />
+    </ion-col>
+    <ion-col col-8>
+      <div class="tag">{{initData.BuyItemType[item.Type].name}}</div>
+      <div class="title">{{item.Name}}</div>
+      <div class="row3">
+        <div class="price" *ngIf="showPrice">
+          <b>￥{{item.VipPrice}}</b>
+          <i>原价:{{item.Price}}</i>
+        </div>
+        <div>
+          <button ion-button [color]="btnText.color" small (click)="goDetail(item)">{{btnText.text}}</button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-card>

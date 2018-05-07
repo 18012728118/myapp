@@ -1,9 +1,3 @@
-<!-- <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>吴江优选</ion-title>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-content>
   <ion-slides style="height:18rem;" *ngIf="initData.SlideList && initData.SlideList.length" autoplay=4000 pager loop centeredSlides>
     <ion-slide *ngFor="let s of initData.SlideList" (click)="slideClick(s)">
@@ -14,25 +8,18 @@
     <ion-row>
       <ion-col col-5>
         <div>
-          <img class="shadowBox" src="assets/imgs/active.png" />
+          <img class="shadowBox" src="assets/imgs/active.png" (click)="goList(1)" />
         </div>
       </ion-col>
       <ion-col col-7>
-        <img class="shadowBox" src="assets/imgs/dine.png" />
-        <img class="shadowBox" src="assets/imgs/bargain.png" />
+        <img class="shadowBox" src="assets/imgs/dine.png" (click)="goList(2)" />
+        <img class="shadowBox" src="assets/imgs/bargain.png" (click)="goList(3)" />
       </ion-col>
     </ion-row>
   </ion-grid>
-   <!-- <ion-scroll scrollX="true" style="width:100vw;height:40px">
-    <ion-row nowrap class="headerChip">
-      <div *ngFor="let tabItem of hScroll">
-        <ion-chip (click)="tapS(tabItem)" [ngClass]="tabItem.selected?'selected':''">
-          <ion-label>{{tabItem.name}}</ion-label>
-          <div></div>
-        </ion-chip>
-      </div>
-    </ion-row>
-  </ion-scroll>  -->
+  <b class="h1">实力推荐</b>
+  <buy-item *ngFor="let i of (cache$ |async).BuyItemList " [item]="i"></buy-item>
+  <!-- 
   <ion-segment [(ngModel)]="pet" color="secondary" padding>
     <ion-segment-button value="Normal">
       <span>正在进行中</span>
@@ -83,5 +70,5 @@
       </div>
       <div style="clear: both;"></div>
     </div>
-  </div>
+  </div> -->
 </ion-content>

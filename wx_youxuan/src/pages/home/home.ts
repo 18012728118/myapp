@@ -5,6 +5,10 @@ import {
 import { NavController, Slides, IonicPage, ModalController } from 'ionic-angular';
 import { Settings, InitDataProvider } from '../../providers/providers';
 import { Api } from '../../providers/api/api';
+import { Observable } from 'rxjs/Observable';
+import { CacheState } from '../../store/state/cache.State';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app/app.state';
 
 @IonicPage()
 @Component({
@@ -13,18 +17,22 @@ import { Api } from '../../providers/api/api';
 })
 export class HomePage {
   pet = "Normal";
+  cache$: Observable<CacheState>;
 
   @ViewChild(Slides) slides: Slides;
   constructor(
     public navCtrl: NavController,
     private api: Api,
     private initData: InitDataProvider,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private store: Store<AppState>) {
     // settings.load().then(() => {
     //   // console.log(settings.settings);
     // });
+    this.cache$ = this.store.select(z => z.cache);
   }
 
+  type: any;
   BuyList: any = [];
   slideList: any = [];
 
@@ -36,6 +44,7 @@ export class HomePage {
     { name: '水果', selected: false }
   ];
   showSelected: boolean = false;
+  
   ngAfterViewInit() {
   }
 
@@ -58,39 +67,15 @@ export class HomePage {
     }
   }
 
-  checkDate(item) {
-    if (new Date(item.DateTimeEnd) >= new Date())
-      return true;
-    else
-      return false;
-  }
-
-  goDetail(buyitem) {
-    let pagename: string = "";
-    switch (buyitem.Type) {
-      case 1:
-        pagename = "ItemDetailPage";
-        break;
-      case 11:
-        pagename = "MuJuanPage";
-        break;
-      case 3:
-        pagename = "KanjiaPage";
-        break;
-    }
-    let modal = this.modalCtrl.create(pagename, { DetailId: buyitem.Id, Self: true });
-
-    modal.onDidDismiss(() => {
-      this.initData.initDefaultShare();
-    });
-    modal.present();
-  }
-
   checkFavorate(item) {
     if (!item.Favorate)
       return "heart-outline";
     else
       return "heart"
+  }
+
+  goList(iid) {
+    this.navCtrl.push("ListPage", { iid });
   }
 
   clickFavorate(item) {

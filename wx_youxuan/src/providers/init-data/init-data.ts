@@ -18,11 +18,19 @@ declare var WeixinJSBridge;
 declare var wx: any;
 @Injectable()
 export class InitDataProvider {
-
   BuyItemList: any;
   SlideList: any;
   WxUser: any;
   store: any;
+  BuyItemType =
+    {
+      1: { name: '抢购', key: 1 },
+      2: { name: '免费抢购', key: 2 },
+      3: { name: '全民减价', key: 3 },
+      11: { name: '公益募捐', key: 11 }
+      
+    };
+
   constructor(
     public api: Api,
     private http: HttpClient,
