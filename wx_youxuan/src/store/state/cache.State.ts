@@ -4,4 +4,5 @@ export interface CacheState {
     token: any;
     BuyItemList: any;
     SlideList: any;
+    ShopList: any;
 }

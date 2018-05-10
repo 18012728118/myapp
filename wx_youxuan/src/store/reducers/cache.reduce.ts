@@ -10,7 +10,8 @@ const defaultCache: CacheState = {
     store: null,
     token: null,
     BuyItemList: null,
-    SlideList: null
+    SlideList: null,
+    ShopList:null
 }
 
 export function cacheReducer(state: CacheState = defaultCache, action: Action) {

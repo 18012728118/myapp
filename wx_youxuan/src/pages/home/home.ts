@@ -18,7 +18,7 @@ import { AppState } from '../../app/app.state';
 export class HomePage {
   pet = "Normal";
   cache$: Observable<CacheState>;
-
+ 
   @ViewChild(Slides) slides: Slides;
   constructor(
     public navCtrl: NavController,

@@ -5,18 +5,21 @@ import { ProgressBarComponent } from './progress-bar/progress-bar';
 import { ModalComponent } from './modal/modal';
 import { EmptyBgComponent } from './empty-bg/empty-bg';
 import { BuyItemComponent } from './buy-item/buy-item';
+import { ShopCardComponent } from './shop-card/shop-card';
 @NgModule({
     declarations: [HelperComponent,
         ProgressBarComponent,
         ModalComponent,
         EmptyBgComponent,
-        BuyItemComponent],
+        BuyItemComponent,
+    ShopCardComponent],
     imports: [IonicModule],
     exports: [HelperComponent,
         ProgressBarComponent,
         ModalComponent,
         EmptyBgComponent,
-        BuyItemComponent],
+        BuyItemComponent,
+    ShopCardComponent],
     bootstrap: [IonicApp]
 })
 export class ComponentsModule { }
