@@ -1,23 +1,11 @@
-<!--
-  Generated template for the ItemDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <!-- <ion-navbar *ngIf="_buyItem">
-    <ion-title>{{_buyItem.Name}}</ion-title>
-  </ion-navbar> -->
-</ion-header>
 <ion-content>
   <ion-slides id="detail_Slide" *ngIf="_buyItem" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
     centeredSlides>
     <ion-slide *ngFor="let x of _buyItem.LogoList">
-      <img [src]="x+'!w500'"  *ngIf="x" />
+      <img [src]="x+'!w500'" *ngIf="x" />
     </ion-slide>
   </ion-slides>
-  <ion-card  *ngIf="_buyItem" id="itemTitle">
+  <ion-card *ngIf="_buyItem" id="itemTitle">
     <h1 class="title">{{_buyItem.Name}}</h1>
     <div class="desc_title">
       <div class="leftBox">
@@ -38,54 +26,64 @@
       </div>
     </div>
   </ion-card>
+  <div *ngIf="_buyItem" style="background:#fff;margin-top:-12px;margin-bottom:12px;padding:10px 20px;">
+    {{_buyItem.NoticeText}}
+  </div>
+  <ion-list>
+    <ion-item *ngIf="initData.store">
+      <ion-avatar item-start>
+        <img src="{{initData.store.LogoUrl}}!w100">
+      </ion-avatar>
+      <h2>{{initData.store.StoreName}}</h2>
+      <p>{{initData.store.Description}}</p>
+      <button ion-button clear item-end clear round outline (click)="guanzhu()">+关注</button>
+    </ion-item>
+  </ion-list>
   <ion-card *ngIf="_buyItem">
     <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
   </ion-card>
 </ion-content>
 <ion-footer>
-  <ion-toolbar  *ngIf="_buyItem">
-      <ion-row>
-          <ion-col col-2>
-            <button ion-button icon-only clear (click)="back()">
-              <ion-icon name="home"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col col-4>
-              <div class="btnGroup" *ngIf="_buyItem.Count!=0">
-                  <button ion-button icon-only small clear color="primary" *ngIf="_count>=2" (click)="remove(m)">
-                    <ion-icon name="remove"></ion-icon>
-                  </button>
-                  <button ion-button disabled class="item_buttons" clear color="danger">{{_count}}</button>
-                  <button ion-button icon-only small  clear color="primary" (click)="add(m)">
-                    <ion-icon name="add"></ion-icon>
-                  </button>
-                </div>
-          </ion-col>
-          <ion-col col-4>
-            <button ion-button block (click)="toPay()" color="primary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
-            <button ion-button block color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
-          </ion-col>
-          <ion-col col-2 style="text-align: right;">
-            <button ion-button icon-only clear (click)="goOrder()">
-              <ion-icon name="contact"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-
-<!-- 
-    <div id="toolbarBox" *ngIf="_buyItem">
-      <div class="btnGroup" *ngIf="_buyItem.Count!=0">
-        <button ion-button icon-only clear color="primary" *ngIf="_count>=2" (click)="remove(m)">
-          <ion-icon name="remove"></ion-icon>
+  <ion-toolbar *ngIf="_buyItem">
+    <ion-row>
+      <ion-col col-2>
+        <button ion-button icon-only clear (click)="back()">
+          <ion-icon name="home"></ion-icon>
         </button>
-        <button ion-button disabled class="item_buttons" clear color="danger">{{_count}}</button>
-        <button ion-button icon-only clear color="primary" (click)="add(m)">
-          <ion-icon name="add"></ion-icon>
+      </ion-col>
+      <ion-col col-4>
+        <div class="btnGroup" *ngIf="_buyItem.Count!=0&&_buyItem.LimitBuyCount>1">
+          <button ion-button icon-only small clear color="primary" *ngIf="_count>=2" (click)="remove(m)">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <button ion-button disabled class="item_buttons" clear color="danger">{{_count}}</button>
+          <button ion-button icon-only small clear color="primary" (click)="add(m)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button block (click)="toPay()" color="primary" *ngIf="_buyItem.Count!=0">支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
+        <button ion-button block color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
+      </ion-col>
+      <ion-col col-2 style="text-align: right;">
+        <button ion-button icon-only clear (click)="goOrder()">
+          <ion-icon name="contact"></ion-icon>
         </button>
-      </div>
-      <div *ngIf="_buyItem.Count==0"></div>
-      <button ion-button (click)="toPay()" color="primary" *ngIf="_buyItem.Count!=0">立刻支付{{(_count * _buyItem.VipPrice).toFixed(2)}}</button>
-      <button ion-button  color="disable" *ngIf="_buyItem.Count==0">活动已结束</button>
-    </div> -->
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>
+<modal id="modalMain">
+  <div class="modal">
+    <div class="modal-body" *ngIf="initData.store && _buyItem">
+      <h3 *ngIf="_buyItem.NeedSubscribe">本活动需关注公众号才可参与</h3>
+      <img src="{{initData.store.QRLogoUrl}}!w500" />
+      <h4>关注公众号接收最新通知</h4>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

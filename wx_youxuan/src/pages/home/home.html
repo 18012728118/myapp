@@ -17,61 +17,19 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div>
-    <shop-card *ngFor="let i of (cache$ |async).ShopList" [shop]="i">
+  <!-- <ion-grid>
+    <ion-col col-4>
+      <shop-card *ngFor="let i of (cache$ |async).ShopList" [shop]="i">
+      </shop-card>
+    </ion-col>
+  </ion-grid>
+  <div *ngIf="(cache$ |async).ShopList as list">
+    <shop-card *ngFor="let i of list" [shop]="i" type="small">
     </shop-card>
-  </div>  <b class="h1">实力推荐</b>
-  <buy-item *ngFor="let i of (cache$ |async).BuyItemList " [item]="i"></buy-item>
-  <!-- 
-  <ion-segment [(ngModel)]="pet" color="secondary" padding>
-    <ion-segment-button value="Normal">
-      <span>正在进行中</span>
-    </ion-segment-button>
-    <ion-segment-button value="WillStart">
-      <span>即将开始</span>
-    </ion-segment-button>
-    <ion-segment-button value="Exprie">
-      <span>往期回顾</span>
-    </ion-segment-button>
-  </ion-segment>
-  <div style="padding:5px; min-height:200px;background: url(/assets/imgs/emptylist.png) 50% 0 no-repeat">
-    <div *ngFor="let i of initData.BuyItemList | checkState: pet" class="shadowBox" style="margin-bottom:10px;">
-      <div class="picBox">
-        <div class="pic" [style.background-image]="'url('+i.LogoList[0]+'!w500)'">
-        </div>
-        <div class="price" *ngIf="i.Type!=11">
-          <p class="nowPrice">
-            最低:￥{{i.VipPrice}}
-          </p>
-          <p class="oldprice">
-            原价:￥{{i.Price}}
-          </p>
-        </div>
-        <ion-fab left top (click)="clickFavorate(i)">
-          <ion-icon [name]="checkFavorate(i)" color="primary" style="font-size:30px"></ion-icon>
-        </ion-fab>
-      </div>
-      <p class="title">{{i.Name}}</p>
-      <div class="desc_title" style="padding:10px;">
-        <div class="leftBox" *ngIf="i.Type==11">
-          <h1 style="margin:0;" class="price"></h1>
-        </div>
-        <div *ngIf="i.Type==1">
-          <button block ion-button primary (click)="goDetail(i)" [color]="i.Count!=0?'primary':'disable'">
-            {{i.Count!=0?'正在抢购':'售完'}}
-          </button>
-        </div>
-        <div *ngIf="i.Type==11">
-          <button block ion-button [color]="i.Count!=0&& checkDate(i)?'primary':'disable'" (click)="goDetail(i)">{{ i.Count!=0 && checkDate(i) ?'进行中':'已结束'}} 累计募捐￥{{i.Total}}
-          </button>
-        </div>
-        <div *ngIf="i.Type==3">
-          <button block ion-button [color]="i.Count!=0?'primary':'disable'" (click)="goDetail(i)" icon-left>
-            {{i.Count!=0?'去砍价':'已结束'}}{{i.Data}}
-          </button>
-        </div>
-      </div>
-      <div style="clear: both;"></div>
-    </div>
   </div> -->
+  <b class="h1">实力推荐</b>
+  <buy-item *ngFor="let i of (cache$ |async).BuyItemList " [item]="i"></buy-item>
+  <!-- <ion-fab left top (click)="clickFavorate(i)">
+      <ion-icon [name]="checkFavorate(i)" color="primary" style="font-size:30px"></ion-icon>
+    </ion-fab> -->
 </ion-content>

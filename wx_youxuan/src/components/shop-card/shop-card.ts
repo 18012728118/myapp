@@ -12,6 +12,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ShopCardComponent {
   @Input("shop") shop;
+  @Input("type") type: string = 'default';
 
   constructor() {
   }

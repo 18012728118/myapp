@@ -81,7 +81,7 @@
   </ion-grid>
   <ion-grid *ngIf="_buyItem" id="noticeText" no-padding>
     <ion-row>
-      {{_buyItem.DateTimeEnd|fromNow}} {{_buyItem.NoticeText}}
+      {{_buyItem.NoticeText}}
     </ion-row>
   </ion-grid>
   <div *ngIf="_kanJiaUser" style="background-color:#fff;padding-bottom:10px;">
@@ -89,7 +89,7 @@
       <ion-avatar item-start>
         <img src="{{_kanJiaUser.headimgurl}}">
       </ion-avatar>
-      <h2>我是 {{_kanJiaUser.nickname}},大家来帮我砍一刀吧!!</h2>
+      <h2>我是 {{_kanJiaUser.nickname}},大家来帮我减价吧!!</h2>
     </ion-item>
     <progress-bar [cut]="_kanJiaUser.HelpPersonNum" [total]="_buyItem.KanJiaNeedPersonNum">
     </progress-bar>
@@ -98,16 +98,16 @@
       <div class="d2">￥{{_kanJiaUser.NowPrice.toFixed(2)}}</div>
     </div>
   </div>
-  <div class="helper">
+  <div class="helper" *ngIf="helperlogourlList&&helperlogourlList.length>0">
     <div class="row">
       <div class="helpHead">
       </div>
-      <div class="helpBody" *ngIf="helperlogourlList">
+      <div class="helpBody">
         <img style="margin:0 10px;" *ngFor="let item of helperlogourlList;let i = index" [src]="item" (click)="openHelper(i)" />
       </div>
     </div>
     <div class="helpfoot" *ngIf="_buyItem">
-      求助Ta能帮你砍掉 {{_buyItem.AdminHelpCutCount}}刀哦
+      求助Ta能帮你减掉 {{_buyItem.AdminHelpCutCount}}刀哦
     </div>
   </div>
   <ion-card *ngIf="_buyItem" padding>

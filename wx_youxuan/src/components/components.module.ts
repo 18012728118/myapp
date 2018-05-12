@@ -6,20 +6,23 @@ import { ModalComponent } from './modal/modal';
 import { EmptyBgComponent } from './empty-bg/empty-bg';
 import { BuyItemComponent } from './buy-item/buy-item';
 import { ShopCardComponent } from './shop-card/shop-card';
+import { WxSubscribeComponent } from './wx-subscribe/wx-subscribe';
 @NgModule({
     declarations: [HelperComponent,
         ProgressBarComponent,
         ModalComponent,
         EmptyBgComponent,
         BuyItemComponent,
-    ShopCardComponent],
+    ShopCardComponent,
+    WxSubscribeComponent],
     imports: [IonicModule],
     exports: [HelperComponent,
         ProgressBarComponent,
         ModalComponent,
         EmptyBgComponent,
         BuyItemComponent,
-    ShopCardComponent],
+    ShopCardComponent,
+    WxSubscribeComponent],
     bootstrap: [IonicApp]
 })
 export class ComponentsModule { }

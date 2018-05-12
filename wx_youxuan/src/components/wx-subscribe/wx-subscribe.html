@@ -1,0 +1,23 @@
+<ion-list>
+  <ion-item *ngIf="store">
+    <ion-avatar item-start>
+      <img src="{{store.LogoUrl}}!w100">
+    </ion-avatar>
+    <h2>{{initData.store.StoreName}}</h2>
+    <p>{{initData.store.Description}}</p>
+    <button ion-button clear item-end clear round outline (click)="guanzhu()">+关注</button>
+  </ion-item>
+</ion-list>
+<modal id="modalMain">
+  <div class="modal">
+    <div class="modal-body" *ngIf="store ">
+      <h3 *ngIf="needSubscribe">本活动需关注公众号才可参与</h3>
+      <img src="{{store.QRLogoUrl}}!w500" />
+      <h4>关注公众号接收最新通知</h4>
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

@@ -74,7 +74,9 @@ export class KanjiaPage {
             this._kanJiaUser = res;
             this.pet = 'tab1';
           }
-          this.initShare(this._buyItem);
+          setTimeout(() => {
+            this.initShare(this._buyItem);
+          }, 1000);
         })
         .catch(err => alert(err));
       this.getKanJiaUsers();
