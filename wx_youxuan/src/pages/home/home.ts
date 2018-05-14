@@ -6,7 +6,7 @@ import { NavController, Slides, IonicPage, ModalController } from 'ionic-angular
 import { Settings, InitDataProvider } from '../../providers/providers';
 import { Api } from '../../providers/api/api';
 import { Observable } from 'rxjs/Observable';
-import { CacheState } from '../../store/state/cache.State';
+import { CacheState, getStore } from '../../store/state/cache.State';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.state';
 
@@ -18,7 +18,9 @@ import { AppState } from '../../app/app.state';
 export class HomePage {
   pet = "Normal";
   cache$: Observable<CacheState>;
- 
+
+  store$: Observable<any>;
+
   @ViewChild(Slides) slides: Slides;
   constructor(
     public navCtrl: NavController,
@@ -30,6 +32,12 @@ export class HomePage {
     //   // console.log(settings.settings);
     // });
     this.cache$ = this.store.select(z => z.cache);
+    this.store$ = this.store.select(getStore);
+    //默认分享设置
+    this.store$.subscribe(z => {
+      if (z)
+        this.api.wxshare(z.ShareTitle, z.ShareDesc, z.ShareImgUrl, z.WxOpenLink);
+    })
   }
 
   type: any;
@@ -44,7 +52,7 @@ export class HomePage {
     { name: '水果', selected: false }
   ];
   showSelected: boolean = false;
-  
+
   ngAfterViewInit() {
   }
 

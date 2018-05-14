@@ -8,7 +8,12 @@ export class AppService {
     }
 
     public getInit() {
-        return this.api.httpGet('GetInit?sid='+window['storeId']).toPromise();
+        return this.api.httpGet('GetInit?sid=' + window['storeId']).toPromise();
+    }
+
+    public getShopOrders(buyitemId) {
+        console.log(buyitemId);
+        return this.api.httpGet("GetShopOrders?buyItemId=" + buyitemId);
     }
 
 }

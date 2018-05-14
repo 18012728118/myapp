@@ -29,7 +29,23 @@ export class LoadError implements Action {
 }
 
 
+export const LOADSHOPORDERS = "[Cache] LOADSHOPORDERS";
+export class LoadShopOrders implements Action {
+    readonly type = LOADSHOPORDERS
+    constructor(public payload: any) {
+    }
+}
+export const LOADSHOPORDERSSUCCESS = "[Cache] LOADSHOPORDERSSUCCESS";
+export class LoadShopOrdersSuccess implements Action {
+    readonly type = LOADSHOPORDERSSUCCESS
+    constructor(public payload: any) {
+    }
+}
+
+
 export type All =
     Save |
     Init |
+    LoadShopOrders |
+    LoadShopOrdersSuccess |
     LoadError; 

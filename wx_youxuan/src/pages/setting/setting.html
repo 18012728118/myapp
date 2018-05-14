@@ -14,11 +14,18 @@
       <ion-icon name="call" item-start color="primary"></ion-icon>
       <ion-label>商务合作电话</ion-label>
     </a>
-    <button ion-item (click)="goScan()">
-      <ion-icon name="qr-scanner" item-start color="primary"></ion-icon>
-      <ion-label>商家扫码</ion-label>
-      <!-- <ion-note item-end>Off</ion-note> -->
-    </button>
+    <ng-container *ngIf="initData.isAdmin">
+      <button ion-item (click)="goScan()">
+        <ion-icon name="qr-scanner" item-start color="primary"></ion-icon>
+        <ion-label>商家扫码</ion-label>
+        <!-- <ion-note item-end>Off</ion-note> -->
+      </button>
+      <button ion-item (click)="goShopOrders()">
+        <ion-icon name="list" item-start color="primary"></ion-icon>
+        <ion-label>核销记录</ion-label>
+        <!-- <ion-note item-end>Off</ion-note> -->
+      </button>
+    </ng-container>
   </ion-list>
   <ion-list>
     <button ion-item>

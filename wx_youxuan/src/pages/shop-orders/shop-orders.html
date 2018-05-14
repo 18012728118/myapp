@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ShopOrdersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>shopOrders</ion-title>
+  </ion-navbar>
+</ion-header> -->
+<ion-content padding>
+  <ng-container *ngIf="shopOrders$ |async as s">
+    <h2>活动列表</h2>
+    <ion-list>
+      <button ion-item *ngFor="let i of s.buyItemList" (click)="loadPayLoad(i.Id)">
+        <ion-label>{{i.Name}}</ion-label>
+      </button>
+    </ion-list>
+    <div *ngIf="s.payOrders">
+      <h2>购买明细</h2>
+      <ion-list>
+        <a ion-item *ngFor="let o of s.payOrders" href="tel:{{o.TelPhone}}">
+          <ion-label>{{o.TelPhone}}/{{o.nickname}} </ion-label>
+          <ion-note item-end> {{o.IsCheckOut?"已使用":""}}</ion-note>
+        </a>
+      </ion-list>
+    </div>
+
+  </ng-container>
+</ion-content>

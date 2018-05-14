@@ -125,7 +125,7 @@
         <ion-grid class="tabsList" *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">
           <ion-row *ngFor="let u of _kanJiaUser.KanJiaLogs">
             <ion-col col-2>
-              <ion-avatar item-start>
+              <ion-avatar item-start *ngIf="u.headimgurl">
                 <img [src]="u.headimgurl">
               </ion-avatar>
             </ion-col>
@@ -145,7 +145,7 @@
       <ion-grid class="tabsList" *ngSwitchCase="'tab2'">
         <ion-row *ngFor="let u of _kanJiaUsers">
           <ion-col col-2>
-            <ion-avatar item-start>
+            <ion-avatar item-start *ngIf="u.headimgurl">
               <img [src]="u.headimgurl">
             </ion-avatar>
           </ion-col>

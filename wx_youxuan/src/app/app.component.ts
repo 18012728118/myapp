@@ -14,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import * as CacheActions from '../store/actions/cache.action';
 import { HttpClient } from '@angular/common/http';
 import { AppState } from './app.state';
+import { WxShareState } from '../store/types/wxShare.model';
 
 declare var WeixinJSBridge;
 declare var wx: any;
@@ -25,6 +26,7 @@ declare var wx: any;
 })
 export class MyApp {
   rootPage: any = "TabsPage";
+  wxShare$: Observable<WxShareState>
 
   constructor(
     platform: Platform,
@@ -37,7 +39,8 @@ export class MyApp {
     }
     localStorage.setItem("token_yx_" + window['storeId'], window['token'])
     this.api.jssdk();
-    this.store.select(z => z.wxShare).subscribe(res => {
+    this.wxShare$ = store.select(z => z.wxShare);
+    this.wxShare$.subscribe(res => {
       if (res) {
         console.log("wxShare changed,start to share " + res.title)
         this.api.initWxShare(res.title, res.desc, res.imgUrl, res.link);

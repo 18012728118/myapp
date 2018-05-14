@@ -147,6 +147,7 @@ export class Api {
   }
 
   public wxshare(title, desc, link, imgUrl) {
+    console.log("wxshare");
     this.store.dispatch(new WxShareActions.Update({
       title,
       desc,
@@ -302,7 +303,7 @@ export class Api {
 
   public showErrorAlert(msg?: string) {
     let alert = this.alert.create({
-      title: '出错了',
+      title: msg ? msg : '出错了',
       buttons: ['Ok']
     });
     alert.present();

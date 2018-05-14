@@ -42,6 +42,9 @@ export class SettingPage {
   goScan() {
     this.api.scanQRCode(1);
   }
+  goShopOrders() {
+    this.navCtrl.push("ShopOrdersPage");
+  }
 
   clearStorage() {
     //localStorage.removeItem("token");

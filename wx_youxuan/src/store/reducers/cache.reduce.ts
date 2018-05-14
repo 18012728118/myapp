@@ -11,7 +11,9 @@ const defaultCache: CacheState = {
     token: null,
     BuyItemList: null,
     SlideList: null,
-    ShopList:null
+    ShopList: null,
+    ShopOrders: null,
+    isAdmin: false
 }
 
 export function cacheReducer(state: CacheState = defaultCache, action: Action) {
@@ -20,6 +22,8 @@ export function cacheReducer(state: CacheState = defaultCache, action: Action) {
             return { ...state, [action.payload.key]: action.payload.value }
         case CacheActions.INIT:
             return Object.assign({}, state, action.payload);
+        case CacheActions.LOADSHOPORDERSSUCCESS:
+            return Object.assign({}, state, { ShopOrders: action.payload });
         default:
             return state;
     }

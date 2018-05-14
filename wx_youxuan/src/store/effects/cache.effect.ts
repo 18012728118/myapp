@@ -32,6 +32,30 @@ export class CacheEffects {
         //concat(Observable.of(new CacheAction.Init())) //complate
     ));
 
+
+    @Effect()
+    loadShopOrders$: Observable<Action> = this.actions$
+        .ofType<CacheAction.LoadShopOrders>(CacheAction.LOADSHOPORDERS)
+        .switchMap((action: any) => this.appService.getShopOrders(action.payload)).pipe(
+            map((res: any) => {
+                if (!res) {
+                    //this.UI.showToast("SOMEERROR");
+                    return new CacheAction.LoadError("SOMEERROR")
+                }
+
+                if (res.success) {
+                    //this.UI.alertPaySuccess();
+                    return new CacheAction.LoadShopOrdersSuccess(res.data);
+                }
+                else {
+                    //this.UI.showToast(res.msg);
+                    return new CacheAction.LoadError(res.msg)
+                }
+            }),
+            catchError((error) => this.createErrorObservableAndLog(error))
+        );
+
+
     private createErrorObservableAndLog(error) {
         // this.UI.showToast(error);
         return Observable.of(new CacheAction.LoadError(error));

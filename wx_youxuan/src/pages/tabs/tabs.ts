@@ -20,6 +20,8 @@ export class TabsPage {
     private modalCtrl: ModalController,
     private initData: InitDataProvider,
     private api: Api) {
+
+
   }
   ionViewWillEnter() {
   }
@@ -31,6 +33,7 @@ export class TabsPage {
       if (page && detailid) {
         let modal = this.modalCtrl.create(page, { DetailId: detailid });
         modal.onDidDismiss(() => {
+          console.log("onDidDismiss");
           this.initData.initDefaultShare();
         });
         modal.present();
