@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { defer } from "rxjs/observable/defer";
 import { fromPromise } from 'rxjs/observable/fromPromise';
 
-import { catchError, concat, map } from "rxjs/operators";
+import { catchError, concat, map, tap } from "rxjs/operators";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/of';
@@ -14,11 +14,13 @@ import * as  CacheAction from "../actions/cache.action";
 import { AppState } from "../../app/app.state";
 import { Action, Store } from "@ngrx/store";
 import { AppService } from "../../services/appService";
+import { UiProvider } from "../../providers/ui/ui";
 @Injectable()
 export class CacheEffects {
     constructor(private actions$: Actions,
         private store$: Store<AppState>,
-        private appService: AppService
+        private appService: AppService,
+        private UI: UiProvider
     ) {
     }
 
@@ -38,13 +40,9 @@ export class CacheEffects {
         .ofType<CacheAction.LoadShopOrders>(CacheAction.LOADSHOPORDERS)
         .switchMap((action: any) => this.appService.getShopOrders(action.payload)).pipe(
             map((res: any) => {
-                if (!res) {
-                    //this.UI.showToast("SOMEERROR");
-                    return new CacheAction.LoadError("SOMEERROR")
-                }
-
                 if (res.success) {
-                    //this.UI.alertPaySuccess();
+                    //return new CacheAction.LoadError("error")
+                    //this.UI.showToast(res.success)
                     return new CacheAction.LoadShopOrdersSuccess(res.data);
                 }
                 else {
@@ -56,8 +54,17 @@ export class CacheEffects {
         );
 
 
+    @Effect({ dispatch: false })
+    loadError$: Observable<any> = this.actions$
+        .ofType<CacheAction.LoadError>(CacheAction.LOADERROR)
+        .pipe(
+            map(action => action.payload),
+            tap(payload => this.UI.showToast(payload))
+        );
+
     private createErrorObservableAndLog(error) {
         // this.UI.showToast(error);
         return Observable.of(new CacheAction.LoadError(error));
     }
+
 }

@@ -11,7 +11,7 @@ export class AppService {
         return this.api.httpGet('GetInit?sid=' + window['storeId']).toPromise();
     }
 
-    public getShopOrders(buyitemId) {
+    public getShopOrders(buyitemId?: number) {
         console.log(buyitemId);
         return this.api.httpGet("GetShopOrders?buyItemId=" + buyitemId);
     }

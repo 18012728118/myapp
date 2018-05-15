@@ -32,7 +32,7 @@ export class LoadError implements Action {
 export const LOADSHOPORDERS = "[Cache] LOADSHOPORDERS";
 export class LoadShopOrders implements Action {
     readonly type = LOADSHOPORDERS
-    constructor(public payload: any) {
+    constructor(public payload?: any) {
     }
 }
 export const LOADSHOPORDERSSUCCESS = "[Cache] LOADSHOPORDERSSUCCESS";

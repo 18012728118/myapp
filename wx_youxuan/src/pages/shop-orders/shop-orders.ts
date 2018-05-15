@@ -26,7 +26,7 @@ export class ShopOrdersPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private store: Store<AppState>) {
-    store.dispatch(new CacheActions.LoadShopOrders(null));
+    store.dispatch(new CacheActions.LoadShopOrders());
     this.shopOrders$ = store.select(getShopOrders);
   }
 

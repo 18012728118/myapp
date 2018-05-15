@@ -30,6 +30,7 @@ import { ModalService } from '../services/modalService';
 
 import { InitDataProvider } from '../providers/init-data/init-data';
 import { ENV } from "@app/env";
+import { UiProvider } from '../providers/ui/ui';
 
 declare var WeixinJSBridge;
 declare var wx: any;
@@ -50,7 +51,7 @@ export function provideSettings(storage: Storage) {
     ComponentsModule,
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp,{
+    IonicModule.forRoot(MyApp, {
       backButtonText: '返回'
     }),
     IonicStorageModule.forRoot(),
@@ -74,8 +75,9 @@ export function provideSettings(storage: Storage) {
     Api,
     AuthService,
     InitDataProvider,
+    UiProvider,
     ModalService,
-    AppService
+    AppService,
   ]
 })
 export class AppModule { }
