@@ -3,6 +3,7 @@ import { NavController, NavParams, IonicPage, ViewController, LoadingController 
 import { Api } from '../../providers/api/api';
 import { InitDataProvider } from '../../providers/providers';
 import { ModalService } from '../../services/modalService';
+import { AppService } from '../../services/appService';
 
 @IonicPage()
 @Component({
@@ -22,9 +23,10 @@ export class OrderPage {
     private initData: InitDataProvider,
     private loadingCtrl: LoadingController,
     private modalService: ModalService,
+    private appService: AppService
 
   ) {
-    // this.modalService.open("modalCut");
+    this.appService.visitLog({ page: "OrderPage" });
   }
 
   doDate(data) { return new Date(data); }
@@ -45,7 +47,6 @@ export class OrderPage {
   }
 
   ionViewDidLoad() {
-    console.log("CAT PAGE ionViewDidLoad!!")
   }
   showQR(x) {
     this.qrUrl = `http://m.wjhaomama.com/home/qr?str=${x.openid}!${x.sp_billno}`;

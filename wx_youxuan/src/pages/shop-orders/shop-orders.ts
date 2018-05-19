@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { getShopOrders } from '../../store/state/cache.State';
 
 import * as CacheActions from "../../store/actions/cache.action";
+import { Api } from '../../providers/api/api';
+import { AppService } from '../../services/appService';
 /**
  * Generated class for the ShopOrdersPage page.
  *
@@ -25,12 +27,14 @@ export class ShopOrdersPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private store: Store<AppState>) {
+    private store: Store<AppState>,
+    private appService: AppService) {
     store.dispatch(new CacheActions.LoadShopOrders());
     this.shopOrders$ = store.select(getShopOrders);
   }
 
   ionViewDidLoad() {
+    this.appService.visitLog({ page: "ShopOrdersPage" });
   }
 
   loadPayLoad(buyItemId: number) {

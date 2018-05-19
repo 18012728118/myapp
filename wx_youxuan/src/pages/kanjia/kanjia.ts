@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import *  as $ from 'jquery';
 import { Observable } from 'rxjs/Observable';
 import { KanJiaUser } from '../../store/types/kanJiaUser.Model';
+import { AppService } from '../../services/appService';
 declare var WeixinJSBridge: any;
 declare var wx: any;
 
@@ -49,7 +50,8 @@ export class KanjiaPage {
     private api: Api,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private http: HttpClient
+    private http: HttpClient,
+    private appService: AppService
   ) {
     this._id = this.navParams.get("DetailId");
     this.init();
@@ -102,8 +104,10 @@ export class KanjiaPage {
       .catch(err => alert(err));
     return;
   }
+
   ionViewWillEnter() {
-    $(".help").hide();
+    this.appService.visitLog({ page: "KanjiaPage", iid: this._id });
+
     setInterval(() => {
       if (this._buyItem.DateTimeEnd)
         this._leftTime = this.getRemainTime(this._buyItem.DateTimeEnd);

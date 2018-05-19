@@ -30,8 +30,8 @@ export class SettingPage {
 
   ionViewDidLoad() {
     this.wxUser = this.initData.WxUser;
+    this.api.visitLog({ page: "SettingPage" });
   }
-
   ionViewDidEnter() {
 
   }

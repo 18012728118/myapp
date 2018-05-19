@@ -36,6 +36,10 @@ export class MuJuanPage {
 
   moneyList = [10, 20, 30, 50, 100, 200, 500, 1000];
 
+  ionViewDidLoad() {
+    this.api.visitLog({ page: 'MuJuanPage', iid: this._id })
+  }
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
@@ -45,8 +49,6 @@ export class MuJuanPage {
     private api: Api
   ) {
     this._id = navParams.get('DetailId');
-    console.log(this._id);
-
     if (this._id == undefined) {
       this._buyItem = navParams.get('data');
       this._id = this._buyItem.Id;

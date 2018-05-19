@@ -4,6 +4,7 @@ import { InitDataProvider, Api } from '../../providers/providers';
 import { TabsPage } from '../tabs/tabs';
 import { HttpClient } from '@angular/common/http';
 import { ModalService } from '../../services/modalService';
+import { AppService } from '../../services/appService';
 /**
  * Generated class for the ItemDetailPage page.
  *
@@ -30,6 +31,11 @@ export class ItemDetailPage {
   _count: number = 1;
   alert: any;
   payUserinfo = { name: "", telphone: "" };
+
+  ionViewDidLoad() {
+    this.api.visitLog({ page: 'ItemDetailPage', iid: this._id })
+  }
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,

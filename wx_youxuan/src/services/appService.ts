@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Api } from "../providers/api/api";
+import { tap } from "rxjs/operators";
 
 @Injectable()
 export class AppService {
@@ -9,6 +10,12 @@ export class AppService {
 
     public getInit() {
         return this.api.httpGet('GetInit?sid=' + window['storeId']).toPromise();
+    }
+
+    public visitLog(data?: any) {
+        this.api.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
+            console.log("log true");
+        })
     }
 
     public getShopOrders(buyitemId?: number) {

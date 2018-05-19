@@ -11,6 +11,7 @@ import { wxShareReducer } from '../../store/reducers/wxShare.reduce';
 import * as WxShareActions from "../../store/actions/wxShare.action";
 import { InitDataProvider } from '../providers';
 import { ENV } from '@app/env';
+import { tap } from 'rxjs/operators';
 
 declare var WeixinJSBridge: any;
 declare var wx: any;
@@ -35,6 +36,8 @@ export interface buyItem {
 @Injectable()
 export class Api {
 
+
+
   private cachestore: Store<AppState>
 
   constructor(private http: HttpClient,
@@ -44,6 +47,7 @@ export class Api {
     private store: Store<AppState>
   ) {
   }
+
 
   httpGet(endpoint: string) {
     // Support easy query params for GET requests
@@ -55,8 +59,17 @@ export class Api {
     // }
     if (!this.isLocalTest())
       return this.http.get(ApiUrl + endpoint);
+
     return this.http.get(TestApiUrl + endpoint);
   }
+
+  httpPost(endpoint: string, data: any) {
+    if (!this.isLocalTest())
+      return this.http.post(ApiUrl + endpoint, data);
+
+    return this.http.post(TestApiUrl + endpoint, data);
+  }
+
 
   public addFavorate(item: any): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -217,6 +230,14 @@ export class Api {
     );
   }
 
+
+
+  public visitLog(data?: any) {
+    this.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
+      console.log("log true");
+    })
+  }
+
   public jssdk() {
     var _url = encodeURIComponent(location.href.split('#')[0]);
     console.log("InitDataProvider start")
@@ -318,7 +339,7 @@ export class Api {
     // toast.onDidDismiss(() => {
     // });
     toast.present();
-  } 
+  }
 }
 
 
