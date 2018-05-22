@@ -29,7 +29,6 @@ export class InitDataProvider {
       2: { name: '免费抢购', key: 2 },
       3: { name: '全民减价', key: 3 },
       11: { name: '公益募捐', key: 11 }
-
     };
 
   constructor(
@@ -46,8 +45,6 @@ export class InitDataProvider {
       // if (!this.WxUser || !this.store) return;
       //this.api.wxshare(this.store.ShareTitle, this.store.ShareDesc, this.store.ShareImgUrl, this.store.WxOpenLink);
     });
-
-
   }
 
   public initDefaultShare() {

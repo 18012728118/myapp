@@ -53,6 +53,46 @@ export class CacheEffects {
             catchError((error) => this.createErrorObservableAndLog(error))
         );
 
+    @Effect()
+    loadSubjectList$: Observable<Action> = this.actions$
+        .ofType<CacheAction.LoadSubjectList>(CacheAction.LOADSUBJECTLIST)
+        .switchMap((action: any) => this.appService.getSubjectList(action.payload)).pipe(
+            map((res: any) => {
+                if (res.success) {
+                    //return new CacheAction.LoadError("error")
+                    //this.UI.showToast(res.success)
+                    return new CacheAction.LoadSubjectListSuccess(res.data);
+                }
+                else {
+                    //this.UI.showToast(res.msg);
+                    return new CacheAction.LoadError(res.msg)
+                }
+            }),
+            catchError((error) => this.createErrorObservableAndLog(error))
+        );
+
+    //专题页面
+    @Effect()
+    loadSubject$: Observable<Action> = this.actions$
+        .ofType<CacheAction.LoadSubject>(CacheAction.LOADSUBJECT)
+        .switchMap((action: any) => {
+            console.log(action.payload);
+            return this.appService.getSubject(action.payload);
+        }).pipe(
+            map((res: any) => {
+                if (res.success) {
+                    //return new CacheAction.LoadError("error")
+                    //this.UI.showToast(res.success)
+                    return new CacheAction.LoadSubjectSuccess(res.data);
+                }
+                else {
+                    //this.UI.showToast(res.msg);
+                    return new CacheAction.LoadError(res.msg)
+                }
+            }),
+            catchError((error) => this.createErrorObservableAndLog(error))
+        );
+
 
     @Effect({ dispatch: false })
     loadError$: Observable<any> = this.actions$

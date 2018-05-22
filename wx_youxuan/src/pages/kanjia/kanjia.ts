@@ -106,7 +106,7 @@ export class KanjiaPage {
   }
 
   ionViewWillEnter() {
-    this.appService.visitLog({ page: "KanjiaPage", iid: this._id });
+    this.api.visitLog({ page: "KanjiaPage", iid: this._id });
 
     setInterval(() => {
       if (this._buyItem.DateTimeEnd)
@@ -124,8 +124,8 @@ export class KanjiaPage {
     this.modalService.close("modalHelper");
     this.modalService.open("custom-modal-2");
   }
-
   ionViewWillLeave() {
+    this.initData.initDefaultShare();
   }
   ionViewDidLeave() {
   }
@@ -249,27 +249,28 @@ export class KanjiaPage {
             .subscribe(payRes => {
               if (!payRes.success) {
                 this.api.showErrorAlert(payRes.msg);
-                return;
               }
-              WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {
-                  "appId": payRes.appId,
-                  "timeStamp": payRes.timeStamp,
-                  "nonceStr": payRes.nonceStr,
-                  "package": payRes.package,
-                  "signType": payRes.signType,
-                  "paySign": payRes.paySign
-                },
-                (wxRes) => {
-                  if (wxRes.err_msg == "get_brand_wcpay_request:ok")
-                    this.api.showSuccessAlert("支付成功!请尽快至门店验证消费");
-                  else if (wxRes.err_msg == "get_brand_wcpay_request:cancel")
-                    this.api.showErrorAlert("用户取消支付");
-                  else if (wxRes.err_msg == "get_brand_wcpay_request:fail")
-                    this.api.showErrorAlert("微信支付失败");
-                  this.api.showErrorAlert(wxRes.err_msg);
-                }
-              )
+              else {
+                WeixinJSBridge.invoke(
+                  'getBrandWCPayRequest', {
+                    "appId": payRes.appId,
+                    "timeStamp": payRes.timeStamp,
+                    "nonceStr": payRes.nonceStr,
+                    "package": payRes.package,
+                    "signType": payRes.signType,
+                    "paySign": payRes.paySign
+                  },
+                  (wxRes) => {
+                    if (wxRes.err_msg == "get_brand_wcpay_request:ok")
+                      this.api.showSuccessAlert("支付成功!请尽快至门店验证消费");
+                    else if (wxRes.err_msg == "get_brand_wcpay_request:cancel")
+                      this.api.showErrorAlert("用户取消支付");
+                    else if (wxRes.err_msg == "get_brand_wcpay_request:fail")
+                      this.api.showErrorAlert("微信支付失败");
+                    this.api.showErrorAlert(wxRes.err_msg);
+                  }
+                )
+              }
             });
         }
       }]

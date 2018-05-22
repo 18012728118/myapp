@@ -8,6 +8,8 @@ export interface CacheState {
     SlideList: any;
     ShopList: any;
     ShopOrders: any;
+    SubjectList: any;
+    Subject: any;
     isAdmin: boolean;
 }
 
@@ -22,4 +24,14 @@ export const getShopOrders = createSelector(
 export const getStore = createSelector(
     getCahceState,
     (state: CacheState) => state.store
+);
+
+export const getSubjectList = createSelector(
+    getCahceState,
+    (state: CacheState) => state.SubjectList
+);
+
+export const getSubject = createSelector(
+    getCahceState,
+    (state: CacheState) => state.Subject
 );

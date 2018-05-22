@@ -21,15 +21,24 @@
         </div>
       </div>
       <div class="rightBox">
-        <p>距结束还剩</p>
-        <p>{{_buyItem.DateTimeEnd | fromNow}}</p>
+        <ng-container *ngIf="state===0">
+          <p>活动开始时间</p>
+          <p>{{_buyItem.DateTimeStart |moment:'MM月DD日 HH:mm'}}</p>
+        </ng-container>
+        <ng-container *ngIf="state===1">
+          <p>距结束还剩</p>
+          <p>{{_buyItem.DateTimeEnd | fromNow}}</p>
+        </ng-container>
+        <ng-container *ngIf="state===-11">
+          <p>已结束</p>
+        </ng-container>
       </div>
     </div>
   </ion-card>
   <div *ngIf="_buyItem" style="background:#fff;margin-top:-12px;margin-bottom:12px;padding:10px 20px;">
-    {{_buyItem.NoticeText}}
+    <p> {{_buyItem.NoticeText}}</p>
   </div>
-  <ion-list>
+  <ion-list style="margin-bottom:5px;">
     <ion-item *ngIf="initData.store">
       <ion-avatar item-start>
         <img src="{{initData.store.LogoUrl}}!w100">

@@ -42,10 +42,39 @@ export class LoadShopOrdersSuccess implements Action {
     }
 }
 
+export const LOADSUBJECTLIST = "[Cache] LOADSUBJECTLIST";
+export class LoadSubjectList implements Action {
+    readonly type = LOADSUBJECTLIST
+    constructor(public payload?: any) {
+    }
+}
+export const LOADSUBJECTLISTSUCCESS = "[Cache] LOADSUBJECTLISTSUCCESS";
+export class LoadSubjectListSuccess implements Action {
+    readonly type = LOADSUBJECTLISTSUCCESS
+    constructor(public payload: any) {
+    }
+}
+
+export const LOADSUBJECT = "[Cache] LOADSUBJECT";
+export class LoadSubject implements Action {
+    readonly type = LOADSUBJECT
+    constructor(public payload?: any) {
+    }
+}
+export const LOADSUBJECTSUCCESS = "[Cache] LOADSUBJECTSUCCESS";
+export class LoadSubjectSuccess implements Action {
+    readonly type = LOADSUBJECTSUCCESS
+    constructor(public payload: any) {
+    }
+}
 
 export type All =
     Save |
     Init |
     LoadShopOrders |
     LoadShopOrdersSuccess |
+    LoadSubjectList |
+    LoadSubjectListSuccess |
+    LoadSubject |
+    LoadSubjectSuccess |
     LoadError; 

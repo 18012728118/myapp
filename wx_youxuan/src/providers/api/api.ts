@@ -233,9 +233,10 @@ export class Api {
 
 
   public visitLog(data?: any) {
-    this.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
-      console.log("log true");
-    })
+    if (!this.isLocalTest)
+      this.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
+        console.log("log true");
+      })
   }
 
   public jssdk() {
@@ -330,7 +331,7 @@ export class Api {
     alert.present();
   }
 
-  public showToast(title, duration, position) {
+  public showToast(title, duration: number = 2000, position: string = "bottom") {
     let toast = this.toast.create({
       message: title,
       duration: duration,

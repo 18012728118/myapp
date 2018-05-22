@@ -56,7 +56,8 @@ export class HomePage {
   ngAfterViewInit() {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+
   }
 
   tapS(s) {

@@ -15,30 +15,32 @@ export class TabsPage {
   tabMessage = "MessagePage";
   tabFavorate = "FavoratePage";
   tabSetting = "SettingPage";
+  subjectList = "SubjectListPage";
 
   constructor(private app: App,
+    public navCtrl: NavController,
     private modalCtrl: ModalController,
     private initData: InitDataProvider,
     private api: Api) {
-
+    setTimeout(() => {
+      let page = this.api.getUriParam("page");
+      let detailid = this.api.getUriParam("iid")
+      if (page && detailid) {
+        if (["KanjiaPage", "MuJuanPage", "ItemDetailPage"].indexOf(page) > -1) {
+          let modal = this.modalCtrl.create(page, { DetailId: detailid });
+          modal.present();
+        }
+        else {
+          this.navCtrl.push(page, { DetailId: detailid })
+        }
+      }
+    }, 200);
 
   }
   ionViewWillEnter() {
   }
 
   ionViewDidEnter() {
-    setTimeout(() => {
-      let page = this.api.getUriParam("page");
-      let detailid = this.api.getUriParam("iid")
-      if (page && detailid) {
-        let modal = this.modalCtrl.create(page, { DetailId: detailid });
-        modal.onDidDismiss(() => {
-          console.log("onDidDismiss");
-          this.initData.initDefaultShare();
-        });
-        modal.present();
-      }
-    }, 500);
   }
 
   emptyCart() {

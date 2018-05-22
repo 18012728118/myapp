@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { InitDataProvider } from '../../providers/providers';
-import { ModalController } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 
 @Component({
   selector: 'buy-item',
@@ -11,6 +11,7 @@ export class BuyItemComponent {
   @Input('item') item;
   constructor(
     private initData: InitDataProvider,
+    private navCtrl: NavController,
     private modalCtrl: ModalController,
   ) {
   }
@@ -29,14 +30,13 @@ export class BuyItemComponent {
         break;
     }
     let modal = this.modalCtrl.create(pagename, { DetailId: buyitem.Id, Self: true });
-
-    modal.onDidDismiss(() => {
-      this.initData.initDefaultShare();
-    });
     modal.present();
+
   }
 
   get btnText() {
+    if (new Date(this.item.DateTimeStart) > new Date())
+      return { text: "暂未开始", color: "primary" }
     if (this.item.Count === 0)
       return { text: "已售完", color: "disable" };
     if (new Date(this.item.DateTimeEnd) < new Date())

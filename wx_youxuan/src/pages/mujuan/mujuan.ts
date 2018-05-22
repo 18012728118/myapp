@@ -75,7 +75,9 @@ export class MuJuanPage {
         console.log(this._payList);
       });
   }
-
+  ionViewWillLeave() {
+    this.initData.initDefaultShare();
+  }
   goOrder() {
     this.navCtrl.push("OrderPage");
   }

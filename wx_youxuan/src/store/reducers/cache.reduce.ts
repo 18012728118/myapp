@@ -11,8 +11,10 @@ const defaultCache: CacheState = {
     token: null,
     BuyItemList: null,
     SlideList: null,
-    ShopList: null,
+    ShopList: [],
     ShopOrders: null,
+    SubjectList: [],
+    Subject: {},
     isAdmin: false
 }
 
@@ -24,6 +26,10 @@ export function cacheReducer(state: CacheState = defaultCache, action: Action) {
             return Object.assign({}, state, action.payload);
         case CacheActions.LOADSHOPORDERSSUCCESS:
             return Object.assign({}, state, { ShopOrders: action.payload });
+        case CacheActions.LOADSUBJECTLISTSUCCESS:
+            return Object.assign({}, state, { SubjectList: action.payload });
+        case CacheActions.LOADSUBJECTSUCCESS:
+            return Object.assign({}, state, { Subject: action.payload });
         default:
             return state;
     }

@@ -36,7 +36,6 @@ export class ItemDetailPage {
     this.api.visitLog({ page: 'ItemDetailPage', iid: this._id })
   }
 
-
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
@@ -54,7 +53,9 @@ export class ItemDetailPage {
     });
     this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
   }
-
+  ionViewWillLeave() {
+    this.initData.initDefaultShare();
+  }
   guanzhu() {
     this.modalService.open('modalMain');
   }
@@ -83,7 +84,22 @@ export class ItemDetailPage {
       this.api.wxshare(wxData.title, wxData.desc, wxData.link, wxData.imgUrl);
     }
   }
+
+  get state(): number {
+    if (new Date(this._buyItem.DateTimeStart) > new Date())
+      return 0;
+    if (new Date(this._buyItem.DateTimeStart) < new Date() && new Date() < new Date(this._buyItem.DateTimeEnd))
+      return 1;
+    if (new Date() > new Date(this._buyItem.DateTimeEnd))
+      return -1;
+  }
+
   toPay() {
+    if (new Date(this._buyItem.DateTimeStart) > new Date()) {
+      this.api.showToast("活动还没有开始");
+      return;
+    }
+
     this.alert = this.alertCtrl.create({
       title: "正在转至微信支付",
       inputs: [
