@@ -18,12 +18,10 @@
       <button ion-item (click)="goScan()">
         <ion-icon name="qr-scanner" item-start color="primary"></ion-icon>
         <ion-label>商家扫码</ion-label>
-        <!-- <ion-note item-end>Off</ion-note> -->
       </button>
       <button ion-item (click)="goShopOrders()">
         <ion-icon name="list" item-start color="primary"></ion-icon>
         <ion-label>核销记录</ion-label>
-        <!-- <ion-note item-end>Off</ion-note> -->
       </button>
     </ng-container>
   </ion-list>
@@ -33,56 +31,9 @@
       <ion-label>关于 {{initData.store.StoreName}}</ion-label>
     </button>
     <button ion-item>
-      <ion-icon name="information" item-start color="primary"></ion-icon>
-      <ion-label>更新日志</ion-label>
-    </button>
-    <button ion-item>
       <ion-icon name="information-circle" item-start color="primary"></ion-icon>
-      <ion-label>版本号</ion-label>
-      <ion-note item-end>{{_w.BIMRUN_VERSION}}</ion-note>
+      <ion-label>更新日志</ion-label>
+      <ion-note item-end>v{{_w.BIMRUN_VERSION}}</ion-note>
     </button>
   </ion-list>
-  <!--   
-    <ion-list radio-group>
-      <ion-list-header>
-        Silence Phone
-      </ion-list-header>
-  
-      <ion-item>
-        <ion-label color="dark">Always</ion-label>
-        <ion-radio value="always" checked></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label color="dark">Only while phone is locked</ion-label>
-        <ion-radio value="locked"></ion-radio>
-      </ion-item>
-    </ion-list>
-  
-    <ion-list>
-      <ion-list-header>
-        Apps Installed
-      </ion-list-header>
-  
-      <ion-item>
-        <ion-icon name="ionic" item-start color="primary"></ion-icon>
-        <ion-label>Ionic View</ion-label>
-        <button ion-button outline item-end>Uninstall</button>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="brush" item-start color="primary"></ion-icon>
-        <ion-label>Ionic Creator</ion-label>
-        <button ion-button outline item-end>Uninstall</button>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="logo-octocat" item-start color="dark"></ion-icon>
-        <ion-label>Hubstruck</ion-label>
-        <button ion-button outline item-end>Uninstall</button>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="paw" item-start color="danger"></ion-icon>
-        <ion-label>Barkpark</ion-label>
-        <button ion-button outline item-end>Uninstall</button>
-      </ion-item>
-    </ion-list>
-   -->
 </ion-content>

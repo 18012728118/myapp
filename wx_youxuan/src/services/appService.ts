@@ -26,9 +26,12 @@ export class AppService {
         return this.api.httpGet(`getSubjectList?sid=${storid}&skip=${skip}&pagesize=${pagesize}`);
     }
 
-    public getSubject(id: number, skip: number = 0, pagesize: number = 10) {
+    public getSubject(id: number, skip: number = 0, pagesize: number = 20) {
         return this.api.httpGet(`getSubject?id=${id}&skip=${skip}&pagesize=${pagesize}`);
     }
 
 
+    public postLocation(data: any) {
+        return this.api.httpPost("LocationPost", { data });
+    }
 }

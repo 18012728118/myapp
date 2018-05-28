@@ -5,24 +5,39 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title *ngIf="(subject$|async).subject as s">{{s.Title}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 <ion-content>
   <ng-container *ngIf="(subject$|async).subject as s">
     <div [style.background-image]="'url('+s.Param.TopBarImgUrl+')'" style="height:26vh;background-position: 50% 50%;background-size:cover;">
-
     </div>
-    <div style="background:#fff;padding:10px 10px;" [innerHtml]="s.Desc | safeHtml">
-
+    <div style="background:#fff;padding:10px 10px;" [innerHtml]="s.Desc | safeHtml" *ngIf="s.Desc">
     </div>
-    <ng-container *ngIf="(subject$ |async).buyItemList as list">
-      <buy-item *ngFor="let i of  list" [item]="i"></buy-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <button small full ion-button (click)="orderByView()" [color]="sort.name ==view.name?'secondary':'disable'">{{view.text}}</button>
+        </ion-col>
+        <ion-col col-3>
+          <button small full ion-button (click)="orderBySold()" [color]="sort.name ==sold.name?'secondary':'disable'">{{sold.text}}</button>
+        </ion-col>
+        <ion-col col-3>
+          <button small full ion-button (click)="priceing()" [color]="sort.name ==price.name?'secondary':'disable'">{{price.text}}</button>
+        </ion-col>
+        <ion-col col-3>
+          <button small full ion-button (click)="dising()" [color]="sort.name ==dis.name?'secondary':'disable'">{{dis.text}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ng-container *ngIf="(subject$ |async).buyItemList as list ">
+      <buy-item *ngFor="let i of  list| orderBy:sort.name:sort.value" [item]="i"></buy-item>
     </ng-container>
-
   </ng-container>
-
+  <!-- <ion-fab bottom right>
+    <button ion-fab mini color="primary" (click)="goHome()">
+      <ion-icon name="home"></ion-icon>
+    </button>
+  </ion-fab> -->
 </ion-content>

@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
-import *  as $ from 'jquery';
+//import * as $ from "jquery";
 import { ModalService } from '../../services/modalService';
+
+declare var $: any;
 @Component({
   selector: 'modal',
   templateUrl: 'modal.html'

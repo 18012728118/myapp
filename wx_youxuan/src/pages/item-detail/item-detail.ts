@@ -53,6 +53,11 @@ export class ItemDetailPage {
     });
     this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
   }
+
+  goOrder() {
+    this.navCtrl.push("OrderPage");
+  }
+
   ionViewWillLeave() {
     this.initData.initDefaultShare();
   }

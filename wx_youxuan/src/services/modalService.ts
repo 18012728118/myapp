@@ -1,5 +1,5 @@
-import * as _ from "lodash"
-
+import * as _ from "lodash";
+//declare var _ :any;
 export class ModalService {
     private modals: any[] = [];
 
@@ -17,7 +17,7 @@ export class ModalService {
     open(id: string) {
         // open modal specified by id
         let modal: any = _.find(this.modals, { id: id });
-        console.log(modal);
+        //console.log(modal);
         modal.open();
     }
 

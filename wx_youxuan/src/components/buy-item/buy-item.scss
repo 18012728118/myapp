@@ -3,18 +3,25 @@ buy-item {
     display: flex;
     align-items: center;
   }
+  ion-col[col-8] > div
+  {
+    margin-left:10px;
+  }
   .col {
     .tag {
       @include linear-gradient(right, $ibiza-sunset);
       display: inline-block;
       color: #fff;
-      padding: 3px 5px;
+      padding: 3px 10px;
       border-radius: 3px;
     }
     .title {
-      font-size: 1.4rem;
-      height:55px;
+      height:5.4rem;
       overflow: hidden;
+      font-weight: bold;
+      font-size:1.6rem;
+      line-height: 1.8rem;
+      margin-top:10px;
     }
     .row3 {
       display: flex;

@@ -5,11 +5,15 @@
       <img [src]="x+'!w500'" *ngIf="x" />
     </ion-slide>
   </ion-slides>
+  <div style="position: relative;width:100vw;height:50px;background:#fff;display: flex;justify-content: center;">
+    <div *ngIf="_buyItem&&_buyItem.Shop as shop" class="shopLogo">
+      <img src="{{shop.LogoImageUrl}}!w100h100" />
+    </div>
+  </div>
   <ion-card *ngIf="_buyItem" id="itemTitle">
     <h1 class="title">{{_buyItem.Name}}</h1>
     <div class="desc_title">
       <div class="leftBox">
-        <h1 class="price">￥{{_buyItem.VipPrice}}</h1>
         <div style="float:left">
           <p class="oldPrice">原价￥{{_buyItem.Price}}</p>
           <p *ngIf="_buyItem.Count>0">还剩
@@ -20,6 +24,7 @@
           </p>
         </div>
       </div>
+      <h1 class="price" style="font-size:2.8rem;">￥{{_buyItem.VipPrice}}</h1>
       <div class="rightBox">
         <ng-container *ngIf="state===0">
           <p>活动开始时间</p>
@@ -36,7 +41,10 @@
     </div>
   </ion-card>
   <div *ngIf="_buyItem" style="background:#fff;margin-top:-12px;margin-bottom:12px;padding:10px 20px;">
-    <p> {{_buyItem.NoticeText}}</p>
+    <div style="display: flex;justify-content: center;margin:10px 0;">
+      <img src="/assets/imgs/noticeTop.png" />
+    </div>
+    <div style="text-align: center;font-size:1.8rem;margin-bottom:20px;"> {{_buyItem.NoticeText}}</div>
   </div>
   <ion-list style="margin-bottom:5px;">
     <ion-item *ngIf="initData.store">
@@ -49,8 +57,12 @@
     </ion-item>
   </ion-list>
   <ion-card *ngIf="_buyItem">
+    <div style="display: flex;justify-content: center;margin:20px 0;">
+      <img src="/assets/imgs/detailTop.png" style="width:50%;height:50%;" />
+    </div>
     <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
   </ion-card>
+  <div style="height:40px;"> </div>
 </ion-content>
 <ion-footer>
   <ion-toolbar *ngIf="_buyItem">

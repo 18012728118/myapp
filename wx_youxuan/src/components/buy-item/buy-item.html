@@ -1,10 +1,19 @@
 <ion-card>
+  <ion-row *ngIf="item.Shop">
+    <h2 style="font-weight:normal;font-size:1.8rem;height:2.5rem;line-height: 2.5rem;padding-left:10px;border-left:solid 8px #EA1A59;">{{item.Shop.ShopName}}</h2>
+
+  </ion-row>
   <ion-row>
     <ion-col col-4>
       <img class="logoImg" [src]="item.LogoList[0]+'!w100h100'" (click)="goDetail(item)" />
     </ion-col>
     <ion-col col-8>
       <div class="tag">{{initData.BuyItemType[item.Type].name}}</div>
+      <div class="distance" *ngIf="item.dis!=undefined" style="position: absolute;right:10px;top:0;height:2rem;line-height: 2rem;font-size:1.6rem;">
+        距离
+        <b *ngIf="item.dis<2">{{(item.dis*1000).toFixed(0)}}米</b>
+        <b *ngIf="item.dis>=2">{{item.dis.toFixed(2)}}公里</b>
+      </div>
       <div class="title">{{item.Name}}</div>
       <div class="row3">
         <div class="price" *ngIf="showPrice">
@@ -12,7 +21,7 @@
           <i>原价:{{item.Price}}</i>
         </div>
         <div>
-          <button ion-button [color]="btnText.color" small (click)="goDetail(item)">{{btnText.text}}</button>
+          <button ion-button [color]="btnText.color" (click)="goDetail(item)">{{btnText.text}}</button>
         </div>
       </div>
     </ion-col>

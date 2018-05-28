@@ -68,12 +68,12 @@ export class HomePage {
   }
 
   slideClick(s) {
-    console.log(/^http/i.test(s.Url));
-    if (/^http/i.test(s.Url))
-      window.location.href = s.Url;
-    else if (/^\//.test(s.Url)) {
-      console.log(s);
-    }
+    // if (/^http/i.test(s.Url))
+    //   window.location.href = s.Url;
+    // else if (/^\//.test(s.Url)) {
+    //   console.log(s);
+    window.location.href = s.Url;
+    // }
   }
 
   checkFavorate(item) {

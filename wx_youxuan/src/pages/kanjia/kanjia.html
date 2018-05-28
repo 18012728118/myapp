@@ -124,19 +124,19 @@
       <div *ngSwitchCase="'tab1'">
         <ion-grid class="tabsList" *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">
           <ion-row *ngFor="let u of _kanJiaUser.KanJiaLogs">
-            <ion-col col-2>
+            <!-- <ion-col col-2>
               <ion-avatar item-start *ngIf="u.headimgurl">
                 <img [src]="u.headimgurl">
               </ion-avatar>
-            </ion-col>
-            <ion-col col-3>
+            </ion-col> -->
+            <ion-col col-4>
               {{u.nickname}}
             </ion-col>
             <ion-col col-4>
               砍掉
               <b class="cr">￥{{u.ReducePrice.toFixed(2)}}</b>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-4>
               {{u.DateTimeCreate | fromNow}}
             </ion-col>
           </ion-row>

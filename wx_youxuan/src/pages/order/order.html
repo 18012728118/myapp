@@ -12,7 +12,9 @@
       <ion-card-content>
         <!-- <p>订单号:</p> -->
         <!-- <p> {{x.sp_billno}}</p> -->
-          <ion-label>{{x.body}}</ion-label>
+        <ion-label (click)="goDetail(x)">
+          {{x.body}}
+        </ion-label>
         <p>
           <ion-row>
             <ion-col>
@@ -20,7 +22,6 @@
             </ion-col>
             <ion-col>
               数量:{{x.count}}
-
             </ion-col>
           </ion-row>
         </p>

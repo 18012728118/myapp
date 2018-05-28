@@ -1,7 +1,9 @@
 <ion-content>
   <ion-slides style="height:18rem;" *ngIf="initData.SlideList && initData.SlideList.length" autoplay=4000 pager loop centeredSlides>
     <ion-slide *ngFor="let s of initData.SlideList" (click)="slideClick(s)">
-      <img [src]="s.ImageUrl" />
+      <a [href]="s.Url">
+        <img [src]="s.ImageUrl" />
+      </a>
     </ion-slide>
   </ion-slides>
   <ion-grid>

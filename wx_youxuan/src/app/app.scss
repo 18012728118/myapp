@@ -13,56 +13,59 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .fab {
-    contain: initial;
+  contain: initial;
 }
+
 // Mixin itself
 @mixin clearfix() {
-    &::after {
-        display: block;
-        content: "";
-        clear: both;
-    }
-} // Usage as a mixin
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+} 
 .clear {
-    @include clearfix();
+  @include clearfix();
 }
+
 .cr {
-    color: color($colors, primary, base);
+  color: color($colors, primary, base);
 }
 
 .alert-sub-title {
-    img {
-        margin: 10px auto;
-    }
+  img {
+    margin: 10px auto;
+  }
 }
 
-.detail_content{
-    padding:5px;
+.detail_content {
+  padding: 5px;
 }
 
-.detail_content p,.detail_content  p {
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+.detail_content p,
+.detail_content p {
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
 }
 
 .ion-page>ion-content {
-    background-color: #EBEBEB;
+  background-color: #EBEBEB;
 }
 
 ion-header .toolbar-background {
-    @include linear-gradient(left, $ibiza-sunset);
-}
-ion-header .back-button{
-    color:#fff;
+  @include linear-gradient(left, $ibiza-sunset);
 }
 
-ion-slides#detail_Slide
-{
-    height:30vh;
-    ion-slide img{
-        min-height:30vh;
-        min-width:100vw;
-    }
+ion-header .back-button {
+  color: #fff;
+}
+
+ion-slides#detail_Slide {
+  height: 30vh;
+  ion-slide img {
+    min-height: 30vh;
+    width: 100vw;
+  }
 }

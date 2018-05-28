@@ -2,7 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { Settings, Api, InitDataProvider } from '../../providers/providers';
 import { FabContainer, IonicPage, Nav, NavController, App, ModalController } from 'ionic-angular';
-@IonicPage()
+@IonicPage({
+  segment: 'Home'
+})
 @Component({
   selector: "page-tabs",
   templateUrl: 'tabs.html'

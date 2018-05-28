@@ -10,21 +10,28 @@
     <ion-title>优选主题活动</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+
+<ion-content class="card-background-page">
+
+  <!-- <ion-card *ngFor="let s of subjectList$|async">
+    <img [src]="s.Param.TopBarImgUrl" />
+    <div class="card-title">{{s.Title}}</div>
+    <div class="card-subtitle">{{s.Desc}}</div>
+  </ion-card> -->
   <ion-card *ngFor="let s of subjectList$|async">
-    <div [style.background-image]="'url('+s.Param.TopBarImgUrl+')'" style="height:26vh;background-position: 50% 50%;background-size:cover;position: relative;"
+    <div [style.background-image]="'url('+s.Param.TopBarImgUrl+')'" style="height:32vh;background-position: 50% 50%;background-size:cover;position: relative;"
       (click)="goSubject(s)">
       <h2 style="position: absolute;
       display: block;
       bottom: -3px;
-      height: 2.5rem;
+      height: 3rem;
       color: #fff;
       background: #000;
       width: 100%;
       opacity: .6;
       font-size: 2rem;
       text-align: center;
-      line-height:2.5rem;">{{s.Title}}</h2>
+      line-height:3rem;">{{s.Title}}</h2>
     </div>
   </ion-card>
 </ion-content>

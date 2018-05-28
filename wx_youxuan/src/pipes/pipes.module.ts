@@ -4,17 +4,20 @@ import { CheckStatePipe } from './check-state/check-state';
 import { MomentPipe } from './moment/moment';
 import { FromNowPipe } from './from-now/from-now';
 import { FilterPipe } from './filter/filter';
+import { OrderByPipe } from './order-by/order-by';
 @NgModule({
 	declarations: [SafeHtmlPipe,
     CheckStatePipe,
     MomentPipe,
     FromNowPipe,
-    FilterPipe],
+    FilterPipe,
+    OrderByPipe],
 	imports: [],
 	exports: [SafeHtmlPipe,
     CheckStatePipe,
     MomentPipe,
     FromNowPipe,
-    FilterPipe]
+    FilterPipe,
+    OrderByPipe]
 })
 export class PipesModule {}

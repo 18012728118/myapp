@@ -24,6 +24,7 @@ export class BuyItemComponent {
         break;
       case 11:
         pagename = "MuJuanPage";
+        
         break;
       case 3:
         pagename = "KanjiaPage";
