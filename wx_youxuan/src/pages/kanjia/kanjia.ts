@@ -30,7 +30,7 @@ export class KanjiaPage {
   _kanJiaUsers: any;
   _shareFromOpenid: string = null;
   _leftTime: object;
-  pet = 'tab2';
+  pet = 'tab1';
   cutPrice = 0;
   helpIndex = 0;
 
@@ -98,8 +98,9 @@ export class KanjiaPage {
     this.api.getWithAuth(`GetKanJiaUsers?buyitemId=${this._id}`)
       .then(res => {
         //console.log(res);
-        if (res !== null)
+        if (res !== null) {
           this._kanJiaUsers = res;
+        }
       })
       .catch(err => alert(err));
     return;

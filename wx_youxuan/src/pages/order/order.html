@@ -53,6 +53,7 @@
   <div class="modal">
     <div class="modal-body" *ngIf="modalData as d">
       <img [src]="qrUrl" />
+      <p>{{initData.WxUser.nickname}}</p>
       <p>{{ d.body }}</p>
       <p>数量:{{d.count}}</p>
       <div class="modal-close">

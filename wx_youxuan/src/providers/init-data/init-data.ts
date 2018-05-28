@@ -49,7 +49,7 @@ export class InitDataProvider {
 
   public initDefaultShare() {
     if (this.store) {
-      console.log("initDefaultShare");
+      console.log("initDefaultShare", "store is ready");
       this.cachestore.dispatch(new WxShareActions.Update({ title: this.store.StoreName, desc: this.store.Description, imgUrl: this.store.LogoUrl, link: this.store.WxOpenLink }))
     }
   }

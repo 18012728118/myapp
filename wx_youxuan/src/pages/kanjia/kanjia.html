@@ -117,49 +117,50 @@
         <span *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">({{_kanJiaUser.KanJiaLogs?_kanJiaUser.KanJiaLogs.length:'0'}}位)</span>
       </ion-segment-button>
       <ion-segment-button value="tab2">
-        斩获名单({{_kanJiaUsers?_kanJiaUsers.length:'0'}}位)
+        ({{_kanJiaUsers?_kanJiaUsers.length:'0'}}位)减价成功
       </ion-segment-button>
     </ion-segment>
     <div [ngSwitch]="pet" class="userList">
       <div *ngSwitchCase="'tab1'">
         <ion-grid class="tabsList" *ngIf="_kanJiaUser && _kanJiaUser.KanJiaLogs">
           <ion-row *ngFor="let u of _kanJiaUser.KanJiaLogs">
-            <!-- <ion-col col-2>
+            <ion-col col-2>
               <ion-avatar item-start *ngIf="u.headimgurl">
                 <img [src]="u.headimgurl">
               </ion-avatar>
-            </ion-col> -->
-            <ion-col col-4>
-              {{u.nickname}}
             </ion-col>
             <ion-col col-4>
-              砍掉
+              <ion-label>{{u.nickname}}</ion-label>
+            </ion-col>
+            <ion-col col-3>
+              帮减
               <b class="cr">￥{{u.ReducePrice.toFixed(2)}}</b>
             </ion-col>
-            <ion-col col-4>
-              {{u.DateTimeCreate | fromNow}}
+            <ion-col col-3>
+              {{u.DateTimeCreate | fromNow:'start'}}
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
       <ion-grid class="tabsList" *ngSwitchCase="'tab2'">
-        <ion-row *ngFor="let u of _kanJiaUsers">
-          <ion-col col-2>
-            <ion-avatar item-start *ngIf="u.headimgurl">
-              <img [src]="u.headimgurl">
-            </ion-avatar>
-          </ion-col>
-          <ion-col col-3>
-            {{u.nickname}}
-          </ion-col>
-          <ion-col col-4>
-            减至
-            <b class="cr">￥{{u.NowPrice.toFixed(2)}}</b>
-          </ion-col>
-          <ion-col col-3>
-            {{u.DatetimeUpdate | fromNow}}
-          </ion-col>
-        </ion-row>
+        <ion-scroll scrollY="true" style="height:200px;">
+          <ion-row *ngFor="let u of _kanJiaUsers">
+            <ion-col col-2>
+              <ion-avatar item-start *ngIf="u.headimgurl">
+                <img [src]="u.headimgurl">
+              </ion-avatar>
+            </ion-col>
+            <ion-col col-4>
+              <ion-label>{{u.nickname}}</ion-label>
+            </ion-col>
+            <ion-col col-3>
+              <b class="cr">￥{{u.NowPrice.toFixed(2)}}</b>
+            </ion-col>
+            <ion-col col-3>
+              {{u.DatetimeUpdate | fromNow:'start'}}
+            </ion-col>
+          </ion-row>
+        </ion-scroll>
       </ion-grid>
     </div>
   </ion-card>

@@ -15,6 +15,7 @@ import * as CacheActions from '../store/actions/cache.action';
 import { HttpClient } from '@angular/common/http';
 import { AppState } from './app.state';
 import { WxShareState } from '../store/types/wxShare.model';
+import { getStore } from '../store/state/cache.State';
 
 declare var WeixinJSBridge;
 declare var wx: any;
@@ -27,6 +28,7 @@ declare var wx: any;
 export class MyApp {
   rootPage: any = "TabsPage";
   wxShare$: Observable<WxShareState>
+  store$: Observable<any>;
 
   constructor(
     platform: Platform,
@@ -39,16 +41,28 @@ export class MyApp {
     }
     localStorage.setItem("token_yx_" + window['storeId'], window['token'])
     this.api.jssdk();
-    this.wxShare$ = store.select(z => z.wxShare);
+    this.store$ = this.store.select(getStore);
+    wx.ready(() => {
+      console.log("wx is ready");
+      this.store$.subscribe(z => {
+        if (z)
+          //默认分享设置
+          this.api.wxshare(z.ShareTitle, z.ShareDesc, z.ShareImgUrl, z.WxOpenLink);
+      });
+    });
+    wx.error((err) => {
+      console.log(err);
+    })
+    this.wxShare$ = this.store.select(z => z.wxShare);
     this.wxShare$.subscribe(res => {
       if (res) {
-        console.log("wxShare changed,start to share " + res.title)
+        console.log("wxShare changed,start to share" + res.title)
         this.api.initWxShare(res.title, res.desc, res.imgUrl, res.link);
       }
     });
-    platform.ready().then(() => {
+    // platform.ready().then(() => {
 
-    });
+    // });
   }
 
 }

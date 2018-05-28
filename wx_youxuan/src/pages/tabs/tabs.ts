@@ -12,6 +12,7 @@ import { FabContainer, IonicPage, Nav, NavController, App, ModalController } fro
 export class TabsPage {
 
   @ViewChild(FabContainer) fab: FabContainer;
+
   tabHome = "HomePage";
   tabCart = "OrderPage";
   tabMessage = "MessagePage";
@@ -36,19 +37,20 @@ export class TabsPage {
           this.navCtrl.push(page, { DetailId: detailid })
         }
       }
-    }, 200);
+    }, 300);
 
-  }
-  ionViewWillEnter() {
   }
 
   ionViewDidEnter() {
+    setTimeout(() => {
+      this.initData.initDefaultShare();
+    }, 200);
   }
 
-  emptyCart() {
-    console.log("emptyCart");
-    this.fab.close();
-  }
+  // emptyCart() {
+  //   console.log("emptyCart");
+  //   this.fab.close();
+  // }
 
   goHome() {
     let nav = this.app.getActiveNavs()[0];

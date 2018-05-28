@@ -134,7 +134,7 @@ export class SubjectPage {
   ionViewDidEnter() {
     setTimeout(() => {
       this.initShare();
-    }, 1000);
+    }, 1500);
     this.subject$.subscribe(res => {
       if (res && res.subject && res.buyItemList) {
         this.subject = res;

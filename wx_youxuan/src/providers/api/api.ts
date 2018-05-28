@@ -12,6 +12,7 @@ import * as WxShareActions from "../../store/actions/wxShare.action";
 import { InitDataProvider } from '../providers';
 import { ENV } from '@app/env';
 import { tap } from 'rxjs/operators';
+import { WxShareState } from '../../store/types/wxShare.model';
 
 declare var WeixinJSBridge: any;
 declare var wx: any;
@@ -35,11 +36,7 @@ export interface buyItem {
 
 @Injectable()
 export class Api {
-
-
-
   private cachestore: Store<AppState>
-
   constructor(private http: HttpClient,
     private toast: ToastController,
     private alert: AlertController,
@@ -197,6 +194,7 @@ export class Api {
 
 
   public initWxShare(title, desc, imgUrl, link) {
+
     wx.onMenuShareAppMessage({
       title: title,
       desc: desc,
@@ -230,8 +228,6 @@ export class Api {
     );
   }
 
-
-
   public visitLog(data?: any) {
     if (!this.isLocalTest)
       this.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
@@ -241,7 +237,6 @@ export class Api {
 
   public jssdk() {
     var _url = encodeURIComponent(location.href.split('#')[0]);
-    console.log("InitDataProvider start")
     this.http.get("http://m.wjhaomama.com/V1/" + "jssdk?url=" + _url).subscribe((res: any) => {
       wx.config({
         debug: false,
@@ -265,10 +260,9 @@ export class Api {
           'getLocation'
         ]
       });
-    }
-    )
-  };
 
+    })
+  };
 
 
   public scanQRCode(needResult) {
