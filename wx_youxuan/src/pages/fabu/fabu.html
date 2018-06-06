@@ -1,0 +1,19 @@
+<!--
+  Generated template for the FabuPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>发布活动</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-card *ngIf="(cache$|async) as s" padding>
+    <div *ngIf="s.store">
+      <img [src]="s.store.KeFuQRUrl+'!w500'" />
+    </div>
+    <div style="font-size:2rem;text-align: center;margin-bottom:20px;">添加客服微信,请备注:合作 </div>
+  </ion-card>
+</ion-content>

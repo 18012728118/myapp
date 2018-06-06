@@ -34,4 +34,10 @@ export class AppService {
     public postLocation(data: any) {
         return this.api.httpPost("LocationPost", { data });
     }
+
+
+    public loadSetting(): any {
+        return this.api.httpGet("getSetting");
+
+    }
 }

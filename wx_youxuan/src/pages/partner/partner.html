@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ng-container *ngIf="(cache$ |async).Partner as p">
+      <ion-title *ngIf="p.State<=0">申请成为分享达人</ion-title>
+      <ion-title *ngIf="p.State>0">分享达人管理</ion-title>
+    </ng-container>
+  </ion-navbar>
+</ion-header>
+<ion-content padding *ngIf="(cache$ |async).Partner as p">
+  <ng-container *ngIf="p.State<=0">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>真实姓名:
+            <b *ngIf="myForm.controls['Realname'].errors && myForm.controls['Realname'].touched">* 必填 2个字以上</b>
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="reg.Realname" formControlName="Realname"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>手机[审核时将联系]:
+            <b *ngIf="myForm.controls['Phone'].errors && myForm.controls['Phone'].touched">* 必填</b>
+          </ion-label>
+          <ion-input type="number" [(ngModel)]="reg.Phone" formControlName="Phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>自我介绍:
+            <b *ngIf="myForm.controls['Introducting'].errors && myForm.controls['Introducting'].touched">* 必填</b>
+          </ion-label>
+          <ion-textarea autosize [(ngModel)]="reg.Introducting" formControlName="Introducting"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <button type="submit" ion-button default block>确定</button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="p.State>0">
+    你已是分享达人
+  </ng-container>
+</ion-content>

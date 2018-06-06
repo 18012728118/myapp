@@ -11,6 +11,7 @@ export interface CacheState {
     SubjectList: any;
     Subject: any;
     isAdmin: boolean;
+    Partner: { Realname: string, Phone: string, AvblBalance: number, UnavblBalance: number, TotalWithdrawals: number, Introducting: string, Review: string, State: number, UpdateDate: Date };
 }
 
 

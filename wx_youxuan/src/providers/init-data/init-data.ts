@@ -41,7 +41,6 @@ export class InitDataProvider {
       this.SlideList = res.SlideList;
       this.WxUser = res.WxUser;
       this.store = res.store;
-      this.isAdmin = res.isAdmin;
       // if (!this.WxUser || !this.store) return;
       //this.api.wxshare(this.store.ShareTitle, this.store.ShareDesc, this.store.ShareImgUrl, this.store.WxOpenLink);
     });

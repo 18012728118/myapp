@@ -14,57 +14,63 @@
       <img [src]="x+'!w500'" *ngIf="x" />
     </ion-slide>
   </ion-slides>
-  <!-- <div *ngIf="_buyItem">
-    <img [src]="_buyItem.LogoList[0]" />
-  </div> -->
-  <ion-grid *ngIf="_buyItem" id="priceBar" no-padding>
-    <ion-row>
-      <ion-col col-9 class="left">
-        <div class="col1">
-          <div>底价</div>
-          <div class="b">
-            ￥
+  <div style="position: relative;width:100vw;height:50px;background:#fff;display: flex;justify-content: center;">
+    <div *ngIf="_buyItem&&_buyItem.Shop as shop" class="shopLogo">
+      <img src="{{shop.LogoImageUrl}}!w100h100" (click)="goShop(shop)" />
+    </div>
+  </div>
+  <ion-card *ngIf="_buyItem" id="itemTitle" style="padding:12px 0 0 0">
+    <h1 class="title">{{_buyItem.Name}}</h1>
+    <ion-grid *ngIf="_buyItem" id="priceBar" no-padding>
+      <ion-row>
+        <ion-col col-9 class="left">
+          <div class="col1">
+            <div>底价</div>
+            <div class="b">
+              ￥
+            </div>
           </div>
-        </div>
-        <div class="col2 b">
-          {{_buyItem.VipPrice.toFixed(2)}}
-        </div>
-        <div class="col3">
-          <div>原价:
-            <span>￥{{_buyItem.Price.toFixed(2)}}</span>
+          <div class="col2 b">
+            {{_buyItem.VipPrice.toFixed(2)}}
           </div>
-          <div class="views">剩余 {{_buyItem.Count}}份</div>
-        </div>
-      </ion-col>
-      <ion-col col-3 class="right" no-padding>
-        <div class="col1" *ngIf="_leftTime && _buyItem.Count!=0">活动时间仅剩</div>
-        <div *ngIf="!_leftTime || _buyItem.Count==0" style="font-size:20px;color:#333">
-          已结束
-        </div>
-        <div class="col2" *ngIf="_leftTime && _buyItem.Count!=0">
-          <div class="row">
-            <div class="bg">{{_leftTime.days}}</div>
-            <div>天</div>
+          <div class="col3">
+            <div>原价:
+              <span>￥{{_buyItem.Price.toFixed(2)}}</span>
+            </div>
+            <div class="views">剩余 {{_buyItem.Count}}份</div>
           </div>
-          <div class="row">
-            <div class="bg">{{_leftTime.hours}}</div>
-            <div>时</div>
+        </ion-col>
+        <ion-col col-3 class="right" no-padding>
+          <div class="col1" *ngIf="_leftTime && _buyItem.Count!=0">活动时间仅剩</div>
+          <div *ngIf="!_leftTime || _buyItem.Count==0" style="font-size:20px;color:#333">
+            已结束
           </div>
-        </div>
-        <div class="col3" *ngIf="_leftTime && _buyItem.Count!=0">
-          <div class="row">
-            <div class="bg">{{_leftTime.minutes}}</div>
-            <div>分</div>
+          <div class="col2" *ngIf="_leftTime && _buyItem.Count!=0">
+            <div class="row">
+              <div class="bg">{{_leftTime.days}}</div>
+              <div>天</div>
+            </div>
+            <div class="row">
+              <div class="bg">{{_leftTime.hours}}</div>
+              <div>时</div>
+            </div>
           </div>
-          <div class="row">
-            <div class="bg">{{_leftTime.seconds}}</div>
-            <div>秒</div>
+          <div class="col3" *ngIf="_leftTime && _buyItem.Count!=0">
+            <div class="row">
+              <div class="bg">{{_leftTime.minutes}}</div>
+              <div>分</div>
+            </div>
+            <div class="row">
+              <div class="bg">{{_leftTime.seconds}}</div>
+              <div>秒</div>
+            </div>
           </div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid *ngIf="_buyItem" no-padding id="itemTitle">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <!-- <ion-grid *ngIf="_buyItem" no-padding id="itemTitle">
     <ion-row>
       <ion-col col-10 class="title">
         <label>{{_buyItem.Name}}</label>
@@ -78,12 +84,8 @@
         </button>
       </ion-col>
     </ion-row>
-  </ion-grid>
-  <ion-grid *ngIf="_buyItem" id="noticeText" no-padding>
-    <ion-row>
-      {{_buyItem.NoticeText}}
-    </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+
   <div *ngIf="_kanJiaUser" style="background-color:#fff;padding-bottom:10px;">
     <ion-item no-lines>
       <ion-avatar item-start>
@@ -110,6 +112,29 @@
       求助Ta能帮你减掉 {{_buyItem.AdminHelpCutCount}}刀哦
     </div>
   </div>
+  <ion-list style="margin:12px 0 12px 0">
+    <ion-item *ngIf="initData.store">
+      <ion-avatar item-start>
+        <img src="{{initData.store.LogoUrl}}!w100">
+      </ion-avatar>
+      <h2>{{initData.store.StoreName}}</h2>
+      <p>{{initData.store.Description}}</p>
+      <button ion-button clear item-end clear round outline (click)="guanzhu()">+关注</button>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="_buyItem" style="background:#fff;margin:12px 0 12px 0;padding:10px 20px;">
+    <div style="display: flex;justify-content: center;margin:10px 0;">
+      <img src="/assets/imgs/noticeTop.png" />
+    </div>
+    <div style="text-align: center;font-size:1.8rem;margin-bottom:20px;"> {{_buyItem.NoticeText}}</div>
+  </div>
+  <ion-card *ngIf="_buyItem">
+    <div style="display: flex;justify-content: center;margin:20px 0;">
+      <img src="/assets/imgs/detailTop.png" style="width:50%;height:50%;" />
+    </div>
+    <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
+  </ion-card>
+
   <ion-card *ngIf="_buyItem" padding>
     <ion-segment [(ngModel)]="pet" color="secondary">
       <ion-segment-button value="tab1">
@@ -143,39 +168,29 @@
         </ion-grid>
       </div>
       <ion-grid class="tabsList" *ngSwitchCase="'tab2'">
-        <ion-scroll scrollY="true" style="height:200px;">
-          <ion-row *ngFor="let u of _kanJiaUsers">
-            <ion-col col-2>
-              <ion-avatar item-start *ngIf="u.headimgurl">
-                <img [src]="u.headimgurl">
-              </ion-avatar>
-            </ion-col>
-            <ion-col col-4>
-              <ion-label>{{u.nickname}}</ion-label>
-            </ion-col>
-            <ion-col col-3>
-              <b class="cr">￥{{u.NowPrice.toFixed(2)}}</b>
-            </ion-col>
-            <ion-col col-3>
-              {{u.DatetimeUpdate | fromNow:'start'}}
-            </ion-col>
-          </ion-row>
-        </ion-scroll>
+        <ion-row *ngFor="let u of _kanJiaUsers">
+          <ion-col col-2>
+            <ion-avatar item-start *ngIf="u.headimgurl">
+              <img [src]="u.headimgurl">
+            </ion-avatar>
+          </ion-col>
+          <ion-col col-4>
+            <ion-label>{{u.nickname}}</ion-label>
+          </ion-col>
+          <ion-col col-3>
+            <b class="cr">￥{{u.NowPrice.toFixed(2)}}</b>
+          </ion-col>
+          <ion-col col-3>
+            {{u.DatetimeUpdate | fromNow:'start'}}
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </div>
   </ion-card>
-  <ion-list>
-    <ion-item *ngIf="initData.store">
-      <ion-avatar item-start>
-        <img src="{{initData.store.LogoUrl}}!w100">
-      </ion-avatar>
-      <h2>{{initData.store.StoreName}}</h2>
-      <p>{{initData.store.Description}}</p>
-      <button ion-button clear item-end clear round outline (click)="guanzhu()">+关注</button>
-    </ion-item>
-  </ion-list>
-  <ion-card *ngIf="_buyItem">
-    <div class="detail_content" [innerHtml]="_buyItem.Desc | safeHtml"></div>
+  <ion-card style="margin-bottom:30px;padding:15px;">
+    <button ion-button block (click)="fabu()">我也要发布活动</button>
+    <button ion-button style="margin-top:20px;" block color="secondary" (click)="back()">更多活动</button>
+
   </ion-card>
 </ion-content>
 <ion-footer>

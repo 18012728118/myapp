@@ -93,6 +93,28 @@ export class CacheEffects {
             catchError((error) => this.createErrorObservableAndLog(error))
         );
 
+    @Effect()
+    loadSetting$: Observable<Action> = this.actions$
+        .ofType<CacheAction.LoadSetting>(CacheAction.LOADSETTING)
+        .switchMap(action => this.appService.loadSetting())
+        .pipe(
+            map((res: any) => {
+                console.log(res);
+                if (res.success) {
+                    //return new CacheAction.LoadError("error")
+                    //this.UI.showToast(res.success)
+                    return new CacheAction.LoadSettingSuccess(res.data);
+                }
+                else {
+                    //this.UI.showToast(res.msg);
+                    return new CacheAction.LoadError(res.msg)
+                }
+            }),
+            catchError((error) => this.createErrorObservableAndLog(error))
+
+        )
+
+
 
     @Effect({ dispatch: false })
     loadError$: Observable<any> = this.actions$

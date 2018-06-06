@@ -140,7 +140,7 @@ export class SubjectPage {
         this.subject = res;
         if (this.initData.WxUser)
           if (this.initData.WxUser.Lng && this.initData.WxUser.Lat) {
-            this.sort = this.dis;
+            //this.sort = this.dis;
             this.point = { lng: this.initData.WxUser.Lng, lat: this.initData.WxUser.Lat };
           }
         this.calcDis();

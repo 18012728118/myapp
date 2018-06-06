@@ -29,8 +29,8 @@ export class KanjiaPage {
   _kanJiaUser: any;
   _kanJiaUsers: any;
   _shareFromOpenid: string = null;
-  _leftTime: object;
-  pet = 'tab1';
+  _leftTime: { days: number, hours: number, minutes: number, seconds: number } = null;
+  pet = 'tab2';
   cutPrice = 0;
   helpIndex = 0;
 
@@ -106,6 +106,10 @@ export class KanjiaPage {
     return;
   }
 
+  fabu() {
+    this.navCtrl.push("FabuPage");
+  }
+
   ionViewWillEnter() {
     this.api.visitLog({ page: "KanjiaPage", iid: this._id });
 
@@ -115,6 +119,11 @@ export class KanjiaPage {
     }, 1000)
   }
 
+  goShop(shop) {
+    // let modal = this.modalCtrl.create("ShopPage", { iid: shop.Id });
+    // modal.present();
+    this.navCtrl.push("ShopPage", { iid: shop.Id, shop: shop });
+  }
   openHelper(index) {
     console.log(index);
     this.helpIndex = index;
@@ -126,11 +135,11 @@ export class KanjiaPage {
     this.modalService.open("custom-modal-2");
   }
   ionViewWillLeave() {
-    this.initData.initDefaultShare();
   }
   ionViewDidLeave() {
   }
   ionViewWillUnload() {
+    this.initData.initDefaultShare();
   }
 
   openModal(id: string) {

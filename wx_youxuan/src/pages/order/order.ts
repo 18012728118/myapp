@@ -39,7 +39,6 @@ export class OrderPage {
       .then(res => {
         this.orderList = res;
       })
-
   }
 
   PageType = {
@@ -57,8 +56,10 @@ export class OrderPage {
 
   ionViewDidLoad() {
   }
+
   showQR(x) {
-    this.qrUrl = `http://m.wjhaomama.com/home/qr?str=${x.openid}!${x.sp_billno}`;
+    let str = `${x.openid}!${x.sp_billno}`;
+    this.qrUrl = `http://m.wjhaomama.com/home/qr?type=payOrder&sid=${window['storeId']}&str=${encodeURIComponent(str)}`;
     this.modalData = x;
     console.log(JSON.stringify(x));
     this.modalService.open("modalQR");

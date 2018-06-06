@@ -53,7 +53,11 @@ export class ItemDetailPage {
     });
     this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
   }
-
+  goShop(shop) {
+    // let modal = this.modalCtrl.create("ShopPage", { iid: shop.Id });
+    // modal.present();
+    this.navCtrl.push("ShopPage", { iid: shop.Id, shop: shop });
+  }
   goOrder() {
     this.navCtrl.push("OrderPage");
   }

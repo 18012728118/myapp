@@ -1,0 +1,39 @@
+<div class="weui-msg" *ngIf="code as c">
+  <div *ngIf="c.success">
+    <div class="weui-msg__icon-area">
+      <i class="weui-icon-success weui-icon_msg"></i>
+    </div>
+    <div class="weui-msg__text-area">
+      <h2 class="weui-msg__title" *ngIf='step===1'>正常的订单</h2>
+      <h2 class="weui-msg__title" *ngIf="step===2">核销成功</h2>
+      <div class="weui-msg__desc" *ngIf="step===1 && c.data">
+        <p>总价:￥{{(c.data.totalprice/100).toFixed(2)}}</p>
+        <p>数量:{{c.data.count}}</p>
+        <a href="javascript:void(0);">{{c.data.body}}</a>
+      </div>
+    </div>
+
+    <div class="weui-msg__opr-area">
+      <p class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary" (click)="toCheck()" *ngIf="step===1">进行核销</a>
+        <a class="weui-btn weui-btn_default" (click)="close()">退出</a>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="!c.success">
+    <div class=" weui-msg__icon-area ">
+      <i class="weui-icon-warn weui-icon_msg "></i>
+    </div>
+    <div class="weui-msg__text-area ">
+      <h2 class="weui-msg__title ">操作失败</h2>
+      <p class="weui-msg__desc ">{{c.msg}}
+      </p>
+    </div>
+    <div class="weui-msg__opr-area ">
+      <p class="weui-btn-area ">
+        <a class="weui-btn weui-btn_primary " (click)="close()">退出</a>
+      </p>
+    </div>
+  </div>
+</div>

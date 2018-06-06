@@ -1,159 +1,224 @@
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }    
+    67% { transform: translate(1px, 1px) rotate(0deg); }
+    70% { transform: translate(-1px, -2px) rotate(-1deg); }
+    73% { transform: translate(-3px, 0px) rotate(1deg); }
+    76% { transform: translate(3px, 2px) rotate(0deg); }
+    79% { transform: translate(1px, -1px) rotate(1deg); }
+    82% { transform: translate(-1px, 2px) rotate(-1deg); }
+    85% { transform: translate(-3px, 1px) rotate(0deg); }
+    88% { transform: translate(3px, 1px) rotate(-1deg); }
+    91% { transform: translate(-1px, -1px) rotate(1deg); }
+    94% { transform: translate(1px, 2px) rotate(0deg); }
+    97% { transform: translate(1px, -2px) rotate(-1deg); }
+    100% { transform: translate(1px, 1px) rotate(0deg); }
+    
+}
+
 page-kanjia {
-    .userList .col:nth-last-child(1){
-        text-align: right;
+
+  .shopLogo {
+    animation: shake 3s; 
+    animation-iteration-count:infinite; 
+    position: absolute;
+    height: 80px;
+    top: -30px;
+    width: 80px;
+    z-index: 99999;
+    border: 5px solid #fff;
+    border-radius: 5px;
+  }
+  #itemTitle {
+    margin: 0 0 1.5rem 0;
+    padding: 5px;
+    width: 100vw;
+  }
+  .title {
+    margin: 5px 10px;
+    text-align: center;
+  }
+  .desc_title {
+    margin: 20px 0 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .leftBox {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
     }
-    .list-ios,.list-md{
-        margin-bottom:0;
+    h1 {
+      float: left;
+      font-weight: blod;
+      margin: 0 10px 0 20px;
     }
-    .helper {
-        background-color: #EB554A;
-        border-radius: 20px;
-        margin: 10px 20px;
-        .row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            .helpHead {
-                width: 100px;
-                height: 90px;
-                background: url(/assets/imgs/helpcuthead.png) no-repeat;
-                background-size: contain
-            }
-            .helpBody {
-                border-radius: 0 0px 8px 8px;
-                img {
-                    border-radius: 50%;
-                    width: 60px;
-                    margin: 5px 0;
-                }
-            }
+    .oldPrice {
+      text-decoration: line-through;
+    }
+    .price {
+      color: color($colors, primary, base);
+    }
+    .rightBox {
+      justify-content: center;
+      margin-right: 20px;
+      text-align: center;
+    }
+  }
+  .userList .col:nth-last-child(1) {
+    text-align: right;
+  }
+  .list-ios,
+  .list-md {
+    margin-bottom: 0;
+  }
+  .helper {
+    background-color: #EB554A;
+    border-radius: 20px;
+    margin: 10px 20px;
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .helpHead {
+        width: 100px;
+        height: 90px;
+        background: url(/assets/imgs/helpcuthead.png) no-repeat;
+        background-size: contain
+      }
+      .helpBody {
+        border-radius: 0 0px 8px 8px;
+        img {
+          border-radius: 50%;
+          width: 60px;
+          margin: 5px 0;
         }
-        .helpfoot {
-            padding: 0 0 5px 0;
-            text-align: center;
-            color: #fff;
-            font-size:120%;
-        }
+      }
     }
-    .scroll-content {
-        background-color: #eee;
+    .helpfoot {
+      padding: 0 0 5px 0;
+      text-align: center;
+      color: #fff;
+      font-size: 120%;
     }
-    ion-grid {
-        background-color: #fff;
+  }
+  .scroll-content {
+    background-color: #eee;
+  }
+  ion-grid {
+    background-color: #fff;
+  }
+  div.b {
+    font-weight: bold;
+    text-align: center;
+  }
+  .nowPrice {
+    display: flex;
+    width: 160px;
+    height: 2em;
+    margin: 5px auto 10px 10px;
+    div {
+      line-height: 2em;
+      text-align: center;
     }
-    div.b {
-        font-weight: bold;
-        text-align: center;
+    align-items: center;
+    border: 1px solid color($colors, primary, base);
+    .d1 {
+      background-color: color($colors, primary, base);
+      width: 80px;
+      color: #fff;
     }
-    .nowPrice {
+    .d2 {
+      font-weight: bold;
+      width: 80px;
+    }
+  }
+  #priceBar {
+    height: 50px;
+    padding: 0;
+    color: #fff;
+    .left {
+      @include linear-gradient(right, $ibiza-sunset);
+      display: flex;
+      align-items: center;
+      .col1 {
+        padding-left: 2px;
         display: flex;
-        width: 160px;
-        height: 2em;
-        margin: 5px auto 10px 10px;
+        flex-direction: column;
         div {
-            line-height: 2em;
-            text-align: center;
+          text-align: center;
         }
-        align-items: center;
-        border: 1px solid color($colors, primary, base);
-        .d1 {
-            background-color: color($colors, primary, base);
-            width: 80px;
-            color: #fff;
+        div.b {
+          font-size: 20px;
         }
-        .d2 {
-            font-weight: bold;
-            width: 80px;
+      }
+      .col2 {
+        font-size: 40px;
+        padding: 0 5px;
+      }
+      .col3 {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        span {
+          text-decoration: line-through;
         }
+        .views {
+          color: #ccc;
+          border: 1px solid #CCC;
+          border-radius: 3px;
+          text-align: center;
+          font-size: 16px;
+        }
+      }
     }
-    #priceBar {
-        height: 50px;
-        padding: 0;
-        color: #fff;
-        .left {
-            @include linear-gradient(right, $ibiza-sunset);
-            display: flex;
-            align-items: center;
-            .col1 {
-                padding-left: 2px;
-                display: flex;
-                flex-direction: column;
-                div {
-                    text-align: center;
-                }
-                div.b {
-                    font-size: 20px;
-                }
-            }
-            .col2 {
-                font-size: 40px;
-                padding: 0 5px;
-            }
-            .col3 {
-                font-size: 14px;
-                display: flex;
-                flex-direction: column;
-                span {
-                    text-decoration: line-through;
-                }
-                .views {
-                    color: #ccc;
-                    border: 1px solid #CCC;
-                    border-radius: 3px;
-                    text-align: center;
-                    font-size: 16px;
-                }
-            }
+    .right {
+      // background-color: #FFE547;
+      @include linear-gradient(right, $pastel-orange-at-the-sun);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      .col1 {
+        color: #eee;
+      }
+      .col2,
+      .col3 {
+        display: flex;
+        color: #333;
+        justify-content: center;
+        .bg {
+          margin: 0 3px;
+          background: #333;
+          border-radius: 3px;
+          width: 1.5em;
+          display: block;
+          color: #fff;
         }
-        .right {
-            // background-color: #FFE547;
-            @include linear-gradient(right,$pastel-orange-at-the-sun);
-            
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            .col1 {
-                color: #eee;
-            }
-            .col2,
-            .col3 {
-                display: flex;
-                color: #333;
-                justify-content: center;
-                .bg {
-                    margin: 0 3px;
-                    background: #333;
-                    border-radius: 3px;
-                    width: 1.5em;
-                    display: block;
-                    color: #fff;
-                }
-            }
-        }
+      }
     }
-    #itemTitle {
-        .title {
-            display: flex;
-            align-content: center;
-            align-items: center;
-            label {
-                font-size: 14px;
-            }
-        }
+  }
+  #itemTitle {
+    .title {
+      display: flex;
+      align-content: center;
+      align-items: center;
+      label {
+        font-size: 14px;
+      }
     }
-    #noticeText {
-        color: #999;
-        height: 60px;
+  }
+  #noticeText {
+    color: #999;
+    height: 60px;
+  }
+  .tabsList {
+    ion-row {
+      display: flex;
+      align-items: center;
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
     }
-    .tabsList {
-        ion-row {
-            display: flex;
-            align-items: center;
-            img {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-            }
-        }
-    }
+  }
 }

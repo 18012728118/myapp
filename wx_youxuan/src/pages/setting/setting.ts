@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { InitDataProvider } from '../../providers/init-data/init-data';
 import { Api } from '../../providers/api/api';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app/app.state';
+
+import * as CacheActions from "../../store/actions/cache.action";
+import { Observable } from 'rxjs/Observable';
+import { CacheState } from '../../store/state/cache.State';
 
 /**
  * Generated class for the SettingPage page.
@@ -10,9 +16,6 @@ import { Api } from '../../providers/api/api';
  * Ionic pages and navigation.
  */
 
-interface AppState {
-  cahce: Cache
-}
 @IonicPage()
 @Component({
   selector: 'page-setting',
@@ -20,20 +23,25 @@ interface AppState {
 })
 export class SettingPage {
 
+  cache$: Observable<CacheState>
   _w: any = window;
   wxUser: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private initData: InitDataProvider,
-    private api: Api) {
+    private api: Api,
+    private store: Store<AppState>) {
+    this.cache$ = this.store.select(z => z.cache);
   }
 
   ionViewDidLoad() {
-    this.wxUser = this.initData.WxUser;
     this.api.visitLog({ page: "SettingPage" });
   }
   ionViewDidEnter() {
 
+  }
+
+  partner() {
+    this.navCtrl.push("PartnerPage");
   }
 
   ionViewWillLeave() {

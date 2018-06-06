@@ -1,20 +1,32 @@
-<ion-content *ngIf="initData.WxUser as p">
-  <div id="menuTop">
-    <div class="top" no-lines>
-      <h2>
-        {{p.nickname}}
-      </h2>
+<ion-content>
+  <ng-container *ngIf="(cache$|async).WxUser as u">
+    <div id="menuTop">
+      <div class="top" no-lines>
+        <h2>
+          {{u.nickname}}
+        </h2>
+      </div>
     </div>
-  </div>
-  <div class="headLogo">
-    <img [src]="p.headimgurl">
-  </div>
+    <div class="headLogo">
+      <img [src]="u.headimgurl">
+    </div>
+  </ng-container>
   <ion-list>
+    <ng-container *ngIf="(cache$|async).Partner as p">
+      <button ion-item (click)="partner()" *ngIf="p.State<=0">
+        <ion-icon name="medal" item-start color="primary"></ion-icon>
+        <ion-label>申请成为分享达人</ion-label>
+      </button>
+      <button ion-item (click)="partner()" *ngIf="p.State>0">
+        <ion-icon name="medal" item-start color="primary"></ion-icon>
+        <ion-label>可提现:{{p.AvblBalance}} 不可提现:{{p.UnavblBalance}}</ion-label>
+      </button>
+    </ng-container>
     <a ion-item href="tel:18012729981">
       <ion-icon name="call" item-start color="primary"></ion-icon>
       <ion-label>商务合作电话</ion-label>
     </a>
-    <ng-container *ngIf="initData.isAdmin">
+    <ng-container *ngIf="(cache$|async).isAdmin">
       <button ion-item (click)="goScan()">
         <ion-icon name="qr-scanner" item-start color="primary"></ion-icon>
         <ion-label>商家扫码</ion-label>
@@ -28,7 +40,7 @@
   <ion-list>
     <button ion-item>
       <ion-icon name="checkmark-circle-outline" item-start color="primary"></ion-icon>
-      <ion-label>关于 {{initData.store.StoreName}}</ion-label>
+      <ion-label *ngIf="(cache$|async).store as s">关于 {{s.StoreName}}</ion-label>
     </button>
     <button ion-item>
       <ion-icon name="information-circle" item-start color="primary"></ion-icon>

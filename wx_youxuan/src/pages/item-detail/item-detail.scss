@@ -1,5 +1,7 @@
 page-item-detail {
   .shopLogo {
+    animation: shake 3s; 
+    animation-iteration-count:infinite; 
     position: absolute;
     height: 80px;
     top: -30px;

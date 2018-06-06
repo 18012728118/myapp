@@ -39,6 +39,8 @@ export class MyApp {
       console.log(window['storeId']);
       console.log(window['token']);
     }
+    this.store.dispatch(new CacheActions.LoadSetting());
+
     localStorage.setItem("token_yx_" + window['storeId'], window['token'])
     this.api.jssdk();
     this.store$ = this.store.select(getStore);

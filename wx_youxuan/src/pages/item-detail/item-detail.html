@@ -7,7 +7,7 @@
   </ion-slides>
   <div style="position: relative;width:100vw;height:50px;background:#fff;display: flex;justify-content: center;">
     <div *ngIf="_buyItem&&_buyItem.Shop as shop" class="shopLogo">
-      <img src="{{shop.LogoImageUrl}}!w100h100" />
+      <img src="{{shop.LogoImageUrl}}!w100h100" (click)="goShop(shop)" />
     </div>
   </div>
   <ion-card *ngIf="_buyItem" id="itemTitle">

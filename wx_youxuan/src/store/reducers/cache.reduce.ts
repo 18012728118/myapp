@@ -15,6 +15,7 @@ const defaultCache: CacheState = {
     ShopOrders: null,
     SubjectList: [],
     Subject: {},
+    Partner: { Realname: "", Phone: "", Introducting: "", Review: "", UpdateDate: new Date(), AvblBalance: 0, UnavblBalance: 0, TotalWithdrawals: 0, State: 0 },
     isAdmin: false
 }
 
@@ -30,6 +31,8 @@ export function cacheReducer(state: CacheState = defaultCache, action: Action) {
             return Object.assign({}, state, { SubjectList: action.payload });
         case CacheActions.LOADSUBJECTSUCCESS:
             return Object.assign({}, state, { Subject: action.payload });
+        case CacheActions.LOADSETTINGSUCCESS:
+            return Object.assign({}, state, action.payload);
         default:
             return state;
     }

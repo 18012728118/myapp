@@ -68,6 +68,18 @@ export class LoadSubjectSuccess implements Action {
     }
 }
 
+
+export const LOADSETTING = "[Cache] LOADSETTING";
+export class LoadSetting implements Action {
+    readonly type = LOADSETTING
+}
+export const LOADSETTINGSUCCESS = "[Cache] LOADSETTINGSUCCESS";
+export class LoadSettingSuccess implements Action {
+    readonly type = LOADSETTINGSUCCESS
+    constructor(public payload: any) {
+    }
+}
+
 export type All =
     Save |
     Init |
@@ -77,4 +89,6 @@ export type All =
     LoadSubjectListSuccess |
     LoadSubject |
     LoadSubjectSuccess |
+    LoadSetting |
+    LoadSettingSuccess |
     LoadError; 

@@ -1,0 +1,34 @@
+<!--
+  Generated template for the ShopPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{shop.ShopName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div>
+    <div>
+      <img [src]="shop.LogoImageUrl+'!w500'" alt="">
+    </div>
+  </div>
+  <ion-list>
+    <button ion-item (click)="toCall(shop)">
+      <ion-icon name="call" item-start></ion-icon>
+      <ion-label>{{shop.ShopKeFuTel}}</ion-label>
+      <ion-note item-end>拨打</ion-note>
+    </button>
+    <button ion-item (click)="toMap(shop)">
+      <ion-icon name="locate" item-start></ion-icon>
+      <ion-label>{{shop.ShopAddress}}</ion-label>
+      <ion-note item-end>地图</ion-note>
+    </button>
+  </ion-list>
+</ion-content>
