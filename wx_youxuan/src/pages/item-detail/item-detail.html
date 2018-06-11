@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-fab top right *ngIf="_buyItem &&_buyItem.Haibao&&_buyItem.Haibao.length">
+    <img src="/assets/imgs/haibaoBtn.png" (click)="haibao()" style="width:50px;" />
+  </ion-fab>
   <ion-slides id="detail_Slide" *ngIf="_buyItem" autoplay="3000" [loop]="_buyItem.LogoList.length>1" [pager]="_buyItem.LogoList.length>1"
     centeredSlides>
     <ion-slide *ngFor="let x of _buyItem.LogoList">
@@ -107,4 +110,20 @@
     </div>
   </div>
   <div class="modal-background"></div>
+</modal>
+<modal id="modalHaibao">
+  <div class="modal">
+    <div class="modal-body" style="margin-top:20px;max-width:95%;">
+      <div *ngIf="_buyItem &&_buyItem.Haibao&&_buyItem.Haibao.length">
+        <img *ngFor="let i of _buyItem.Haibao ;let idx = index " [src]="i.BgUrl" style="width:50px;border-radius:
+          2px;margin-right:5px; " [class]="selctIdx==idx?'selected':'noSelect'" (click)="haibao(idx)" />
+      </div>
+      <img [src]="haibaoImg " style="max-height:90vh; " />
+      <div style="font-size:2rem;margin-top:15px;font-weight:bold;text-align: center;text-shadow: 2px 2px 2px #aaa;">长按二维码可保存海报至本地</div>
+      <div class="modal-close ">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background "></div>
 </modal>

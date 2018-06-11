@@ -22,7 +22,7 @@ declare var wx: any;
 
 @Component({
   template: `
-  <ion-nav [root]="rootPage"></ion-nav>
+  <ion-nav [root]="rootPage"  swipeBackEnabled="true"></ion-nav>
   `
 })
 export class MyApp {

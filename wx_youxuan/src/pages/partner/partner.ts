@@ -5,7 +5,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.state';
 import { Observable } from 'rxjs/Observable';
-import { CacheState } from '../../store/state/cache.State';
+import { CacheState, getPartner } from '../../store/state/cache.State';
+import { ModalService } from '../../services/modalService';
 
 /**
  * Generated class for the PartnerPage page.
@@ -28,24 +29,48 @@ export class PartnerPage {
   reg: { Realname: string, Phone: string, Introducting: string }
     = { Realname: "", Phone: "", Introducting: "" };
   alert: any;
+  partner: any;
+  partner$: Observable<any>;
+  list$: Observable<any>;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     private alertCtrl: AlertController,
+    private modalService: ModalService,
     private api: Api,
     private store: Store<AppState>) {
+
     this.cache$ = this.store.select(z => z.cache);
 
+
+    this.partner$ = this.store.select(getPartner)
+    this.partner$.subscribe(res => {
+      console.log("partner$ subscribe")
+      this.partner = res;
+      this.list$ = this.api.httpGet("GetBonusList");
+    });
     this.myForm = this.formBuilder.group({
       'Realname': ['', [Validators.required, Validators.minLength(2)]],
       'Phone': ['', Validators.required],
       'Introducting': ['', Validators.required]
     });
 
+
   }
 
   ionViewDidLoad() {
     this.api.visitLog({ page: "PartnerPage" });
+  }
+
+  selctIdx = 0
+  haibaoImg = "";
+  _buyItem: any;
+  haibao(item, index = 0) {
+    console.log(item,index);
+    this._buyItem = item;
+    this.selctIdx = index;
+    this.haibaoImg = `http://m.wjhaomama.com/home/pHaibao?buyitemid=${item.Id}&openid=${this.partner.openid}&index=${index}&sid=${window['storeId']}&pid=${this.partner.Id}`
+    this.modalService.open("modalHaibao");
   }
 
   onSubmit() {

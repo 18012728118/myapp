@@ -6,7 +6,7 @@
     </ng-container>
   </ion-navbar>
 </ion-header>
-<ion-content padding *ngIf="(cache$ |async).Partner as p">
+<ion-content *ngIf="(cache$ |async).Partner as p">
   <ng-container *ngIf="p.State<=0">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <ion-list>
@@ -35,6 +35,37 @@
     </form>
   </ng-container>
   <ng-container *ngIf="p.State>0">
-    你已是分享达人
+    <div style="font-size:2rem;padding:15px;line-height:3rem;background:#fff;">
+      分享达人 {{(partner$ |async).Realname}}
+      <br/> 可提现:￥{{p.AvblBalance}} 不可提现:￥{{p.UnavblBalance}}
+    </div>
+    <hr/>
+    <div *ngIf="(list$ |async) as data">
+      <div *ngIf="data.success">
+        <div *ngFor="let i of data.data" style="font-size:1.8rem;line-height:2rem;background:#fff;margin:13px;">
+          <div style="padding:25px 15px;border-top:3px solid #F53834">{{i.Name}}</div>
+          <div style="display: flex; align-items: center;">
+            <button ion-button full color="light" style="margin:0">奖金:￥{{i.BonusMoney}}</button>
+            <button ion-button full (click)="haibao(i)" style="margin:0">生成海报</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </ion-content>
+<modal id="modalHaibao">
+  <div class="modal ">
+    <div class="modal-body " style="margin-top:20px;max-width:95%; ">
+      <div *ngIf="_buyItem &&_buyItem.Haibao&&_buyItem.Haibao.length ">
+        <img *ngFor="let i of _buyItem.Haibao ;let idx=index " [src]="i.BgUrl" style="width:50px;border-radius:
+            2px;margin-right:5px; " [class]="selctIdx==idx? 'selected': 'noSelect' " (click)="haibao(_buyItem,idx) " />
+      </div>
+      <img [src]="haibaoImg " style="max-height:90vh; " />
+      <div style="font-size:2rem;margin-top:15px;font-weight:bold;text-align: center;text-shadow: 2px 2px 2px #aaa; ">长按二维码可保存海报至本地</div>
+      <div class="modal-close ">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background "></div>
+</modal>

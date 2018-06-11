@@ -36,3 +36,8 @@ export const getSubject = createSelector(
     getCahceState,
     (state: CacheState) => state.Subject
 );
+
+export const getPartner = createSelector(
+    getCahceState,
+    (state: CacheState) => state.Partner
+);

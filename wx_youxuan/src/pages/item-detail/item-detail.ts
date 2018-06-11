@@ -53,6 +53,18 @@ export class ItemDetailPage {
     });
     this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
   }
+
+
+  haibao(index = 0) {
+    console.log( this._buyItem,index);
+    this.selctIdx = index;
+    let item = this._buyItem;
+    this.haibaoImg = `http://m.wjhaomama.com/home/haibao?buyitemid=${item.Id}&openid=${this.initData.WxUser.openid}&index=${index}`
+    this.modalService.open("modalHaibao");
+  }
+  selctIdx = 0;
+  haibaoImg: string = "";
+
   goShop(shop) {
     // let modal = this.modalCtrl.create("ShopPage", { iid: shop.Id });
     // modal.present();

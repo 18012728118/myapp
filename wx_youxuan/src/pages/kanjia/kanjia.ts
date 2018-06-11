@@ -86,6 +86,15 @@ export class KanjiaPage {
     });
   }
 
+  haibao(index = 0) {
+    console.log(index);
+    this.selctIdx = index;
+    let item = this._buyItem;
+    this.haibaoImg = `http://m.wjhaomama.com/home/haibao?buyitemid=${item.Id}&openid=${this.initData.WxUser.openid}&index=${index}`
+    this.modalService.open("modalHaibao");
+  }
+  selctIdx = 0;
+  haibaoImg: string = "";
   //下拉刷新事件
   doRefresh(refresher) {
     this.init();
