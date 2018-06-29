@@ -248,8 +248,8 @@ export class Api {
           'checkJsApi',
           'onMenuShareTimeline',
           'onMenuShareAppMessage',
-          'onMenuShareQQ',
-          'onMenuShareWeibo',
+          // 'onMenuShareQQ',
+          // 'onMenuShareWeibo',
           'hideMenuItems',
           'showMenuItems',
           'hideAllNonBaseMenuItem',
@@ -264,6 +264,16 @@ export class Api {
     })
   };
 
+
+  PageType = {
+    1: { page: 'ItemDetailPage' },
+    3: { page: 'KanjiaPage' },
+    11: { page: 'MuJuanPage' }
+  };
+
+  public getPageByType(type: number) {
+    return this.PageType[type].page
+  }
 
   public scanQRCode(needResult) {
     needResult = needResult ? needResult : 0;

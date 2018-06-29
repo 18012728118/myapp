@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { InitDataProvider } from '../../providers/providers';
-import { ModalController, NavController } from 'ionic-angular';
+import { ModalController, NavController, App } from 'ionic-angular';
 
 @Component({
   selector: 'buy-item',
@@ -13,6 +13,7 @@ export class BuyItemComponent {
     private initData: InitDataProvider,
     private navCtrl: NavController,
     private modalCtrl: ModalController,
+    private app: App
   ) {
   }
 
@@ -24,14 +25,16 @@ export class BuyItemComponent {
         break;
       case 11:
         pagename = "MuJuanPage";
-        
+
         break;
       case 3:
         pagename = "KanjiaPage";
         break;
     }
-    let modal = this.modalCtrl.create(pagename, { DetailId: buyitem.Id, Self: true });
-    modal.present();
+    // let modal = this.modalCtrl.create(pagename, { DetailId: buyitem.Id, Self: true });
+    // modal.present();
+    this.navCtrl.push(pagename, { DetailId: buyitem.Id, Self: true });
+    //this.app.getRootNav().push(pagename, { DetailId: buyitem.Id, Self: true });
 
   }
 

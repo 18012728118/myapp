@@ -225,7 +225,6 @@ export class KanjiaPage {
       });
   }
 
-
   toPay() {
     if (!this._kanJiaUser) {
       this.api.showToast("error:错误的kanjiaUser", 1000, "middle")

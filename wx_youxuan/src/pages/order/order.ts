@@ -26,7 +26,8 @@ export class OrderPage {
     private initData: InitDataProvider,
     private loadingCtrl: LoadingController,
     private modalService: ModalService,
-    private appService: AppService
+    private appService: AppService,
+    private nav: NavController
 
   ) {
     this.appService.visitLog({ page: "OrderPage" });
@@ -41,16 +42,11 @@ export class OrderPage {
       })
   }
 
-  PageType = {
-    1: { page: 'ItemDetailPage' },
-    3: { page: 'KanjiaPage' },
-    11: { page: 'MuJuanPage' }
-  };
-
   goDetail(x) {
     this.api.httpGet("getDetail?itemid=" + x.BuyItemId).subscribe((res: any) => {
-      let modal = this.modalCtrl.create(this.PageType[res.Type].page, { DetailId: res.Id });
-      modal.present();
+      // let modal = this.modalCtrl.create(this.PageType[res.Type].page, { DetailId: res.Id });
+      // modal.present();
+      this.nav.push(this.api.getPageByType(res.Type), { DetailId: res.Id });
     });
   }
 

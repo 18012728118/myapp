@@ -41,12 +41,9 @@ export class CacheEffects {
         .switchMap((action: any) => this.appService.getShopOrders(action.payload)).pipe(
             map((res: any) => {
                 if (res.success) {
-                    //return new CacheAction.LoadError("error")
-                    //this.UI.showToast(res.success)
                     return new CacheAction.LoadShopOrdersSuccess(res.data);
                 }
                 else {
-                    //this.UI.showToast(res.msg);
                     return new CacheAction.LoadError(res.msg)
                 }
             }),

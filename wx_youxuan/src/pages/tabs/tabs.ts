@@ -28,17 +28,10 @@ export class TabsPage {
     setTimeout(() => {
       let page = this.api.getUriParam("page");
       let detailid = this.api.getUriParam("iid")
-      if (page && detailid) {
-        if (["KanjiaPage", "MuJuanPage", "ItemDetailPage"].indexOf(page) > -1) {
-          let modal = this.modalCtrl.create(page, { DetailId: detailid });
-          modal.present();
-        }
-        else {
-          this.navCtrl.push(page, { DetailId: detailid })
-        }
+      if (page) {
+        this.navCtrl.push(page, { DetailId: detailid })
       }
-    }, 300);
-
+    }, 500);
   }
 
   ionViewDidEnter() {

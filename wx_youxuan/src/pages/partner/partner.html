@@ -14,19 +14,25 @@
           <ion-label floating>真实姓名:
             <b *ngIf="myForm.controls['Realname'].errors && myForm.controls['Realname'].touched">* 必填 2个字以上</b>
           </ion-label>
-          <ion-input type="text" [(ngModel)]="reg.Realname" formControlName="Realname"></ion-input>
+          <ion-input type="text" [(ngModel)]="partner.Realname" formControlName="Realname"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>手机[审核时将联系]:
             <b *ngIf="myForm.controls['Phone'].errors && myForm.controls['Phone'].touched">* 必填</b>
           </ion-label>
-          <ion-input type="number" [(ngModel)]="reg.Phone" formControlName="Phone"></ion-input>
+          <ion-input type="number" [(ngModel)]="partner.Phone" formControlName="Phone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>自我介绍:
             <b *ngIf="myForm.controls['Introducting'].errors && myForm.controls['Introducting'].touched">* 必填</b>
           </ion-label>
-          <ion-textarea autosize [(ngModel)]="reg.Introducting" formControlName="Introducting"></ion-textarea>
+          <ion-textarea autosize [(ngModel)]="partner.Introducting" formControlName="Introducting"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <div *ngIf="partner.Review">
+            <b style="color:#F53834;margin-bottom:15px;">
+              拒绝回复(请修改后得新提交):</b>
+            <br/>{{partner.Review}}</div>
         </ion-item>
         <ion-item>
           <button type="submit" ion-button default block>确定</button>
@@ -43,7 +49,9 @@
     <div *ngIf="(list$ |async) as data">
       <div *ngIf="data.success">
         <div *ngFor="let i of data.data" style="font-size:1.8rem;line-height:2rem;background:#fff;margin:13px;">
-          <div style="padding:25px 15px;border-top:3px solid #F53834">{{i.Name}}</div>
+          <div style="padding:25px 15px;border-top:3px solid #F53834" (click)="goDetail(i)">
+            {{i.Name}}
+          </div>
           <div style="display: flex; align-items: center;">
             <button ion-button full color="light" style="margin:0">奖金:￥{{i.BonusMoney}}</button>
             <button ion-button full (click)="haibao(i)" style="margin:0">生成海报</button>

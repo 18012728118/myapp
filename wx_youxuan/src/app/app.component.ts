@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, App, IonicApp } from 'ionic-angular';
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -33,7 +33,9 @@ export class MyApp {
   constructor(
     platform: Platform,
     private api: Api,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private app: App,
+    private ionicApp: IonicApp,
   ) {
     if (api.isLocalTest) {
       console.log(window['storeId']);
@@ -62,9 +64,22 @@ export class MyApp {
         this.api.initWxShare(res.title, res.desc, res.imgUrl, res.link);
       }
     });
-    // platform.ready().then(() => {
-
-    // });
+    platform.ready().then(() => {
+      //注册返回键处理
+      platform.registerBackButtonAction(() => {
+        console.log("platform.registerBackButtonAction");
+        const overlay = this.ionicApp._overlayPortal.getActive();
+        const nav = this.app.getActiveNav();
+        if (overlay && overlay.dismiss) {
+          overlay.dismiss();
+          return;
+        }
+        if (nav.canGoBack()) {
+          nav.pop();
+          return;
+        }
+      });
+    });
   }
 
 }

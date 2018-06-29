@@ -26,8 +26,6 @@ import { ModalService } from '../../services/modalService';
 export class PartnerPage {
   cache$: Observable<CacheState>;
   myForm: FormGroup;
-  reg: { Realname: string, Phone: string, Introducting: string }
-    = { Realname: "", Phone: "", Introducting: "" };
   alert: any;
   partner: any;
   partner$: Observable<any>;
@@ -41,8 +39,6 @@ export class PartnerPage {
     private store: Store<AppState>) {
 
     this.cache$ = this.store.select(z => z.cache);
-
-
     this.partner$ = this.store.select(getPartner)
     this.partner$.subscribe(res => {
       console.log("partner$ subscribe")
@@ -54,8 +50,6 @@ export class PartnerPage {
       'Phone': ['', Validators.required],
       'Introducting': ['', Validators.required]
     });
-
-
   }
 
   ionViewDidLoad() {
@@ -66,17 +60,20 @@ export class PartnerPage {
   haibaoImg = "";
   _buyItem: any;
   haibao(item, index = 0) {
-    console.log(item,index);
+    console.log(item, index);
     this._buyItem = item;
     this.selctIdx = index;
     this.haibaoImg = `http://m.wjhaomama.com/home/pHaibao?buyitemid=${item.Id}&openid=${this.partner.openid}&index=${index}&sid=${window['storeId']}&pid=${this.partner.Id}`
     this.modalService.open("modalHaibao");
   }
-
+  goDetail(item) {
+    console.log(item);
+    this.navCtrl.push(this.api.getPageByType(item.Type), { DetailId: item.Id });
+  }
   onSubmit() {
     if (this.myForm.valid) {
       console.log('valid! then post');
-      this.api.httpPost("PartnerPost", { data: this.reg }).subscribe((res: any) => {
+      this.api.httpPost("PartnerPost", { data: this.partner }).subscribe((res: any) => {
         if (res.success) {
           this.alert = this.alertCtrl.create({
             title: "提交成功",
