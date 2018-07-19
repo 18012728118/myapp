@@ -32,10 +32,6 @@ export class ItemDetailPage {
   alert: any;
   payUserinfo = { name: "", telphone: "" };
 
-  ionViewDidLoad() {
-    this.api.visitLog({ page: 'ItemDetailPage', iid: this._id })
-  }
-
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
@@ -51,12 +47,15 @@ export class ItemDetailPage {
         this.initShare();
       }, 1000);
     });
-    this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
   }
 
 
+  ionViewDidLoad() {
+    this.api.visitLog({ page: 'ItemDetailPage', iid: this._id })
+  }
+
   haibao(index = 0) {
-    console.log( this._buyItem,index);
+    console.log(this._buyItem, index);
     this.selctIdx = index;
     let item = this._buyItem;
     this.haibaoImg = `http://m.wjhaomama.com/home/haibao?buyitemid=${item.Id}&openid=${this.initData.WxUser.openid}&index=${index}`
@@ -66,13 +65,13 @@ export class ItemDetailPage {
   haibaoImg: string = "";
 
   goShop(shop) {
-    // let modal = this.modalCtrl.create("ShopPage", { iid: shop.Id });
-    // modal.present();
     this.navCtrl.push("ShopPage", { iid: shop.Id, shop: shop });
   }
+
   goOrder() {
     this.navCtrl.push("OrderPage");
   }
+
 
   ionViewWillLeave() {
     this.initData.initDefaultShare();
@@ -86,7 +85,9 @@ export class ItemDetailPage {
   }
 
   add() {
-    this._count += 1;
+    if (this._count < this._buyItem.LimitBuyCount) {
+      this._count += 1;
+    }
   }
   remove() {
     this._count -= 1;
@@ -116,6 +117,8 @@ export class ItemDetailPage {
   }
 
   toPay() {
+    this.payUserinfo = { name: this.initData.WxUser.RealName, telphone: this.initData.WxUser.Telphone }
+
     if (new Date(this._buyItem.DateTimeStart) > new Date()) {
       this.api.showToast("活动还没有开始");
       return;

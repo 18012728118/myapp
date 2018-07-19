@@ -33,6 +33,10 @@ export function cacheReducer(state: CacheState = defaultCache, action: Action) {
             return Object.assign({}, state, { Subject: action.payload });
         case CacheActions.LOADSETTINGSUCCESS:
             return Object.assign({}, state, action.payload);
+        case CacheActions.LOADBUYITEMLISTSUCCESS:
+            state.BuyItemList = [...state.BuyItemList, ...action.payload.BuyItemList];
+            console.log(state.BuyItemList);
+            return state;
         default:
             return state;
     }

@@ -91,6 +91,23 @@ export class CacheEffects {
         );
 
     @Effect()
+    loadBuyItemList$: Observable<Action> = this.actions$
+        .ofType<CacheAction.LoadBuyItemList>(CacheAction.LOADBUYITEMLIST)
+        .switchMap((action: any) => {
+            return this.appService.getBuyItemList(action.payload);
+        }).pipe(
+            map((res: any) => {
+                if (res.success) {
+                    console.log(res.data);
+                    return new CacheAction.LoadBuyItemListSuccess(res.data);
+                }
+                else {
+                    return new CacheAction.LoadError(res.msg)
+                }
+            })
+        );
+
+    @Effect()
     loadSetting$: Observable<Action> = this.actions$
         .ofType<CacheAction.LoadSetting>(CacheAction.LOADSETTING)
         .switchMap(action => this.appService.loadSetting())
@@ -103,15 +120,12 @@ export class CacheEffects {
                     return new CacheAction.LoadSettingSuccess(res.data);
                 }
                 else {
-                    //this.UI.showToast(res.msg);
                     return new CacheAction.LoadError(res.msg)
                 }
             }),
             catchError((error) => this.createErrorObservableAndLog(error))
 
-        )
-
-
+        );
 
     @Effect({ dispatch: false })
     loadError$: Observable<any> = this.actions$

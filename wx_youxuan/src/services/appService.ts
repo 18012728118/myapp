@@ -4,6 +4,7 @@ import { tap } from "rxjs/operators";
 
 @Injectable()
 export class AppService {
+
     constructor(private api: Api) {
 
     }
@@ -35,6 +36,9 @@ export class AppService {
         return this.api.httpPost("LocationPost", { data });
     }
 
+    public getBuyItemList(arg0: any): any {
+        return this.api.httpPost("GetBuyItemList", arg0);
+    }
 
     public loadSetting(): any {
         return this.api.httpGet("getSetting");

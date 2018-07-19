@@ -80,6 +80,20 @@ export class LoadSettingSuccess implements Action {
     }
 }
 
+export const LOADBUYITEMLIST = "[Cache] LOADBUYITEMLIST";
+export class LoadBuyItemList implements Action {
+    readonly type = LOADBUYITEMLIST
+    constructor(public payload: any) {
+    }
+}
+export const LOADBUYITEMLISTSUCCESS = "[Cache] LOADBUYITEMLISTSUCCESS";
+export class LoadBuyItemListSuccess implements Action {
+    readonly type = LOADBUYITEMLISTSUCCESS
+    constructor(public payload: any) {
+    }
+}
+
+
 export type All =
     Save |
     Init |
@@ -91,4 +105,6 @@ export type All =
     LoadSubjectSuccess |
     LoadSetting |
     LoadSettingSuccess |
+    LoadBuyItemList |
+    LoadBuyItemListSuccess |
     LoadError; 

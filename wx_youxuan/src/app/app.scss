@@ -16,6 +16,14 @@
   contain: initial;
 }
 
+//防止挡住进入商铺图标
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal > .swiper-pagination-bullets {
+  top:10px;
+  bottom: auto;
+}
+
 // Mixin itself
 @mixin clearfix() {
   &::after {
@@ -23,7 +31,8 @@
     content: "";
     clear: both;
   }
-} 
+}
+
 .clear {
   @include clearfix();
 }

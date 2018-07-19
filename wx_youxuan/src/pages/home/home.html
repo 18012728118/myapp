@@ -19,7 +19,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-grid>
+  <!-- <ion-grid>-
     <ion-col col-4>
       <shop-card *ngFor="let i of (cache$ |async).ShopList" [shop]="i">
       </shop-card>
@@ -34,4 +34,8 @@
   <!-- <ion-fab left top (click)="clickFavorate(i)">
       <ion-icon [name]="checkFavorate(i)" color="primary" style="font-size:30px"></ion-icon>
     </ion-fab> -->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多内容中...">>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

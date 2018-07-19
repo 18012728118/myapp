@@ -8,7 +8,7 @@
       <img [src]="x+'!w500'" *ngIf="x" />
     </ion-slide>
   </ion-slides>
-  <div style="position: relative;width:100vw;height:50px;background:#fff;display: flex;justify-content: center;">
+  <div style="position: relative;width:100vw;height:50px;background:#fff;display: flex;justify-content: center; text-align: center">
     <div *ngIf="_buyItem&&_buyItem.Shop as shop" class="shopLogo">
       <img src="{{shop.LogoImageUrl}}!w100h100" (click)="goShop(shop)" />
     </div>

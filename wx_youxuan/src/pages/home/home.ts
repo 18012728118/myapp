@@ -10,15 +10,15 @@ import { CacheState, getStore } from '../../store/state/cache.State';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.state';
 
+import * as CacheActions from "../../store/actions/cache.action";
+
 @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  // pet = "Normal";
   cache$: Observable<CacheState>;
-
 
   @ViewChild(Slides) slides: Slides;
   constructor(
@@ -31,12 +31,16 @@ export class HomePage {
     //   // console.log(settings.settings);
     // });
     this.cache$ = this.store.select(z => z.cache);
-
-
   }
+
+  ionViewDidLoad() {
+    this.api.visitLog({ page: 'HomePage' });
+  }
+
   type: any;
   BuyList: any = [];
   slideList: any = [];
+  
   slideClick(s) {
     // if (/^http/i.test(s.Url))
     //   window.location.href = s.Url;
@@ -53,6 +57,18 @@ export class HomePage {
   // }
   goList(iid) {
     this.navCtrl.push("ListPage", { iid });
+  }
+
+  listSkip = 0;
+  listNum = 10;
+
+
+  doInfinite(infiniteScroll) {
+    setTimeout(() => {
+      this.listSkip = this.listSkip + this.listNum;
+      this.store.dispatch(new CacheActions.LoadBuyItemList({ num: this.listNum, skip: this.listSkip }));
+      infiniteScroll.complete();
+    }, 500);
   }
 
   // clickFavorate(item) {

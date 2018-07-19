@@ -229,10 +229,10 @@ export class Api {
   }
 
   public visitLog(data?: any) {
-    if (!this.isLocalTest)
-      this.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
-        console.log("log true");
-      })
+    // if (!this.isLocalTest)
+    this.httpPost('PostVisitLog', { data: Object.assign({}, data, { url: encodeURIComponent(location.href.split('#')[0]) }) }).subscribe(res => {
+      console.log("log true");
+    })
   }
 
   public jssdk() {
@@ -248,8 +248,6 @@ export class Api {
           'checkJsApi',
           'onMenuShareTimeline',
           'onMenuShareAppMessage',
-          // 'onMenuShareQQ',
-          // 'onMenuShareWeibo',
           'hideMenuItems',
           'showMenuItems',
           'hideAllNonBaseMenuItem',

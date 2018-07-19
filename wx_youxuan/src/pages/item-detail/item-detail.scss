@@ -1,7 +1,7 @@
 page-item-detail {
   .shopLogo {
-    animation: shake 3s; 
-    animation-iteration-count:infinite; 
+    animation: shake 3s;
+    animation-iteration-count: infinite;
     position: absolute;
     height: 80px;
     top: -30px;
@@ -27,7 +27,7 @@ page-item-detail {
     .leftBox {
       display: flex;
       align-items: center;
-      margin-left:20px;
+      margin-left: 20px;
     }
     h1 {
       float: left;
