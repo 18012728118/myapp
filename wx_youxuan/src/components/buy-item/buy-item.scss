@@ -18,7 +18,7 @@ buy-item {
     .title {
       height:5.4rem;
       overflow: hidden;
-      
+
       font-weight: bold;
       font-size:1.6rem;
       line-height: 1.8rem;
@@ -27,6 +27,7 @@ buy-item {
     .row3 {
       display: flex;
       flex-direction: row;
+      
       justify-content: space-between;
       align-items: center;
     }
