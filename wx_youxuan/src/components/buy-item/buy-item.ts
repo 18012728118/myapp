@@ -48,6 +48,8 @@ export class BuyItemComponent {
       return { text: "已售完", color: "disable" };
     if (new Date(this.item.DateTimeEnd) < new Date())
       return { text: "已结束", color: "disable" }
+    if (this.item.Type === 2)
+      return { text: "免费抢购", color: "primary" }
     return { text: "立即购买", color: "primary" }
   }
 

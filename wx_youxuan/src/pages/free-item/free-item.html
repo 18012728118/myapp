@@ -118,6 +118,19 @@
           <button ion-button block (click)="checkCode()">提交</button>
         </ion-item>
       </ion-list>
+
+      <div class="modal-close">
+        X
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+<modal id="modalQR">
+  <div class="modal">
+    <div class="modal-body" *ngIf="initData.store && _buyItem">
+      <img src="{{initData.store.QRLogoUrl}}!w500" />
+      <h4>关注公众号接收订单通知</h4>
       <div class="modal-close">
         X
       </div>

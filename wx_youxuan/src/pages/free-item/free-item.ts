@@ -28,7 +28,7 @@ import * as CacheActions from '../../store/actions/cache.action';
 export class FreeItemPage {
   _id: number;
   _buyItem: any;
-  reg: any = { Telphone: "18012728118", Code: "" };
+  reg: any = { Telphone: "", Code: "" };
   wxUser$: Observable<any>;
   wxUser: any;
   timer: any;
@@ -71,12 +71,26 @@ export class FreeItemPage {
   }
 
   freeGet() {
-    console.log("免费领取");
     if (!this.wxUser.IsValid) {
       this.modalService.open('modalMain');
     }
     else {
-      this.api.showToast("参与成功,请至订单页查看核销二维码!");
+      this.api.httpPost("GetFreeBuyItem", { buyitemId: this._id }).subscribe((res: any) => {
+        if (res.success) {
+          this.api.showToast(this._buyItem.SuccessText);
+          setTimeout(() => {
+            this.modalService.open("modalQR");
+          }, 1000);
+        }
+        else {
+          this.api.showToast(res.msg, 2000, "bottom");
+          setTimeout(() => {
+            this.guanzhu();
+          }, 1000);
+        }
+      }, error => {
+        this.api.showToast(this._buyItem.SuccessText, 2000, "bottom");
+      });
     }
   }
 
@@ -87,10 +101,14 @@ export class FreeItemPage {
         desc: '吴江优选',
         // imgUrl: "http://m.wjhaomama.com/img/logo.png",
         imgUrl: this._buyItem.LogoList[0] + "!w100",
-        link: `http://m.wjhaomama.com/?sid=6&sfrom=${this.initData.WxUser.openid}&page=ItemDetailPage&iid=${this._buyItem.Id}`
+        link: `http://m.wjhaomama.com/?sid=6&sfrom=${this.initData.WxUser.openid}&page=FreeItemPage&iid=${this._buyItem.Id}`
       }
       this.api.wxshare(wxData.title, wxData.desc, wxData.link, wxData.imgUrl);
     }
+  }
+
+  guanzhu() {
+    this.modalService.open("modalQR");
   }
 
   verifyTel() {
@@ -114,7 +132,9 @@ export class FreeItemPage {
       .subscribe((res: any) => {
         console.log(res);
         if (res.success) {
+          this.modalService.close("modalMain");
           this.api.showToast("验证成功", 2000, "bottom");
+
           this.store.dispatch(new CacheActions.SetUserTelValid());
         }
         else {
@@ -127,17 +147,17 @@ export class FreeItemPage {
 
   sendCode() {
     if (!/^1\d{10}$/i.test(this.reg.Telphone)) {
-      this.api.showToast("手机号码错误", 2000, "top");
+      this.api.showToast("手机号码错误", 2000, "bottom");
       return;
     }
     this.api.httpGet('getCode?tel=' + this.reg.Telphone).subscribe((res: any) => {
       if (res.success) {
-        this.api.showToast("发送成功", 2000, "top");
+        this.api.showToast("发送成功", 2000, "bottom");
         this.appService._time = 60;
         this.interval();
       }
       else {
-        this.api.showToast("error" + res.msg, 2000, "middle");
+        this.api.showToast("error" + res.msg, 2000, "bottom");
       }
     })
   }
