@@ -81,13 +81,18 @@ export class SetPayType implements Action {
     }
 }
 
+export const SETUSERTELVALID = '[Cache] 手机验证成功'
+export class SetUserTelValid implements Action {
+    readonly type = SETUSERTELVALID;
+    constructor() {
+    }
+}
+
+
 export const CLEARADDRESSANDPAYTYPE = '[Cache] CLEARADDRESSANDPAYTYPE';
 export class ClearAddressAndPayType implements Action {
     readonly type = CLEARADDRESSANDPAYTYPE;
 }
-
-
-
 
 export const SETCOMMNET = '[Cache] 设置留言';
 export class SetComment implements Action {
@@ -110,5 +115,6 @@ export type Actions =
     | SelectAddress
     | SetPayType
     | ClearAddressAndPayType
+    | SetUserTelValid
     | SetComment
     ;

@@ -41,3 +41,8 @@ export const getPartner = createSelector(
     getCahceState,
     (state: CacheState) => state.Partner
 );
+
+export const getWxUser = createSelector(
+    getCahceState,
+    (state: CacheState) => state.WxUser
+);

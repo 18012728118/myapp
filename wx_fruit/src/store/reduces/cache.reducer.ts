@@ -102,7 +102,6 @@ export function cacheReducer(state: CacheState = initalCart, action: Action) {
             return Object.assign({}, state, {
                 comment: action.payload,
             })
-
         default:
             return state;
     }

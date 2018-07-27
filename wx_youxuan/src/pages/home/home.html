@@ -30,6 +30,7 @@
     </shop-card>
   </div> -->
   <b class="h1">实力推荐</b>
+
   <buy-item *ngFor="let i of (cache$ |async).BuyItemList" [item]="i"></buy-item>
   <!-- <ion-fab left top (click)="clickFavorate(i)">
       <ion-icon [name]="checkFavorate(i)" color="primary" style="font-size:30px"></ion-icon>

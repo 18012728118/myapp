@@ -9,6 +9,10 @@ export class AppService {
 
     }
 
+    public _sendCodeBtnText = "发送验证码";
+    //验证码发送倒数
+    public _time: number = 0;
+
     public getInit() {
         return this.api.httpGet('GetInit?sid=' + window['storeId']).toPromise();
     }

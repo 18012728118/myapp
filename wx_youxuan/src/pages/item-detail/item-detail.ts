@@ -73,6 +73,9 @@ export class ItemDetailPage {
   }
 
 
+  back() {
+    this.navCtrl.pop();
+  }
   ionViewWillLeave() {
     this.initData.initDefaultShare();
   }
@@ -80,9 +83,6 @@ export class ItemDetailPage {
     this.modalService.open('modalMain');
   }
 
-  back() {
-    this.navCtrl.pop();
-  }
 
   add() {
     if (this._count < this._buyItem.LimitBuyCount) {

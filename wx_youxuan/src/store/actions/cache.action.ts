@@ -93,6 +93,13 @@ export class LoadBuyItemListSuccess implements Action {
     }
 }
 
+export const SETUSERTELVALID = "[Cache] 手机验证通过";
+export class SetUserTelValid implements Action {
+    readonly type = SETUSERTELVALID
+    constructor() {
+    }
+}
+
 
 export type All =
     Save |
@@ -107,4 +114,5 @@ export type All =
     LoadSettingSuccess |
     LoadBuyItemList |
     LoadBuyItemListSuccess |
+    SetUserTelValid |
     LoadError; 

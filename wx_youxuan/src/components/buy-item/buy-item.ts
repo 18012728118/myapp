@@ -23,13 +23,16 @@ export class BuyItemComponent {
       case 1:
         pagename = "ItemDetailPage";
         break;
+      case 2:
+        pagename = "FreeItemPage";
+        break;
       case 11:
         pagename = "MuJuanPage";
-
         break;
       case 3:
         pagename = "KanjiaPage";
         break;
+
     }
     // let modal = this.modalCtrl.create(pagename, { DetailId: buyitem.Id, Self: true });
     // modal.present();

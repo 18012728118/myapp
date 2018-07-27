@@ -13,16 +13,16 @@ import { WxSubscribeComponent } from './wx-subscribe/wx-subscribe';
         ModalComponent,
         EmptyBgComponent,
         BuyItemComponent,
-    ShopCardComponent,
-    WxSubscribeComponent],
+        ShopCardComponent,
+        WxSubscribeComponent],
     imports: [IonicModule],
     exports: [HelperComponent,
         ProgressBarComponent,
         ModalComponent,
         EmptyBgComponent,
         BuyItemComponent,
-    ShopCardComponent,
-    WxSubscribeComponent],
+        ShopCardComponent,
+        WxSubscribeComponent],
     bootstrap: [IonicApp]
 })
 export class ComponentsModule { }

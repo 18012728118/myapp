@@ -37,6 +37,9 @@ export function cacheReducer(state: CacheState = defaultCache, action: Action) {
             state.BuyItemList = [...state.BuyItemList, ...action.payload.BuyItemList];
             console.log(state.BuyItemList);
             return state;
+        case CacheActions.SETUSERTELVALID:
+            state.WxUser.IsValid = true;
+            return state;
         default:
             return state;
     }

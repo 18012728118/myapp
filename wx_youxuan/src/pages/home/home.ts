@@ -40,7 +40,7 @@ export class HomePage {
   type: any;
   BuyList: any = [];
   slideList: any = [];
-  
+
   slideClick(s) {
     // if (/^http/i.test(s.Url))
     //   window.location.href = s.Url;
@@ -61,7 +61,6 @@ export class HomePage {
 
   listSkip = 0;
   listNum = 10;
-
 
   doInfinite(infiniteScroll) {
     setTimeout(() => {
